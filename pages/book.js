@@ -12,22 +12,12 @@ const Book = () => {
 
     const router = useRouter();
     const { houseId, house, details,fromDate,toDate } = router.query;
-    
-
     const fromDay=(moment(fromDate, 'DD-MM-YYYY').format("DD"));
     const fromThisDay=(moment(fromDate, 'DD-MM-YYYY')).format("DD-MM-YYYY")
-  
-  
     const fromMonth=(moment(fromDate, 'DD-MM-YYYY').format("MMM")).toUpperCase()
-   
-     const toDay = moment(toDate, 'DD-MM-YYYY').format("DD")
-     const toThisDay = moment(toDate, 'DD-MM-YYYY').format("DD-MM-YYYY")
- 
-
-     const toMonth = moment(toDate, 'DD-MM-YYYY').format("MMM").toUpperCase()
-     
-    
-
+    const toDay = moment(toDate, 'DD-MM-YYYY').format("DD")
+    const toThisDay = moment(toDate, 'DD-MM-YYYY').format("DD-MM-YYYY")
+    const toMonth = moment(toDate, 'DD-MM-YYYY').format("MMM").toUpperCase()
     const noOfDays = Number(toDay)-Number(fromDay) + 1
    
 

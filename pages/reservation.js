@@ -9,23 +9,11 @@ import { AiOutlineWifi } from "react-icons/ai";
 import { FaSwimmingPool } from "react-icons/fa";
 import { MdKitchen,MdKingBed,MdScreenshotMonitor, MdStarRate } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
-
-
-
-
 import {HiUsers} from 'react-icons/hi'
-
-
-
 import { AiOutlineCloseCircle } from "react-icons/ai";
-
 import { Collapse } from "react-collapse";
-
 import {BsHouse} from 'react-icons/bs'
-
-import format from "date-fns/format";
 import moment from 'moment'
-
 import HorizontalAccordion from "@/components/HorizontalAccordion";
 
 
@@ -43,6 +31,7 @@ const [fromDate, setFromDate] = useState()
 const [toDate, setToDate] = useState()
 const [open, setIsOpen] = useState(false);
 const [opend, setIsOpend] = useState(false);
+const [duplicateHouses,setDuplicateHouses ] = useState([])
 
 const [details, setDetails] = useState({
   firstName: "",
@@ -64,47 +53,98 @@ const router = useRouter();
 useEffect(()=>{
 
 
+  const fetchHouses = async ()=>{
+  try{
 
-   
-
-    axios.get(`/api/getHouses`).then((res)=>{
-      setHouses(res.data)
-      setFilteredHouses(res.data)
-    
-     
-
-  }).catch((error)=>{
-    console.log(error)
-  })
-
-
-
-
-
-  
- 
-
-   
+    const response = await axios.get('/api/getHouses')
+    setHouses(response.data)
+    setDuplicateHouses(response.data)
+    setFilteredHouses(response.data)
+    setLoading(false)
+    }catch(error){
+    setError(true)
+}
+      
+      }
+fetchHouses()
+},[])
 
 
-}, [])
-
-const handleAvailabilityCheck = (selectedRoomType) => {
-  const filtered = houses.filter((house) => house.roomType === selectedRoomType);
-  setFilteredHouses(filtered);
-};
 
 const filterByDate = (dates)=>{
-
-
-  
   setFromDate(moment(dates[0].$d).format("DD-MM-YYYY"))
-
-
-  
   setToDate(moment(dates[1].$d).format("DD-MM-YYYY"))
 
+  var tempRooms=[]
+  var availability = false
+  for(const house of duplicateHouses)
+  {
+    if(house.currentBookings.length>0){
+
+      for(const booking of house.currentBookings){
+          if(!moment(moment(dates[0].$d).format("DD-MM-YYYY")).isBetween(booking.fromDate,booking.toDate)&& !moment(moment(dates[1].$d).format("DD-MM-YYYY")).isBetween(booking.fromDate,booking.toDate))
+          {
+            if
+             (
+              moment(dates[0].$d).format("DD-MM-YYYY") !== booking.fromDate &&
+              moment(dates[0].$d).format("DD-MM-YYYY") !== booking.toDate &&
+              moment(dates[1].$d).format("DD-MM-YYYY") !== booking.fromDate &&
+              moment(dates[1].$d).format("DD-MM-YYYY") !== booking.toDate
+              
+             ) {
+              availability=true
+              
+            }
+          }
+      }
+     
+    }
+    if(availability || house.currentBookings.length==0){
+      tempRooms.push(house)
+    }
+    setFilteredHouses(tempRooms)
+  }
+
 }
+
+const filterByType = (e) => {
+  setRoomType(e);
+
+  // Filter by room type
+  let tempRooms = duplicateHouses.filter((house) => house.roomType === e);
+
+  // Filter by date range
+  if (fromDate && toDate) {
+    tempRooms = tempRooms.filter((house) => {
+      const bookings = house.currentBookings;
+      if (bookings.length === 0) {
+        return true;
+      }
+      for (const booking of bookings) {
+        const bookingFromDate = moment(booking.fromDate, "DD-MM-YYYY");
+        const bookingToDate = moment(booking.toDate, "DD-MM-YYYY");
+        if (
+          moment(fromDate, "DD-MM-YYYY").isBetween(
+            bookingFromDate,
+            bookingToDate
+          ) ||
+          moment(toDate, "DD-MM-YYYY").isBetween(
+            bookingFromDate,
+            bookingToDate
+          ) ||
+          moment(fromDate, "DD-MM-YYYY").isSame(bookingFromDate) ||
+          moment(toDate, "DD-MM-YYYY").isSame(bookingToDate)
+        ) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+
+  setFilteredHouses(tempRooms);
+};
+
 
 const handleConfirm = (houseId,house) => {
   const queryParams = {
@@ -171,8 +211,8 @@ const handleClick = (event, houseId,house) => {
                   <BsHouse />
                 </div>
 
-                <select className="text-sm mt-1 outline-none" value={roomType} onChange={(e)=>setRoomType(e.target.value)}>
-                <option value="">Select Accomodation</option>
+                <select className="text-sm mt-1 outline-none" value={roomType} onChange={(e)=>filterByType(e.target.value)}>
+                <option value="">All</option>
                   <option value="Executive">Executive</option>
                   <option value="Standard">Standard</option>
                   <option value="Studio">Studio</option>
@@ -180,9 +220,7 @@ const handleClick = (event, houseId,house) => {
               </div>
           </div>
 
-          <button onClick={handleAvailabilityCheck} className="text-sm bg-green-800 text-white font-bold rounded-full px-4">
-            CHECK AVAILABILITY
-          </button>
+          
         </form>
       </div>
 
@@ -195,7 +233,7 @@ const handleClick = (event, houseId,house) => {
           <p className="text-[12px] text-black">Showing available accomodations</p>
 
           {
-            !loading?(<div className="h-screen"><h1>Loading...</h1></div>):(<div className="h-full">
+            loading?(<div className="h-screen"><h1>Loading...</h1></div>):(<div className="h-full">
                {filteredHouses.map((house)=>{
             return(
               <div key={house._id}>
