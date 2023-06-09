@@ -180,7 +180,7 @@ const handleClick = (event, houseId,house) => {
   return (
     <ClientLayout>
       <div className="bg-gray-100  h-fit py-12">
-      <div className="h-full w-[1000px] mx-auto relative">
+      <div className="h-full hidden md:flex w-[1000px] mx-auto relative">
       <div className="relative  h-fit w-full">
         <form className="w-full bg-white h-full px-6 py-4 rounded-full flex shadow-lg relative">
           <div className="flex items-center space-x-6 w-full">
@@ -238,8 +238,58 @@ const handleClick = (event, houseId,house) => {
       
     </div>
 
-        <div className="w-[1000px] h-full mx-auto my-8">
-          <p className="text-[12px] text-black">Showing available accomodations</p>
+    <div className="mx-4 py-6 px-6 md:hidden bg-white mb-12">
+      <div>
+      <div className="flex flex-col">
+              <div className="flex flex-col border-b-[0.8px] border-black">
+                <div className="flex items-center justify-between w-full">
+                  <label className="text-[12px] font-bold text-green-800">
+                    ADULTS
+                  </label>
+                  <AiOutlineUser />
+                </div>
+
+                <input type="number" value={adults} onChange={(e)=>setAdults(e.target.value)} />
+              </div>
+              <div className="flex flex-col border-b-[0.8px] border-black my-6">
+                <div className="flex items-center justify-between w-full">
+                  <label className="text-[12px] font-bold text-green-800">
+                    KIDS
+                  </label>
+                  <AiOutlineUser />
+                </div>
+                <input type="number" value={child} onChange={(e)=>setChild(e.target.value)} />
+              </div>
+            </div>
+      </div>
+      <div className="flex flex-col border-b-[0.8px] grow border-black">
+                <div className="flex items-center justify-between">
+                  <label className="text-[12px] font-bold text-green-800">
+                    ROOM TYPE
+                  </label>
+                  <BsHouse />
+                </div>
+
+                <select className="text-sm  outline-none" value={roomType} onChange={(e)=>filterByType(e.target.value)}>
+                <option value="">All</option>
+                  <option value="Executive">Executive</option>
+                  <option value="Standard">Standard</option>
+                  <option value="Studio">Studio</option>
+                </select>
+              </div>
+
+              <div
+              className="flex w-full mt-8 "
+              onClick={() => setIsOpend(!opend)}
+            >
+              <RangePicker format="DD-MM-YYYY" className="border-b-[0.8px] border-black w-full" onChange={filterByDate}/>
+           
+            </div>
+      
+    </div>
+
+        <div className="md:w-[1000px] h-full md:mx-auto md:my-8">
+          <p className="text-[12px] px-4 text-black">Showing available accomodations</p>
 
           {
             loading?(<div className="h-screen"><h1>Loading...</h1></div>):(<div className="h-full">
@@ -249,15 +299,15 @@ const handleClick = (event, houseId,house) => {
                    <div className="h-full">
       <div className="mt-10 w-full">
         
-        <div className={`shadow-2xl px-4 py-4 ${open ? 'h-full': 'h-[330px]'}`}>
-        <div className="flex space-x-8  ">
-          <div className="relative h-[300px] min-w-[400px]">
+        <div className={`shadow-2xl mx-2 px-4 py-4 ${open ? 'h-full': 'md:h-[330px]'}`}>
+        <div className="flex flex-col md:flex-row md:space-x-8  ">
+          <div className="relative h-[300px] md:min-w-[400px]">
             <Image src={house.imageUrl} alt={house.title} fill />
           </div>
-         <div className="flex flex-col">
-          <div>
-            <h1 className="text-2xl font-bold">{house.title}</h1>
-            <span className="flex -mt-2">
+         <div className="flex flex-col mt-3">
+          <div className="text-center">
+            <h1 className="text-xl md:text-2xl text-center md:text-left font-bold">{house.title}</h1>
+            <span className="flex mt-4 md:-mt-2 w-full justify-center md:justify-normal">
               <p className="text-yellow-500 text-sm"><MdStarRate/></p>
               <p className="text-yellow-500 text-sm"><MdStarRate/></p>
               <p className="text-yellow-500 text-sm"><MdStarRate/></p>
@@ -265,7 +315,7 @@ const handleClick = (event, houseId,house) => {
               <p className="text-yellow-500 text-sm"><MdStarRate/></p>
             </span>
           </div>
-          <div className="flex items-center space-x-5 ">
+          <div className="flex items-center space-x-5 w-full justify-center mt-3 md:justify-normal md:mt-0">
             <div className="flex items-center space-x-2">
               <p className=" text-gray-500 text-[15px]"><HiUsers/></p>
               <p className="text-gray-500 text-[15px]">{house.noOfGuests|| 6} pax</p>
@@ -276,7 +326,7 @@ const handleClick = (event, houseId,house) => {
             </div>
           </div>
           <div>
-            <span className="flex items-center space-x-3">
+            <span className="flex items-center md:space-x-3 mt-3 w-full justify-between max-w-[200px] mx-auto md:w-full md:mx-0 md:mt-0">
               <p className="text-[24px] text-green-900"><AiOutlineWifi/></p>
               <p className="text-[24px] text-green-900"><MdKitchen/></p>
               <p className="text-[24px] text-green-900"><MdScreenshotMonitor/></p>
@@ -284,10 +334,10 @@ const handleClick = (event, houseId,house) => {
             </span>
           </div>
           <div>
-            <p className="line-clamp-4">{house.description}</p>
+            <p className="line-clamp-4 text-center mt-3 md:text-left md:mt-0">{house.description}</p>
           </div>
           <div>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col mt-3 md:flex-row md:mt-0 items-center justify-between">
               <div>
                 <span className="text-xs text-yellow-500">FROM</span>
                 <p className="text-4xl  font-bold">KES {house.amount}<span className="text-sm font-thin">/PER NIGHT</span></p>
@@ -301,26 +351,34 @@ const handleClick = (event, houseId,house) => {
         <div>
         <Collapse isOpened={open === house._id}>
         <div className={open?"active":"inactive"}>
-        <div className="border-gray-400 border-t  pt-9">
+        <div className="border-gray-400 border-t mt-9  pt-9">
       <form>
+        <div className="w-full flex flex-row-reverse">
+        <p
+            className="text-3xl md:hidden bg-red-500 rounded-full text-white cursor-pointer"
+            onClick={()=>setIsOpen(false)}
+          >
+            <AiOutlineCloseCircle />
+          </p>
+        </div>
         <div className="flex items-center w-full justify-between">
-          <p className="font-bold">
+          <p className="font-bold text-center">
             Your Booking Information -{" "}
             <span> 1st May 2022 - 2nd May 2022 </span>
           </p>
           <p
-            className="text-3xl bg-red-500 rounded-full text-white cursor-pointer"
+            className="text-3xl hidden md:flex bg-red-500 rounded-full text-white cursor-pointer"
             onClick={()=>setIsOpen(false)}
           >
             <AiOutlineCloseCircle />
           </p>
         </div>
 
-        <p className="my-3">You have selected {adults} Adult(s) and 0 Kid(s)</p>
+        <p className="my-3">You have selected {adults} Adult(s) and {child} Kid(s)</p>
         <div>
           <p>Personal Information</p>
           <p>Enter your details below</p>
-          <div className="grid grid-cols-3  gap-6 mt-6">
+          <div className="grid md:grid-cols-3  gap-6 mt-6">
             <div className="flex flex-col">
               <label>First Name</label>
               <input
@@ -359,14 +417,15 @@ const handleClick = (event, houseId,house) => {
             
             <div className="flex flex-col">
               <label>Phone Number</label>
-              <PhoneInput
-              defaultCountry="KE"
+              <input
+              name="phoneNumber"
+          
     
-    
+    type="text"
       
-      value={value}
+      value={details.phoneNumber}
       className="border px-4 outline-none bg-white py-2 placeholder:text-[8px]"
-      onChange={setValue}/>
+      onChange={handleInputChange}/>
               
             </div>
             <div className="flex flex-col">
@@ -410,14 +469,7 @@ const handleClick = (event, houseId,house) => {
                   <option value="Foreigner">Foreigner</option>
                   
                 </select>
-              {/* <input
-                type="text"
-                name="nationality"
-                value={details.nationality}
-              
-                className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                onChange={handleInputChange}
-              /> */}
+             
             </div>
             
           </div>

@@ -75,11 +75,11 @@ const Book = () => {
         
 
             const bookingDetails={
-            fromDate:fromThisDay,
-            toDate:toThisDay,
-            house:houseName,
+            fromDate:startDay,
+            toDate:endDay,
+            house:title,
             user:parsedDetails,
-            amount:amountTotal,
+            amount:amount,
             totalDays:noOfDays,
             houseId
             }
@@ -99,7 +99,7 @@ const Book = () => {
   return (
     <ClientLayout>
 
-      <div className='h-full bg-gray-200 -mt-2 px-4'>
+      <div className='h-full bg-gray-200 px-4'>
         <div className=' py-8  border-b-[0.8px] border-yellow-400'>
         <Heading title="Booking Details"/>
         </div>
@@ -196,11 +196,11 @@ const Book = () => {
                 <p className='text-md text-green-800 font-extrabold text-center'>{title}</p>
             </div>
             <div className='grid grid-cols-2 gap-2  px-5 mb-2 w-[300px] mx-auto'>
-                <div className='bg-green-400 h-[100px] flex justify-center items-center flex-col'>
+                <div className=' h-[100px] flex justify-center items-center flex-col'>
                     <p className='text-5xl text-white font-bold'>{startDay}</p>
                     <p className='text-2xl text-white'>{startMonth}</p>
                 </div>
-                <div className='bg-green-400 h-[100px] flex justify-center items-center flex-col'>
+                <div className=' h-[100px] flex justify-center items-center flex-col'>
                     <p className='text-5xl text-white font-bold'>{endDay}</p>
                     <p className='text-2xl text-white'>{endMonth}</p>
                 </div>

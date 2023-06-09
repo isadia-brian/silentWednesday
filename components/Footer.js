@@ -26,7 +26,7 @@ const Footer = () => {
           <div>
             <img src="/images/logo.jpeg" className="rounded-full h-16 w-16"  alt="" />
           </div>
-          <div className="text-[12px] max-w-[300px]">Located at South Coast, Silent Palms Villa offer 6 - two-bedroom units spread in the lavish green gardens with stunning serenity. 
+          <div className="text-[13px] max-w-[300px]">Located at South Coast, Silent Palms Villa offer 6 - two-bedroom units spread in the lavish green gardens with stunning serenity. 
 The luxury residence is positioned in a prime location a few meters away from the beautiful Diani beach.</div>
         </div>
         <div className="flex flex-col space-y-6 text-[12px] ">
@@ -35,10 +35,7 @@ The luxury residence is positioned in a prime location a few meters away from th
             <div className="flex items-center space-x-4">
               <Link href="/">HOME</Link>
             </div>
-            <div className="flex items-center space-x-4">
-            <Link href="/about">ABOUT</Link>
-              
-            </div>
+            
             <div className="flex items-center space-x-4">
             <Link href="/gallery">GALLERY</Link>
             </div>

@@ -53,14 +53,7 @@ const Story = () => {
 Designed with privacy in mind, Silent Palms Villa is an ideal choice for families, couples, and group holidays. Whether you're seeking a relaxing retreat or an adventure-filled getaway, this luxury residence caters to your needs. Additionally, long-term stay packages are available for those interested in an extended stay.
             </motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 1 }}
-              transition={{ duration: 0.5, delay: 1.3 }}
-              className="mt-8 text-xs underline "
-            >
-              The Full Story
-            </motion.p>
+            
           </div>
         </div>
         <motion.div
