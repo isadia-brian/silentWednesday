@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/router";
 import ClientLayout from '@/components/ClientLayout';
 import Heading from '@/components/Heading';
@@ -10,6 +10,21 @@ import moment from 'moment'
 import axios from 'axios'
 const Book = () => {
 
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+    const [contact, setContact] = useState("")
+    const [address, setAddress] = useState("")
+    const [nationality, setNationality] = useState("")
+    const [specialRequest, setSpecialRequest] = useState("")
+    const [arrival, setArrival] = useState("")
+    const [title, setTitle] = useState("")
+    const [amount, setAmount] = useState("")
+    const [startDay, setStartDay] =useState("")
+    const [startMonth, setStartMonth] =useState("")
+    const [endDay, setEndDay] =useState("")
+    const [endMonth, setEndMonth] =useState("")
+
     const router = useRouter();
     const { houseId, house, details,fromDate,toDate } = router.query;
     const fromDay=(moment(fromDate, 'DD-MM-YYYY').format("DD"));
@@ -19,6 +34,31 @@ const Book = () => {
     const toThisDay = moment(toDate, 'DD-MM-YYYY').format("DD-MM-YYYY")
     const toMonth = moment(toDate, 'DD-MM-YYYY').format("MMM").toUpperCase()
     const noOfDays = Number(toDay)-Number(fromDay) + 1
+
+
+     // Parse the JSON string back to objects
+
+     const parsedDetails = details ? JSON.parse(details):{};
+     const parsedHouse = house ? JSON.parse(house):{}
+     const houseName=parsedHouse.title
+     const amountTotal = parsedHouse.amount * noOfDays
+
+    useEffect(()=>{
+        setFirstName(parsedDetails.firstName)
+        setLastName(parsedDetails.lastName)
+        setEmail(parsedDetails.email)
+        setTitle(houseName)
+        setContact(parsedDetails.phoneNumber)
+        setAddress(parsedDetails.address)
+        setNationality(parsedDetails.nationality)
+        setSpecialRequest(parsedDetails.specialRequest)
+        setArrival(parsedDetails.arrival)
+        setStartDay(fromDay)
+        setStartMonth(fromMonth)
+        setAmount(amountTotal)
+        setEndDay(toDay)
+        setEndMonth(toMonth)
+    },[router.query])
    
 
   
@@ -26,12 +66,7 @@ const Book = () => {
 
   
 
-    // Parse the JSON string back to objects
-
-    const parsedDetails = JSON.parse(details);
-    const parsedHouse = JSON.parse(house)
-    const houseName=parsedHouse.title
-    const amountTotal = parsedHouse.amount * noOfDays
+   
 
 
     
@@ -73,31 +108,31 @@ const Book = () => {
             <div className='grid grid-cols-3 gap-y-8'>
             <div>
             <h4 className='text-lg text-green-800 font-extrabold'>FirstName</h4>
-            <p>{parsedDetails.firstName}</p>
+            <p>{firstName}</p>
             </div>
             <div>
             <h4 className='text-lg text-green-800 font-extrabold'>LastName</h4>
-            <p>{parsedDetails.lastName}</p>
+            <p>{lastName}</p>
             </div>
             <div>
             <h4 className='text-lg text-green-800 font-extrabold'>Contact</h4>
-            <p>{parsedDetails.phoneNumber}</p>
+            <p>{contact}</p>
             </div>
             <div>
             <h4 className='text-lg text-green-800 font-extrabold'>Email</h4>
-            <p>{parsedDetails.email}</p>
+            <p>{email}</p>
             </div>
             <div>
             <h4 className='text-lg text-green-800 font-extrabold'>Address</h4>
-            <p>{parsedDetails.address}</p>
+            <p>{address}</p>
             </div>
             <div>
             <h4 className='text-lg text-green-800 font-extrabold'>Nationality</h4>
-            <p>{parsedDetails.nationality}</p>
+            <p>{nationality}</p>
             </div>
             <div>
             <h4 className='text-lg text-green-800 font-extrabold'>Special Requests</h4>
-            <p>{parsedDetails.request}</p>
+            <p>{specialRequest}</p>
             </div>
             
             </div>
@@ -105,7 +140,7 @@ const Book = () => {
             <div className='mt-6'>
             <div>
             <h4 className='text-lg text-green-800 font-extrabold'>Arrival Time</h4>
-            <p>{parsedDetails.arrival}</p>
+            <p>{arrival}</p>
             </div> 
             </div>
 
@@ -158,16 +193,16 @@ const Book = () => {
                 <Image src={parsedHouse.imageUrl} fill className="box object-cover"/>
             </div>
             <div className='my-6'>
-                <p className='text-md text-green-800 font-extrabold text-center'>{parsedHouse.title}</p>
+                <p className='text-md text-green-800 font-extrabold text-center'>{title}</p>
             </div>
             <div className='grid grid-cols-2 gap-2  px-5 mb-2 w-[300px] mx-auto'>
                 <div className='bg-green-400 h-[100px] flex justify-center items-center flex-col'>
-                    <p className='text-5xl text-white font-bold'>{fromDay}</p>
-                    <p className='text-2xl text-white'>{fromMonth}</p>
+                    <p className='text-5xl text-white font-bold'>{startDay}</p>
+                    <p className='text-2xl text-white'>{startMonth}</p>
                 </div>
                 <div className='bg-green-400 h-[100px] flex justify-center items-center flex-col'>
-                    <p className='text-5xl text-white font-bold'>{toDay}</p>
-                    <p className='text-2xl text-white'>{toMonth}</p>
+                    <p className='text-5xl text-white font-bold'>{endDay}</p>
+                    <p className='text-2xl text-white'>{endMonth}</p>
                 </div>
                 
             </div>
@@ -178,12 +213,12 @@ const Book = () => {
                 </div>
                 <div className='bg-green-400 h-[100px] flex justify-center items-center flex-col'>
                     <p className='text-5xl text-white font-bold'><BsCashStack/></p>
-                    <p className='text-2xl text-white'>{amountTotal}</p>
+                    <p className='text-2xl text-white'>{amount}</p>
                 </div>
                 
             </div>
             <div className='my-6 w-[300px] mx-auto text-center'>
-                <p className='px-4'>You are required to pay an initial deposit of KES {amountTotal / 2} or a full payment of KES {amountTotal} via lia na mpesa paybill no below then click confirm payment.</p>
+                <p className='px-4'>You are required to pay an initial deposit of KES {amount / 2} or a full payment of KES {amount} via lia na mpesa paybill no below then click confirm payment.</p>
                 <div className='mt-6'>
                     <p className='text-lg'>TILL</p>
                     <p className='text-3xl font-bold'>4098459</p>

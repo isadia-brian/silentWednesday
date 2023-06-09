@@ -42,7 +42,7 @@ const Why = () => {
                 <h4 className={`${cormorant.className} text-green-800 text-[20px] md:text-[28px] font-bold capitalize`}>Service Excellence</h4>
                 
             </div>
-            <p className="p-2 md:max-w-[350px]">Impeccable customer service is our commitment, ensuring every moment of your stay is exceptional. Our attentive team goes above and beyond, providing personalized care and remarkable value for your money.</p>
+            <p className="pt-3">Impeccable customer service is our commitment, ensuring every moment of your stay is exceptional. Our attentive team goes above and beyond, providing personalized care and remarkable value for your money.</p>
         </div>
         <div className=" md:h-56">
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center space-x-3">
@@ -50,7 +50,7 @@ const Why = () => {
                 <h4 className={`${cormorant.className} text-green-800 text-[20px] md:text-[28px]  font-bold`}>Perfect Location</h4>
                 
             </div>
-            <p className="p-2">Strategic setting: Embrace shopping at nearby centers, indulge in beach life, discover thrilling activities, explore captivating waterfall caves, and enjoy convenient access to Ukunda Airstrip and wildlife wonders.</p>
+            <p className="pt-3">Strategic setting: Embrace shopping at nearby centers, indulge in beach life, discover thrilling activities, explore captivating waterfall caves, and enjoy convenient access to Ukunda Airstrip and wildlife wonders.</p>
         </div>
         <div className=" md:h-56">
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center space-x-3">
@@ -78,7 +78,7 @@ const Why = () => {
                 <h4 className={`${cormorant.className} text-green-800 text-[20px] md:text-[28px]  font-bold`}>Luxurious Amenities</h4>
                 
             </div>
-            <p className="p-2">Indulge in opulence with our luxury amenities. From the moment you enter our villa, experience a modern kitchen, high-speed internet and many more amenities for seamless comfort and convenience.</p>
+            <p className="pt-3">Indulge in opulence with our luxury amenities. From the moment you enter our villa, experience a modern kitchen, high-speed internet and many more amenities for seamless comfort and convenience.</p>
         </div>
         <div className=" md:h-56">
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center space-x-3">
@@ -86,7 +86,7 @@ const Why = () => {
                 <h4 className={`${cormorant.className} text-green-800 text-[20px] md:text-[28px]  font-bold`}>Serene Environment</h4>
                 
             </div>
-            <p className="p-2">Our villa is enveloped by lush greenery, offering a serene sanctuary that rejuvenates the mind, body, and soul. Immerse in tranquil natural beauty and enjoy a peaceful escape.</p>
+            <p className="pt-3">Our villa is enveloped by lush greenery, offering a serene sanctuary that rejuvenates the mind, body, and soul. Immerse in tranquil natural beauty and enjoy a peaceful escape.</p>
         </div>
 
         <div className=" md:h-56">
@@ -95,7 +95,7 @@ const Why = () => {
                 <h4 className={`${cormorant.className} text-green-800 text-[20px] md:text-[28px]  font-bold`}>Cozy Comfort</h4>
                 
             </div>
-            <p className="p-2">Experience the pinnacle of comfort on our queen-size beds, ensuring a blissful sleep. Immerse yourself in clean, luxurious linens, and drift off to sweet dreams in a tranquil haven of relaxation.</p>
+            <p className="pt-3">Experience the pinnacle of comfort on our queen-size beds, ensuring a blissful sleep. Immerse yourself in clean, luxurious linens, and drift off to sweet dreams in a tranquil haven of relaxation.</p>
         </div>
         
         <div className=" md:h-56">
@@ -121,7 +121,7 @@ const Why = () => {
                 <h4 className={`${cormorant.className} text-green-800 text-[20px] md:text-[28px]  font-bold`}>Poolside Paradise</h4>
                 
             </div>
-            <p className="p-2">Dive into a world of pure delight with our enchanting swimming pool. Surrounded by lush greenery, it offers a serene escape where you can float lazily, soak up the sun, or simply revel in the refreshing water.</p>
+            <p className="pt-3">Dive into a world of pure delight with our enchanting swimming pool. Surrounded by lush greenery, it offers a serene escape where you can float lazily, soak up the sun, or simply revel in the refreshing water.</p>
         </div>
         
      

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import localFont from "next/font/local";
+import { Poppins, Karla } from "next/font/google";
 import { SlLocationPin } from "react-icons/sl";
 import { SlPhone } from "react-icons/sl";
 import { VscMail } from "react-icons/vsc";
@@ -10,16 +10,23 @@ import { BsFacebook } from "react-icons/bs";
 import { BsInstagram } from "react-icons/bs";
 
 
+const karla = Karla({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+});
+
+
+
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-green-800 h-full md:h-fit py-4">
-      <div className="mx-6 md:mx-20 pb-6 flex flex-col md:flex-row space-y-16 md:space-y-0 md:justify-between  text-white border-b-[0.2px] border-amber-50 ">
+    <footer className={`${karla.className} w-full bg-green-800 h-full md:h-fit py-4`}>
+      <div className="mx-6 md:mx-6 pb-6 flex flex-col md:flex-row space-y-16 md:space-y-0 md:justify-between  text-white border-b-[0.2px] border-amber-50 ">
         <div className="flex flex-col space-y-4">
           <div>
             <img src="/images/logo.jpeg" className="rounded-full h-16 w-16"  alt="" />
           </div>
-          <div className="text-[12px] max-w-[300px] pr-9">Located at South Coast, Silent Palms Villa offer 6 - two-bedroom units spread in the lavish green gardens with stunning serenity. 
+          <div className="text-[12px] max-w-[300px]">Located at South Coast, Silent Palms Villa offer 6 - two-bedroom units spread in the lavish green gardens with stunning serenity. 
 The luxury residence is positioned in a prime location a few meters away from the beautiful Diani beach.</div>
         </div>
         <div className="flex flex-col space-y-6 text-[12px] ">
@@ -32,7 +39,7 @@ The luxury residence is positioned in a prime location a few meters away from th
             <Link href="/about">ABOUT</Link>
               
             </div>
-            <div className="flex items-center space-x-4 font-bold">
+            <div className="flex items-center space-x-4">
             <Link href="/gallery">GALLERY</Link>
             </div>
             <div className="flex items-center space-x-4">

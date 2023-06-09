@@ -28,7 +28,7 @@ const Video = () => {
   // //   videoRef.current.controls = false;
   // // }, [playing]);
   return (
-    <div className="mt-20 px-4 h-full w-full">
+    <div className="mt-12 px-4 h-full w-full">
       <div className={`text-center mb-12 max-w-[500px] mx-auto`}>
           <p className={`${cormorant.className} text-[20px] md:text-[32px] font-bold text-green-800 uppercase tracking-[1px] whitespace-pre-wrap`}>As Daylight Fades, Beauty Awakens: Experience Diani Beach's Mesmerizing Sunset</p>
         </div>

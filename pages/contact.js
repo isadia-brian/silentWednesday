@@ -39,15 +39,15 @@ const Contact = () => {
   return (
     <ClientLayout>
       <div className="h-full md:h-full w-full mb-32 px-4">
-      <div  className={`${cormorant.className} text-[50px] my-12 text-center font-bold text-green-800`}>
+      <div  className={`${cormorant.className} text-[40px] my-12 pt-4 font-bold text-green-800`}>
       <h1>GET </h1>
-          <h1 className="-mt-8">IN TOUCH</h1>
+          <h1 className="-mt-6">IN TOUCH</h1>
      
         </div>
         <div className="mt-8">
         <h2 className={`${cormorant.className} text-yellow-700 text-[25px]`}>Contact Us</h2>
         <div className="flex flex-col md:flex-row space-x-4 justify-between">
-        <form className="mt-4 md:w-1/2" onSubmit={handleSubmit}>
+        <form className="mt-4 md:w-1/2 md:mr-16" onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-8">
             <div className="flex flex-col">
               <label>Name</label>
@@ -59,12 +59,12 @@ const Contact = () => {
             </div>
             <div className="flex flex-col">
               <label>Message</label>
-              <textarea type="text" ref={messageRef} className="outline-none border border-slate-400 px-2 py-4" />
+              <textarea type="text" ref={messageRef} className="outline-none border border-slate-400 px-2 py-4" cols={30} rows="10" />
             </div>
             <input type="button" value="Send" className="bg-green-800 text-white py-4" />
           </div>
         </form>
-        <div className=" mt-6 md:w-1/2 md:mt-0">
+        <div className=" mt-6 md:w-1/2 md:-mt-2">
         <Map/>
         </div>
         

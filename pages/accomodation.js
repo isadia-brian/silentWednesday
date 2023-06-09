@@ -19,9 +19,9 @@ const Rooms = () => {
     <ClientLayout>
 
       <div className="px-4 h-full mb-20">
-        <div  className={`${cormorant.className} text-[30px] md:text-[50px] md:text-center font-bold text-green-800`}>
+        <div  className={`${cormorant.className} text-[30px] md:text-[40px]  font-bold text-green-800 pt-4`}>
           <h1>ROOMS & </h1>
-          <h1 className="-mt-3 md:-mt-8">ACCOMODATIONS</h1>
+          <h1 className="-mt-3 md:-mt-6">ACCOMODATIONS</h1>
         </div>
         <p className={`${cormorant.className} text-green-800 font-bold text-3xl mt-3 mb-2 md:hidden`}>2 bedroom Executive Villa</p>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 md:my-16 w-full">
@@ -62,7 +62,7 @@ const Rooms = () => {
             <div>
               <Link className="text-yellow-700 text-sm border-b-2 pb-[2px] my-8 border-yellow-700" href="/">LEARN MORE</Link>
             </div>
-            <button className="text-white bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</button>
+            <Link href='/reservation' className="text-white text-center bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</Link>
           </div>
         </div>
         <p className={`${cormorant.className} text-green-800 font-bold text-3xl mt-24 mb-2 md:hidden`}>2 bedroom Standard Villa</p>
@@ -105,7 +105,7 @@ const Rooms = () => {
             <div>
               <Link className="text-yellow-700 text-sm border-b-2 pb-[2px] my-8 border-yellow-700" href="/">LEARN MORE</Link>
             </div>
-            <button className="text-white bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</button>
+            <Link href='/reservation' className="text-white text-center bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</Link>
           </div>
         </div>
         
@@ -149,7 +149,7 @@ const Rooms = () => {
             <div>
               <Link className="text-yellow-700 text-sm border-b-2 pb-[2px] my-8 border-yellow-700" href="/">LEARN MORE</Link>
             </div>
-            <button className="text-white bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</button>
+            <Link href="/reservation" className="text-white text-center bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</Link>
           </div>
         </div>
         

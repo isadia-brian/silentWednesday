@@ -15,7 +15,7 @@ const Activities = () => {
   return (
     <ClientLayout>
         <div className='px-4 mb-32 h-full w-full'>
-        <div  className={`${cormorant.className} text-[30px] md:text-[50px] md:text-center mt-3 font-bold text-green-800 my-12`}>
+        <div  className={`${cormorant.className} text-[30px] md:text-[40px]  pt-4 font-bold text-green-800 my-12`}>
           <h1>ACTIVITIES</h1>
      
         </div>

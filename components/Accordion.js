@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     title: "What are the nearby places and Activities available",
-    desc: "Silent Palms is located in close proximity to various shopping centers, such as malls, supermarkets(Naivas & Carrefour) and entertainment beaches. The beach life in this area is vibrant and exciting, with easy access to Port Drive, jet ski rides, deep sea diving, dolphin viewing, kayaking, and even mysterious waterfalls caves. Moreover, visitors can conveniently access the Ukunda Airstrip and the Moi International Airport. For those interested in wildlife, they can head to Tsavo National Park or Shimba Hills to experience some of the most stunning wildlife in the region.",
+    desc: "Silent Palms is located in close proximity to various shopping centers, such as malls, supermarkets and entertainment beaches. The beach life in this area is vibrant and exciting, with easy access to Port Drive, jet ski rides, deep sea diving, dolphin viewing, kayaking, and even mysterious waterfalls caves. Moreover, visitors can conveniently access the Ukunda Airstrip and the Moi International Airport. For those interested in wildlife, they can head to Tsavo National Park or Shimba Hills to experience some of the most stunning wildlife in the region.",
   }
   
 ];

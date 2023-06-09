@@ -14,7 +14,9 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Collapse } from "react-collapse";
 import {BsHouse} from 'react-icons/bs'
 import moment from 'moment'
-import HorizontalAccordion from "@/components/HorizontalAccordion";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
 
 
 const Reservation = () => {
@@ -32,6 +34,7 @@ const [toDate, setToDate] = useState()
 const [open, setIsOpen] = useState(false);
 const [opend, setIsOpend] = useState(false);
 const [duplicateHouses,setDuplicateHouses ] = useState([])
+const [value, setValue] = useState()
 
 const [details, setDetails] = useState({
   firstName: "",
@@ -146,17 +149,23 @@ const filterByType = (e) => {
 };
 
 
+const handleOpen =(event, houseId)=>{
+  event.preventDefault();
+  setIsOpen((prevOpen) => (prevOpen === houseId ? false : houseId))
+}
+
 const handleConfirm = (houseId,house) => {
   const queryParams = {
     houseId: houseId,
     house:JSON.stringify(house),
     details: JSON.stringify(details),
+    value,
     toDate:toDate,
     fromDate:fromDate
   };
 
   const queryString = new URLSearchParams(queryParams).toString();
-  router.push(`/book?${queryString}`);
+  router.push(`/book?${queryString}`,{toDate});
 };
 
 const handleClick = (event, houseId,house) => {
@@ -171,19 +180,19 @@ const handleClick = (event, houseId,house) => {
   return (
     <ClientLayout>
       <div className="bg-gray-100  h-fit py-12">
-      <div className="h-full w-[1100px] mx-auto relative">
+      <div className="h-full w-[1000px] mx-auto relative">
       <div className="relative  h-fit w-full">
-        <form className="w-full space-x-2 bg-white h-full px-6 py-4 rounded-full flex shadow-lg relative">
-          <div className="flex items-center space-x-4 flex-grow">
+        <form className="w-full bg-white h-full px-6 py-4 rounded-full flex shadow-lg relative">
+          <div className="flex items-center space-x-6 w-full">
             <div
-              className="flex items-center space-x-4 "
+              className="flex items-center space-x-4 mt-1 "
               onClick={() => setIsOpend(!opend)}
             >
               <RangePicker format="DD-MM-YYYY" className="border-b-[0.8px] border-black" onChange={filterByDate}/>
            
             </div>
             <div className="flex items-center space-x-2" onClick={()=>setGuests(!guests)}>
-              <div className="flex flex-col border-b-[0.8px] border-black max-w-[170px]">
+              <div className="flex flex-col border-b-[0.8px] border-black">
                 <div className="flex items-center justify-between">
                   <label className="text-[12px] font-bold text-green-800">
                     ADULTS
@@ -193,7 +202,7 @@ const handleClick = (event, houseId,house) => {
 
                 <input type="number" value={adults} readOnly />
               </div>
-              <div className="flex flex-col border-b-[0.8px] border-black max-w-[160px]">
+              <div className="flex flex-col border-b-[0.8px] border-black">
                 <div className="flex items-center justify-between">
                   <label className="text-[12px] font-bold text-green-800">
                     KIDS
@@ -203,7 +212,7 @@ const handleClick = (event, houseId,house) => {
                 <input type="number" value={child} readOnly />
               </div>
             </div>
-            <div className="flex flex-col border-b-[0.8px] border-black min-w-[190px]">
+            <div className="flex flex-col border-b-[0.8px] grow border-black">
                 <div className="flex items-center justify-between">
                   <label className="text-[12px] font-bold text-green-800">
                     ROOM TYPE
@@ -211,7 +220,7 @@ const handleClick = (event, houseId,house) => {
                   <BsHouse />
                 </div>
 
-                <select className="text-sm mt-1 outline-none" value={roomType} onChange={(e)=>filterByType(e.target.value)}>
+                <select className="text-sm  outline-none" value={roomType} onChange={(e)=>filterByType(e.target.value)}>
                 <option value="">All</option>
                   <option value="Executive">Executive</option>
                   <option value="Standard">Standard</option>
@@ -239,69 +248,60 @@ const handleClick = (event, houseId,house) => {
               <div key={house._id}>
                    <div className="h-full">
       <div className="mt-10 w-full">
-        <div className="shadow-2xl px-4 py-4">
+        
+        <div className={`shadow-2xl px-4 py-4 ${open ? 'h-full': 'h-[330px]'}`}>
         <div className="flex space-x-8  ">
           <div className="relative h-[300px] min-w-[400px]">
             <Image src={house.imageUrl} alt={house.title} fill />
           </div>
-          <div className="flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between w-full">
-              <h4 className="text-2xl font-semibold ">{house.title}</h4>
-                 </div>
-           
-            <div className="flex space-x-1">
-            <p className="text-yellow-500"><MdStarRate/></p>
-            <p className="text-yellow-500"><MdStarRate/></p>
-            <p className="text-yellow-500"><MdStarRate/></p>
-            <p className="text-yellow-500"><MdStarRate/></p>
-            <p className="text-yellow-500"><MdStarRate/></p>
+         <div className="flex flex-col">
+          <div>
+            <h1 className="text-2xl font-bold">{house.title}</h1>
+            <span className="flex -mt-2">
+              <p className="text-yellow-500 text-sm"><MdStarRate/></p>
+              <p className="text-yellow-500 text-sm"><MdStarRate/></p>
+              <p className="text-yellow-500 text-sm"><MdStarRate/></p>
+              <p className="text-yellow-500 text-sm"><MdStarRate/></p>
+              <p className="text-yellow-500 text-sm"><MdStarRate/></p>
+            </span>
+          </div>
+          <div className="flex items-center space-x-5 ">
+            <div className="flex items-center space-x-2">
+              <p className=" text-gray-500 text-[15px]"><HiUsers/></p>
+              <p className="text-gray-500 text-[15px]">{house.noOfGuests|| 6} pax</p>
             </div>
-
-            <div className=" flex space-x-2">
-              <div className="flex space-x-2">
-              <p><HiUsers/></p>
-              <p className="text-slate-500 text-xs">{house.noOfguests}-Guests</p>
-              </div>
-              <div className="flex space-x-2 items-center">
-              <p><MdKingBed/></p>
-              {house.rooms < 2?<p className="text-xs text-slate-500">{house.rooms}-bedroom</p>:<p className="text-xs text-slate-500">{house.rooms}-bedrooms</p>}
-             
-              </div>
-           
-            </div>
-            <div className="flex items-center space-x-4 text-[18px] mt-2 text-slate-500  ">
-              <AiOutlineWifi />
-              <FaSwimmingPool />
-              <MdKingBed />
-              <MdKitchen />
-              <MdScreenshotMonitor />
-            </div>
-            
-            </div>
-           
-            <p className="text-sm pr-4 line-clamp-4">
-           {house.description}
-            </p>
-
-            
-
-            <div className="flex items-center justify-between w-full">
-              <div>
-                <span className="text-sm  text-yellow-500">From</span>
-                <p className="text-3xl -mt-2 font-bold">KES {house.amount}<span className="text-sm font-light"> per night</span></p>
-              </div>
-             
-              <button className="bg-green-800  px-5 py-3 font-bold text-sm  text-white" onClick={()=>setIsOpen(true)}>
-                BOOK NOW
-              </button>
+            <div className="flex items-center space-x-2">
+              <p className=" text-gray-500 text-[15px]"><MdKingBed/></p>
+              <p className="text-gray-500 text-[15px]">{house.rooms|| 2} beds</p>
             </div>
           </div>
+          <div>
+            <span className="flex items-center space-x-3">
+              <p className="text-[24px] text-green-900"><AiOutlineWifi/></p>
+              <p className="text-[24px] text-green-900"><MdKitchen/></p>
+              <p className="text-[24px] text-green-900"><MdScreenshotMonitor/></p>
+              <p className="text-[24px] text-green-900"><FaSwimmingPool/></p>
+            </span>
+          </div>
+          <div>
+            <p className="line-clamp-4">{house.description}</p>
+          </div>
+          <div>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-xs text-yellow-500">FROM</span>
+                <p className="text-4xl  font-bold">KES {house.amount}<span className="text-sm font-thin">/PER NIGHT</span></p>
+
+              </div>
+              <button onClick={(event)=>handleOpen(event, house._id)} className="px-4 py-3 -mt-4 text-white bg-green-800">ENTER DETAILS</button>
+            </div>
+          </div>
+         </div>
         </div>
         <div>
-        <Collapse isOpened={open}>
+        <Collapse isOpened={open === house._id}>
         <div className={open?"active":"inactive"}>
-        <div className="border-gray-400 border-t mt-16 pt-9">
+        <div className="border-gray-400 border-t  pt-9">
       <form>
         <div className="flex items-center w-full justify-between">
           <p className="font-bold">
@@ -316,18 +316,18 @@ const handleClick = (event, houseId,house) => {
           </p>
         </div>
 
-        <p className="mt-5">You have selected 2 Adults and 0 kids</p>
+        <p className="my-3">You have selected {adults} Adult(s) and 0 Kid(s)</p>
         <div>
           <p>Personal Information</p>
           <p>Enter your details below</p>
-          <div className="grid grid-cols-3 gap-2 gap-y-10 mt-6">
+          <div className="grid grid-cols-3  gap-6 mt-6">
             <div className="flex flex-col">
               <label>First Name</label>
               <input
                 type="text"
                 name="firstName"
                 value={details.firstName}
-                placeholder="John"
+               
                 className="border px-4 outline-none py-2 placeholder:text-[12px]"
                 onChange={handleInputChange}
               />
@@ -336,14 +336,15 @@ const handleClick = (event, houseId,house) => {
               <label>Last Name</label>
               <input
                 type="text"
-                placeholder="Doe"
+               
                 name="lastName"
                 value={details.lastName}
                 className="border px-4 outline-none py-2 placeholder:text-[12px]"
                 onChange={handleInputChange}
               />
             </div>
-            <div className="flex flex-col">
+            <div>
+              <div className="flex flex-col row-span-2">
               <label>Email</label>
               <input
                 type="email"
@@ -354,25 +355,39 @@ const handleClick = (event, houseId,house) => {
                 onChange={handleInputChange}
               />
             </div>
+            </div>
+            
             <div className="flex flex-col">
               <label>Phone Number</label>
-              <input
-                type="text"
-                name="phoneNumber"
-                value={details.phoneNumber}
-                placeholder="johndoe@gmail.com"
-                className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                onChange={handleInputChange}
-              />
+              <PhoneInput
+              defaultCountry="KE"
+    
+    
+      
+      value={value}
+      className="border px-4 outline-none bg-white py-2 placeholder:text-[8px]"
+      onChange={setValue}/>
+              
             </div>
             <div className="flex flex-col">
               <label>Approximate Arrival Time</label>
-              <input
-                type="clock"
-                name="arrival"
-                value={details.arrival}
-                placeholder="--:--"
-                className="border px-4 outline-none py-2 placeholder:text-[12px]"
+              
+              <select className="outline-none border px-2 py-2 text-[14px]" value={details.arrival} onChange={handleInputChange} name="arrival">
+                <option value = "">Select Time</option>
+                  <option value="2:00 PM">2:00 PM</option>
+                  <option value="3:00 PM">3:00 PM</option>
+                  <option value="4:00 PM">4:00 PM</option>
+                 
+                  
+                </select>
+            </div>
+            <div className="flex flex-col">
+              <label>Special Requests</label>
+              <textarea
+                type="text"
+                name="request"
+                value={details.request}
+                className="border px-4 outline-none py-2"
                 onChange={handleInputChange}
               />
             </div>
@@ -389,42 +404,36 @@ const handleClick = (event, houseId,house) => {
             </div>
             <div className="flex flex-col">
               <label>Nationality</label>
-              <input
+              <select className="outline-none border px-2 py-2 text-[14px]" value={details.nationality} onChange={handleInputChange} name="nationality">
+                <option value="">Select nationality</option>
+                  <option value="Kenyan">Kenyan</option>
+                  <option value="Foreigner">Foreigner</option>
+                  
+                </select>
+              {/* <input
                 type="text"
                 name="nationality"
                 value={details.nationality}
-                placeholder="e.g resident"
+              
                 className="border px-4 outline-none py-2 placeholder:text-[12px]"
                 onChange={handleInputChange}
-              />
+              /> */}
             </div>
-            <div className="flex flex-col mb-8">
-              <label>Special Requests</label>
-              <textarea
-                type="text"
-                name="request"
-                value={details.request}
-                className="border px-4 outline-none py-2"
-                onChange={handleInputChange}
-              />
-            </div>
+            
           </div>
-          <div className="flex items-center space-x-3 mb-4">
-            <input type="checkbox" name="" id="" />
-            <p>
-              I acknowledge that i have read and agree to the terms & Conditions below
-            </p>
-          </div>
+
+          <div className="w-full flex justify-between flex-row-reverse">
           <button
-  type="submit"
-  className="px-6 py-3 mb-8 bg-green-800 text-white"
-  onClick={(event) => handleClick(event,house._id,house)}
->
-  CONFIRM
-</button>
-          <div>
-          <h5 className="font-bold text-2xl border-b-2">Terms & Conditions</h5>
+            type="submit"
+            className="px-6 py-3 my-3  bg-green-800 text-white"
+            onClick={(event) => handleClick(event,house._id,house)}
+            >
+            CONFIRM
+            </button>
           </div>
+         
+          
+         
          
         </div>
       </form>
