@@ -60,7 +60,7 @@ const Rooms = () => {
               <p className="text-[14px] mt-4 md:mt-0">This luxury accommodation features excellent finishes, including toilets and amenities. It boasts two fully ensuite bedrooms, each with its own toilet. The villa also includes an expansive lounge with an additional cloakroom, a coffee table, and a television. </p>
             </div>
             <div>
-              <Link className="text-yellow-700 text-sm border-b-2 pb-[2px] my-8 border-yellow-700" href="/">LEARN MORE</Link>
+            
             </div>
             <Link href='/reservation' className="text-white text-center bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</Link>
           </div>
@@ -103,7 +103,7 @@ const Rooms = () => {
               <p className="text-[14px] mt-4 md:mt-0">This luxurious studio apartment boasts an open-plan living room featuring a cozy lounge area, an open kitchen, and a dining area in a compact and stylish design. The open-plan concept creates a spacious and airy feel, perfect for those who prefer a more modern and minimalistic living space. </p>
             </div>
             <div>
-              <Link className="text-yellow-700 text-sm border-b-2 pb-[2px] my-8 border-yellow-700" href="/">LEARN MORE</Link>
+              
             </div>
             <Link href='/reservation' className="text-white text-center bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</Link>
           </div>
@@ -147,7 +147,7 @@ const Rooms = () => {
               <p className="text-[14px] mt-4 md:mt-0">This villa comprises of elegant finishes with the following amenities, executive lounge with a coffee table and a TV, WIFI with high-speed internet connection. There is also an open plan kitchen fully equipped with kitchen amenities that include a cooker with gas, fridge, microwave and coffee maker and a wooden dining that accommodates 4 pax.</p>
             </div>
             <div>
-              <Link className="text-yellow-700 text-sm border-b-2 pb-[2px] my-8 border-yellow-700" href="/">LEARN MORE</Link>
+             
             </div>
             <Link href="/reservation" className="text-white text-center bg-green-800 px-2 py-2 w-[130px] mt-4 md:mt-0">BOOK NOW</Link>
           </div>
