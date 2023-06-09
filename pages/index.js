@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import ClientLayout from "@/components/ClientLayout";
 import Featured from "@/components/Featured";
 import Hero from "@/components/Hero";
@@ -7,9 +8,25 @@ import Things from "@/components/Things";
 import Video from "@/components/Video";
 import Why from "@/components/Why";
 
+import Loading from "@/components/Loading";
+
+
 const Home = () => {
+
+  const [loading, setLoading] = useState(true)
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setLoading(false)
+      }, 6000)
+
+  },[])
   return (
-    <ClientLayout>
+
+    <div>
+      {loading ?(<Loading/>):(
+        <div>
+               <ClientLayout>
       <Hero />
       <Story />
       <Featured />
@@ -18,6 +35,10 @@ const Home = () => {
       <Video/>
       <Testimonials />
     </ClientLayout>
+        </div>
+      )}
+    </div>
+   
   );
 };
 export default Home;

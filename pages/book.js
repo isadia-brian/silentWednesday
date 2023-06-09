@@ -25,6 +25,8 @@ const Book = () => {
     const [endDay, setEndDay] =useState("")
     const [endMonth, setEndMonth] =useState("")
 
+    const [open, setOpen]= useState(false)
+
     const router = useRouter();
     const { houseId, house, details,fromDate,toDate } = router.query;
     const fromDay=(moment(fromDate, 'DD-MM-YYYY').format("DD"));
@@ -87,7 +89,9 @@ const Book = () => {
             try {
                 await axios.post('/api/bookings',
                     bookingDetails
-                ) 
+                ).then(()=>{
+                    setOpen(true)
+                }) 
             } catch (error) {
                 console.error(error)
             }
@@ -95,11 +99,28 @@ const Book = () => {
         
     }
 
+    const handleSuccess = (e)=>{
+        e.preventDefault();
+        router.push("/")
+        
+    }
+
 
   return (
     <ClientLayout>
 
-      <div className='h-full bg-gray-200 px-4'>
+        {open?(
+            <div className='flex justify-center items-center bg-green-500 h-screen w-full z-10'>
+                <div className='flex flex-col rounded-2xl h-[500px] p-8 w-[700px] justify-between text-center bg-white'>
+                    <h1 className='text-4xl font-bold '>Congratulations Your Accomodation has been Booked Successfully</h1>
+
+                    <p className='text-6xl'>🥳</p>
+                    <p>You will receive an email shortly after payment is confirmed</p>
+                    <button onClick={handleSuccess} className='px-2 py-4 bg-green-700 text-white w-[200px] mx-auto'>OK</button>
+                </div>
+            </div>
+        ):
+        <div className='h-full bg-gray-200 -mt-2 px-4'>
         <div className=' py-8  border-b-[0.8px] border-yellow-400'>
         <Heading title="Booking Details"/>
         </div>
@@ -196,11 +217,11 @@ const Book = () => {
                 <p className='text-md text-green-800 font-extrabold text-center'>{title}</p>
             </div>
             <div className='grid grid-cols-2 gap-2  px-5 mb-2 w-[300px] mx-auto'>
-                <div className=' h-[100px] flex justify-center items-center flex-col'>
+                <div className='bg-green-400 h-[100px] flex justify-center items-center flex-col'>
                     <p className='text-5xl text-white font-bold'>{startDay}</p>
                     <p className='text-2xl text-white'>{startMonth}</p>
                 </div>
-                <div className=' h-[100px] flex justify-center items-center flex-col'>
+                <div className='bg-green-400 h-[100px] flex justify-center items-center flex-col'>
                     <p className='text-5xl text-white font-bold'>{endDay}</p>
                     <p className='text-2xl text-white'>{endMonth}</p>
                 </div>
@@ -239,11 +260,8 @@ const Book = () => {
        
        
       </div>
-    
-      <div>
+        }
 
-      </div>
-      <div></div>
       
     </ClientLayout>
   )
