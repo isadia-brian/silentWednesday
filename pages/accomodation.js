@@ -57,7 +57,7 @@ const Rooms = () => {
              
             </div>
             <div>
-              <p className="text-[14px] mt-4 md:mt-0">This luxury accommodation features excellent finishes, including toilets and amenities. It boasts two fully ensuite bedrooms, each with its own toilet. The villa also includes an expansive lounge with an additional cloakroom, a coffee table, and a television. </p>
+              <p className="text-[14px] mt-4 md:mt-0">This luxury accommodation offers fully en-suite rooms, providing a private and comfortable space for guests. The rooms feature a spacious lounge with a coffee table, a coffee table allowing guests to enjoy a cup of coffee or tea while spending time together or relaxing. </p>
             </div>
             <div>
             
@@ -100,7 +100,7 @@ const Rooms = () => {
              
             </div>
             <div>
-              <p className="text-[14px] mt-4 md:mt-0">This luxurious studio apartment boasts an open-plan living room featuring a cozy lounge area, an open kitchen, and a dining area in a compact and stylish design. The open-plan concept creates a spacious and airy feel, perfect for those who prefer a more modern and minimalistic living space. </p>
+              <p className="text-[14px] mt-4 md:mt-0">This accommodation offers a blend of comfort and style. The open-plan living room features a cozy lounge and an open kitchen that seamlessly integrates into the living space, allowing for easy interaction while preparing meals. The compact and stylish design of the dining area provides a space to enjoy your meals. With its open-plan concept, this studio accommodation creates a sense of spaciousness, making it an ideal choice for those who appreciate a modern and minimalistic living environment. </p>
             </div>
             <div>
               
@@ -144,7 +144,7 @@ const Rooms = () => {
              
             </div>
             <div>
-              <p className="text-[14px] mt-4 md:mt-0">This villa comprises of elegant finishes with the following amenities, executive lounge with a coffee table and a TV, WIFI with high-speed internet connection. There is also an open plan kitchen fully equipped with kitchen amenities that include a cooker with gas, fridge, microwave and coffee maker and a wooden dining that accommodates 4 pax.</p>
+              <p className="text-[14px] mt-4 md:mt-0">The studio accommodation features a lounge with a coffee table and a TV, providing a stylish space for relaxation. High-speed WIFI is available throughout the property. The open-plan kitchen is fully equipped with a gas cooker, fridge, microwave, and coffee maker. Adjacent to the kitchen, there is a dining area that comfortably accommodates four people. The villa's elegant finishes and amenities offer a sophisticated and enjoyable stay..</p>
             </div>
             <div>
              
