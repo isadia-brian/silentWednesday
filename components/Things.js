@@ -43,7 +43,7 @@ function Things() {
           className="text-center py-10 md:py-20"
         >
           <Heading title="Things To do while in Diani" />
-          <div className="bg-yellow-400 w-[50px] h-[3px] absolute left-1/2  bottom-16"></div>
+          <div className="bg-yellow-400 w-[50px] h-[3px] absolute left-1/2 -translate-x-1/2 bottom-8  md:bottom-16"></div>
         </motion.h1>
         <p></p>
       </div>

@@ -33,12 +33,12 @@ const Featured = () => {
           className="text-center py-10 md:py-20"
         >
           <Heading title="Featured Villa" />
-          <div className="bg-yellow-400 w-[50px] h-[3px] absolute left-1/2  bottom-16"></div>
+          <div className="bg-yellow-400 w-[50px] h-[3px] absolute left-1/2 -translate-x-1/2 bottom-8  md:bottom-16"></div>
         </motion.h1>
 
         
       </div>
-      <div className="w-full grid grid-cols-1 px-4 md:grid-cols-2 md:h-[500px] h-[50vh] bg-green-50 gap-12 text-center md:text-left">
+      <div className="w-full grid grid-cols-1 px-4 md:px-0 md:grid-cols-2 md:h-[500px]  bg-green-50 gap-12 py-4 md:py-0 text-center md:text-left">
         <div>
           <Slider {...settings}>
           <div className="md:h-[500px] h-[50vh] w-full relative lg:w-full">
@@ -85,7 +85,7 @@ const Featured = () => {
           >
             KES 8,000 <span className="text-[16px]">/per night</span>
           </motion.p>
-           <div className="mt-7 flex items-center space-x-3 text-green-800">
+           <div className="md:mt-7 mt-4 flex flex-col md:flex-row items-center md:space-x-3 text-green-800">
            <Link href="/reservation" className="text-sm">
             Check Availability
           </Link>
