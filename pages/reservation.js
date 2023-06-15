@@ -35,6 +35,7 @@ const [open, setIsOpen] = useState(false);
 const [opend, setIsOpend] = useState(false);
 const [duplicateHouses,setDuplicateHouses ] = useState([])
 const [value, setValue] = useState()
+const [disableEnterDetails, setDisableEnterDetails] = useState(true)
 
 const [details, setDetails] = useState({
   firstName: "",
@@ -77,6 +78,12 @@ fetchHouses()
 const filterByDate = (dates)=>{
   setFromDate(moment(dates[0].$d).format("DD-MM-YYYY"))
   setToDate(moment(dates[1].$d).format("DD-MM-YYYY"))
+
+  if(dates[0] && dates[1]){
+    setDisableEnterDetails(false)
+  }else{
+    setDisableEnterDetails(true)
+  }
 
   var tempRooms=[]
   var availability = false
@@ -200,7 +207,7 @@ const handleClick = (event, houseId,house) => {
                   <AiOutlineUser />
                 </div>
 
-                <input type="number" value={adults} readOnly />
+                <input type="number" max="6" value={adults} onChange={(e)=>setAdults(e.target.value)} />
               </div>
               <div className="flex flex-col border-b-[0.8px] border-black">
                 <div className="flex items-center justify-between">
@@ -209,7 +216,7 @@ const handleClick = (event, houseId,house) => {
                   </label>
                   <AiOutlineUser />
                 </div>
-                <input type="number" value={child} readOnly />
+                <input type="number" value={child} onChange={(e)=>setChild(e.target.value)}  />
               </div>
             </div>
             <div className="flex flex-col border-b-[0.8px] grow border-black">
@@ -341,9 +348,9 @@ const handleClick = (event, houseId,house) => {
               <div>
                 <span className="text-xs text-yellow-500">FROM</span>
                 <p className="text-4xl  font-bold">KES {house.amount}<span className="text-sm font-thin">/PER NIGHT</span></p>
-
+                
               </div>
-              <button onClick={(event)=>handleOpen(event, house._id)} className="px-4 py-3 -mt-4 text-white bg-green-800">ENTER DETAILS</button>
+              <button disabled={disableEnterDetails} onClick={(event)=>handleOpen(event, house._id)} className={`text-white px-4 py-3 -mt-4 ${disableEnterDetails ?"bg-gray-300":"bg-green-800"}`}>ENTER DETAILS</button>
             </div>
           </div>
          </div>
@@ -364,7 +371,7 @@ const handleClick = (event, houseId,house) => {
         <div className="flex items-center w-full justify-between">
           <p className="font-bold text-center">
             Your Booking Information -{" "}
-            <span> 1st May 2022 - 2nd May 2022 </span>
+            <span> {fromDate} - {toDate} </span>
           </p>
           <p
             className="text-3xl hidden md:flex bg-red-500 rounded-full text-white cursor-pointer"
@@ -433,6 +440,10 @@ const handleClick = (event, houseId,house) => {
               
               <select className="outline-none border px-2 py-2 text-[14px]" value={details.arrival} onChange={handleInputChange} name="arrival">
                 <option value = "">Select Time</option>
+                  <option value="2:00 PM">10:00 AM</option>
+                  <option value="2:00 PM">11:00 AM</option>
+                  <option value="2:00 PM">12:00 NOON</option>
+                  <option value="2:00 PM">1:00 PM</option>
                   <option value="2:00 PM">2:00 PM</option>
                   <option value="3:00 PM">3:00 PM</option>
                   <option value="4:00 PM">4:00 PM</option>

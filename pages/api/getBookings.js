@@ -9,11 +9,13 @@ export default async function handler(req, res) {
 
     try {
         await connectMongoDB();
+            const allBookings = await Bookings.find({}).sort({date: -1});
+         
+            res.status(200).json(allBookings);
+          }
 
-        const allBookings = await Bookings.find();
-        console.log(allBookings);
-        res.status(200).send(allBookings)
-    } catch (err) {
+
+    catch (err) {
         console.error(err)
         res.status(400).send({err, msg:"Something went wrong"})
     }

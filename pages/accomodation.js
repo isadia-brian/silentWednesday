@@ -57,7 +57,7 @@ const Rooms = () => {
              
             </div>
             <div>
-              <p className="text-[14px] mt-4 md:mt-0">This luxury accommodation offers fully en-suite rooms, providing a private and comfortable space for guests. The rooms feature a spacious lounge with a coffee table, a coffee table allowing guests to enjoy a cup of coffee or tea while spending time together or relaxing. </p>
+              <p className="text-[14px] mt-4 md:mt-0">This luxury accommodation offers fully en-suite rooms, providing a private and comfortable space for guests. The rooms feature a spacious lounge with a coffee table, and a dining table allowing guests to enjoy a cup of coffee or tea while spending time together or relaxing. </p>
             </div>
             <div>
             

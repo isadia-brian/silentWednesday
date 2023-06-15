@@ -41,7 +41,11 @@ const bookingSchema  =  new Schema({
         type:String,
         required:true,
         default:"booked"
-        },
+    },
+    month: {
+        type: String,
+        default: () => new Date().toLocaleString('default', { month: 'long' })
+      }
 
 
 },{

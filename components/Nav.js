@@ -8,6 +8,7 @@ import {
   HomeModernIcon,
   CogIcon,
 } from "@heroicons/react/24/solid";
+import Image from "next/image";
 
 const Links = [
   {
@@ -51,29 +52,32 @@ const Nav = ({ path }) => {
     setActive(link);
   };
   return (
-    <aside className="text-black min-w-[300px] p-8">
-      <p className="text-black font-bold uppercase text-2xl mb-4 border-b-[0.8px] pb-4">
-        Admin Panel
-      </p>
-      <nav>
-        <ul className="flex flex-col font-bold h-[30vh] justify-between">
+    <div className="text-black p-6">
+    <div className="pb-3 border-b-[0.8px] flex items-center justify-between">
+      <div className="relative h-20 w-20  rounded-full">
+        <Image src="/images/logo.jpeg" alt="logo" fill className="rounded-full"/>
+      </div>
+      <nav className="">
+        <ul className="flex space-x-6">
           {Links.map(({ title, link, icon }) => (
             <li key={title}>
               <Link
                 href={link}
                 className={`${
                   link === active ? activeLink : inActiveLink
-                } cursor-pointer`}
+                } cursor-pointer text-sm `}
                 onClick={() => handleLinkClick(link)}
               >
-                <span className="h-8 w-8">{icon}</span>
+             
                 <span>{title}</span>
               </Link>
             </li>
           ))}
         </ul>
       </nav>
-    </aside>
+    </div>
+      
+    </div>
   );
 };
 

@@ -77,14 +77,7 @@ const Featured = () => {
           </motion.p>
           <p className="text-[12px] max-w-[350px] mt-8">Max - 6 Guests</p>
 
-          <motion.p
-            initial={{ opacity: 0, x: -100 }}
-            whileInView={{ opacity: 1, x: 1 }}
-            transition={{ duration: 0.9 }}
-            className={`${melodrama.className} mt-6 text-[30px] md:text-[30px]`}
-          >
-            KES 8,000 <span className="text-[16px]">/per night</span>
-          </motion.p>
+        
            <div className="md:mt-7 mt-4 flex flex-col md:flex-row items-center md:space-x-3 text-green-800">
            <Link href="/reservation" className="text-sm">
             Check Availability

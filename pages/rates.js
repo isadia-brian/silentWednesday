@@ -89,9 +89,7 @@ const Rates = () => {
                 <th className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-300 text-white font-bold">
                   Low Season
                 </th>
-                <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-500 text-white font-bold">
-                  Summer
-                </th>
+               
                 <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
                   High Season
                 </th>
@@ -106,9 +104,7 @@ const Rates = () => {
                 <td className="border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
                   4th Jan - 30th June
                 </td>
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-500 text-white font-bold">
-                  1st July - 30th Nov
-                </td>
+              
                 <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
                   1st Dec - 20th Dec{" "}
                 </td>
@@ -119,33 +115,29 @@ const Rates = () => {
               <tr>
                 <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">1 BEDROOM/STUDIO</td>
                 <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">KES 5,000</td>
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-500 text-white font-bold">KES 7,000</td>
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">KES 8,500</td>
+              
+                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">KES 6,500</td>
                 <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                  KES 10,000
+                 -
                 </td>
               </tr>
               <tr>
                 <td className="flex flex-col items-center justify-center h-full  py-4 border-b-[0.6px] border-slate-400">STANDARD 2 BEDROOM</td>
-                <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">KES 8,000</td>
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-500 text-white font-bold">
-                  KES 10,000
-                </td>
+                <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">KES 6,000</td>
+              
                 <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                  KES 12,000
+                  KES 7,500
                 </td>
                 <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                  KES 15,000
+                  KES 9,000
                 </td>
               </tr>
               <tr>
                 <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">EXECUTIVE 2 BEDROOM</td>
-                <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">KES 8,000</td>
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-500 text-white font-bold">
-                  KES 10,000
-                </td>
+                <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">KES 7,000</td>
+                
                 <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                  KES 12,500
+                  KES 9,000
                 </td>
                 <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
                   KES 15,000
@@ -159,8 +151,8 @@ const Rates = () => {
               & free WIFI
             </li>
             <li className='list-disc'>Note: Infants and babies of up to 3 years are not charged</li>
-            <li className='list-disc'>Check-In Time: 2pm – 8pm (14:00 – 20:00)</li>
-            <li className='list-disc'>Check-Out Time: 6am – 10pm (06:00 – 22:00)</li>
+            <li className='list-disc'>Check-In Time: 12 noon – 8pm (12:00 – 20:00)</li>
+            <li className='list-disc'>Check-Out Time: 6am – 10am (06:00 – 10:00)</li>
             <li className='list-disc'>Late checkout upon request and AVAILABILITY till 12:00 noon.</li>
             <li className='list-disc'>After 12:00 noon, an additional 50% day rate will be charged.</li>
           </div>

@@ -77,8 +77,8 @@ const Book = () => {
         
 
             const bookingDetails={
-            fromDate:startDay,
-            toDate:endDay,
+            fromDate:fromThisDay,
+            toDate:toThisDay,
             house:title,
             user:parsedDetails,
             amount:amount,

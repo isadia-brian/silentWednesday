@@ -10,12 +10,12 @@ const poppins = Poppins({
   });
 const AdminLayout = ({children}) => {
   return (
-    <div className={`${poppins.className} flex`}>
+    <div className={`${poppins.className}`}>
       <div>
         <Nav/>
       </div>
 
-      <div className="mt-[100px] w-screen pr-8">{children}</div>
+      <div className=" pl-2">{children}</div>
     </div>
   )
 }
