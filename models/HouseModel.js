@@ -26,7 +26,18 @@ const houseSchema = new Schema({
         type:String,
         required:true
     },
-    currentBookings:[]
+    currentBookings:[],
+    months: {
+        type: Object,
+        default: {},
+        set: function (months) {
+          const populatedMonths = {};
+          for (const month of Object.keys(months)) {
+            populatedMonths[new Date(month).toLocaleString('default', { month: 'long' })] = months[month];
+          }
+          return populatedMonths;
+        },
+      },
 
 
    
