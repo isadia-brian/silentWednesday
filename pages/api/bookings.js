@@ -33,21 +33,26 @@ export default async function handler(req, res) {
        const booking = await newBooking.save();
 
         const houseTemp = await House.findById(houseId)
+        const month = moment(fromThisDay, "DD-MM-YYYY").format("MMMM");
+        console.log(month)
+    const bookingAmount = amountTotal;
 
+    if (houseTemp) { // Check if houseTemp is defined before accessing it
+        const monthObject = houseTemp.months.find((m) => m.name === month);
+        if (monthObject) {
+          monthObject.amount += bookingAmount;
+        } else {
+          houseTemp.months.push({ name: month, amount: bookingAmount });
+        }
         houseTemp.currentBookings.push({
             bookingId:booking._id,
             fromDate:fromThisDay,
             toDate:toThisDay,
             status:booking.status
         });
+    }
 
-         // Calculate and update the total amount for the corresponding month
-         const fromMonth=(moment(fromThisDay, 'DD-MM-YYYY').format("MM"));
-    // const fromMonth = new Date(fromThisDay).toLocaleString("default", { month: "long" });
-    console.log(fromMonth);
-    
-    houseTemp.months[fromMonth] = (houseTemp.months[fromMonth] || 0) + amountTotal;
-
+         
     await houseTemp.save();
 
        

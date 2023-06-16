@@ -1,9 +1,10 @@
 import { useEffect,useState, useRef } from "react"
-import { Chart as ChartJS, ArcElement, Tooltip, Legend,BarElement,CategoryScale,LinearScale } from "chart.js";
-import { Bar,Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend,BarElement,CategoryScale,LinearScale, RadialLinearScale } from "chart.js";
+import { Bar,Doughnut, PolarArea } from 'react-chartjs-2';
 import axios from 'axios'
+import LineComponent from "@/components/LineComponent";
 
-ChartJS.register(ArcElement,Tooltip,Legend, BarElement,CategoryScale,LinearScale)
+ChartJS.register(ArcElement,Tooltip,Legend, BarElement,CategoryScale,LinearScale, RadialLinearScale)
 
 const ChartComponent = () => {
   
@@ -29,16 +30,39 @@ const ChartComponent = () => {
     })
 
     const options = {
-
+      plugins: {
+    legend: {
+      position: 'right', // Position the legend on the right side
+      labels: {
+        usePointStyle: true, // Use point style for the labels
+        boxWidth:100,
+        font:{ 
+          size:10,
+          weight:"bold"
+        }
+      },
+    },
+  },
     }
 
     const [data, setData] = useState({
       labels: [],
         datasets: [{
           data: [],
-          backgroundColor: ['red', 'green','yellow']
+          backgroundColor: []
         }]
     })
+
+    const getBackgroundColors = (data) => {
+  const max = Math.max(...data); // Calculate the maximum value
+  const min = Math.min(...data); // Calculate the minimum value
+
+  return data.map((value) => {
+    if (value === max) return 'green'; // Assign green to the largest value
+    if (value === min) return 'red'; // Assign red to the smallest value
+    return 'yellow'; // Assign yellow to the remaining value
+  });
+};
 
  
     
@@ -75,7 +99,7 @@ const ChartComponent = () => {
             labels: houseNamesArray,
             datasets: [{
               data: totalAmountArrays,
-              backgroundColor: ['red', 'green','yellow'],
+              backgroundColor: getBackgroundColors(totalAmountArrays)
             }],
           });
 
@@ -115,15 +139,23 @@ const ChartComponent = () => {
     <div className="h-screen">
      
        <p>Bar Chart</p>
-       <div className="h-72 w-72 ">
-       <Doughnut data={data} />
+       <div className="h-[400px] w-[900px] ">
+       <Doughnut data={data} options={options} />
       </div>
-      <div className="">
+      <div className="w-[800px]">
       <Bar
       data={rawData}
       options={options}
       ></Bar>
       </div>
+      
+      <div className="h-[500px] w-[500px]">
+      <PolarArea data={data}/>
+      </div>
+      <div className="h-[700px] w-[700px]">
+      <LineComponent/>
+      </div>
+      
     </div>
   )
 }

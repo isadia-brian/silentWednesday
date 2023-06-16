@@ -38,13 +38,13 @@ const [value, setValue] = useState()
 const [disableEnterDetails, setDisableEnterDetails] = useState(true)
 
 const [details, setDetails] = useState({
-  firstName: "",
-  lastName: "",
-  email: "",
-  phoneNumber: "",
-  arrival: "",
-  address: "",
-  nationality: "",
+  firstName: "Brian",
+  lastName: "Kent",
+  email: "b@gmail.com",
+  phoneNumber: "0722656565",
+  arrival: "10:00 am",
+  address: "Kenyan",
+  nationality: "Kenyan",
   request: "",
 });
 const handleInputChange = (event) => {
