@@ -4,11 +4,10 @@ import Footer from "./Footer";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
 
-
 const karla = Karla({
-    subsets: ["latin"],
-    weight: ["300", "400", "600", "700"],
-  });
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,7 +20,6 @@ export default function ClientLayout({ children }) {
       <div className="fixed top-0 w-full z-10 bg-white border-b-[1px] border-green-800 shadow-md">
         <Navbar />
       </div>
-      
 
       <div className="relative mt-[110px]  h-full">{children}</div>
 

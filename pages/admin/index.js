@@ -1,23 +1,125 @@
 import {useState,useEffect} from 'react'
+import AdminLayout from "./AdminLayout"
 import { BsFillJournalBookmarkFill, BsFillBookmarkCheckFill, BsFillBookmarkDashFill, BsCashStack } from 'react-icons/bs'
-
-import AdminLayout from "@/components/AdminLayout"
 import axios from 'axios'
-import {PieChart,Pie,Tooltip, BarChart,XAxis,YAxis,Legend,CartesianGrid,Bar,ResponsiveContainer,AreaChart, Area} from 'recharts'
+import LineComponent from "@/components/LineComponent";
+import PieComponent from "@/components/PieComponent";
+import DataTable from "react-data-table-component";
+import {FaBell} from 'react-icons/fa'
 
-import Chart from 'chart.js/auto';
-import { getRelativePosition } from 'chart.js/helpers';
 
-const Admin = () => {
+
+import localFont from 'next/font/local'
+
+const poppins = localFont({src:[
+  {
+    path:'../../public/fonts/poppins/Poppins-Light.ttf',
+    weight:'100',
+    style:'normal',
+  },
+  {
+    path:'../../public/fonts/poppins/Poppins-Thin.ttf',
+    weight:'200',
+    style:'normal',
+  },
+  {
+    path:'../../public/fonts/poppins/Poppins-Regular.ttf',
+    weight:'400',
+    style:'normal',
+  },
+  {
+    path:'../../public/fonts/poppins/Poppins-Bold.ttf',
+    weight:'700',
+    style:'normal',
+  },
+]})
+
+
+
+
+const DashBoard = () => {
   const [bookings, setBookings] = useState([])
   const [pendingBookingsCount, setPendingBookingsCount] = useState(0);
   const [confirmedBookingsCount, setConfirmedBookingsCount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [houseAmounts, setHouseAmounts] = useState([]);
-
+  const [housePrices, setHousePrices] = useState([]);
+  const [houseNames, setHouseNames] =useState([])
   
 
+  const columns = [
 
+    {
+      name: 'House',
+      selector: row => row.house,
+      sortable:true,
+      minWidth:"180px"
+  },
+
+    {
+        name: 'Names',
+        selector: row => `${row.user.firstName} ${row.user.lastName}`
+    },
+    {
+        name: 'Phone No.',
+        selector: row => row.user.phoneNumber,
+    },
+    
+    {
+        name: 'Total Days',
+        selector: row => row.totalDays,
+        sortable:true,
+    },
+    {
+        name: 'Amount',
+        selector: row => row.amount,
+        sortable:true,
+    },
+    {
+        name: 'Email',
+        selector: row => row.user.email,
+    },
+   
+    
+    
+   
+    
+    
+  ];
+
+  const customStyles = {
+    text:{
+      style:{
+        color:"green"
+      }
+    },
+    rows: {
+        style: {
+            minHeight: '72px', // override the row height
+            backgroundColor:"rgb(51,65,85)",
+            color:"white"
+        },
+    },
+    headCells: {
+        style: {
+            paddingLeft: '8px', // override the cell padding for head cells
+            paddingRight: '8px',
+            backgroundColor:"rgb(51,65,85)",
+            borderColor:"rgb(51,65,85)",
+            color:"yellow"
+        },
+    },
+    cells: {
+        style: {
+            paddingLeft: '8px', // override the cell padding for data cells
+            paddingRight: '8px',
+        },
+    },
+};
+
+
+
+  
 
 
   useEffect(()=>{
@@ -58,14 +160,14 @@ const Admin = () => {
           
         });
 
-        console.log(houseTotals);
+        // console.log(houseTotals);
 
         const totalAmountArrays = Object.values(houseTotals)
+
         const houseNamesArray = Object.keys(houseTotals);
 
-        console.log(totalAmountArrays);
-        console.log(houseNamesArray);
-        
+        setHouseNames(houseNamesArray)
+        setHousePrices(totalAmountArrays)
 
         // Convert houseTotals object into an array of objects
         const houseAmountsArray = Object.entries(houseTotals).map(([house, amount]) => ({
@@ -80,11 +182,12 @@ const Admin = () => {
 
 
        
-        // Sort the array based on totalAmount in descending order
-        console.log(houseAmountsArray.sort((a, b) => b.totalAmount - a.totalAmount));
+        // // Sort the array based on totalAmount in descending order
+        // console.log(houseAmountsArray.sort((a, b) => b.totalAmount - a.totalAmount));
 
         // Select top 3 houseAmounts
         const top3HouseAmounts = houseAmountsArray.slice(0, 3);
+    
         setHouseAmounts(top3HouseAmounts);
 
 
@@ -94,57 +197,60 @@ const Admin = () => {
     }
 
     }
+
     getAllBookings()
   },[])
   return (
     <AdminLayout>
-      <div className='px-4 bg-gray-100 h-screen'>
-        <h4 className='text-lg font-bold'>Dashboard</h4>
-        <div className='py-6 grid grid-cols-4 gap-2'>
-          <div className='bg-white shadow-lg  rounded-xl p-4'>
-            <div className='flex items-center justify-between border-b-[0.8px] pb-8 pl-4'>
-              <p className='text-4xl text-emerald-800'>
+      <div className={`${poppins.className} py-14 px-4 bg-slate-600 w-full`}>
+        <h5 className="text-xl font-bold text-white">DASHBOARD</h5>
+        <p className={` text-white`}>Welcome to your DashBoard</p>
+        <div className="mt-10">
+        <div className='grid grid-cols-4 gap-4'>
+          <div className=' shadow-lg p-4 bg-slate-700'>
+            <div className='flex items-center justify-between border-b-[0.8px] pb-8 pl-2'>
+              <p className='text-4xl text-[#2cc52c] '>
                 <BsCashStack/>
               </p>
               <div>
-              <p className='font-bold text-sm text-gray-400'>TOTAL EARNINGS</p>
-              <p className='text-3xl text-center text-green-800'>{totalAmount}</p>
+              <p className='font-bold text-sm text-white'>TOTAL EARNINGS</p>
+              <p className='text-3xl text-center text-white'>{totalAmount}</p>
               </div>
             </div>
           
           </div>
-          <div className='bg-white shadow-lg  rounded-xl p-4'>
-            <div className='flex items-center justify-between border-b-[0.8px] pb-8 pl-4'>
-              <p className='text-4xl text-emerald-800'>
+          <div className='bg-slate-700 shadow-lg p-4'>
+            <div className='flex items-center justify-between border-b-[0.8px] pb-8 pl-2'>
+              <p className='text-4xl text-[#2cc52c]'>
                 <BsFillJournalBookmarkFill/>
               </p>
               <div>
-              <p className='font-bold text-sm text-gray-400'>TOTAL BOOKINGS</p>
-              <p className='text-3xl text-center text-green-800'>{bookings?.length}</p>
+              <p className='font-bold text-sm text-white'>TOTAL BOOKINGS</p>
+              <p className='text-3xl text-center text-white'>{bookings?.length}</p>
               </div>
             </div>
           
           </div>
-          <div className='bg-white shadow-lg  rounded-xl p-4'>
-            <div className='flex items-center justify-between border-b-[0.8px] pb-8 pl-4'>
-              <p className='text-4xl text-emerald-800'>
+          <div className='bg-slate-700 shadow-lg p-4'>
+            <div className='flex items-center justify-between border-b-[0.8px] pb-8 pl-2'>
+              <p className='text-4xl text-[#2cc52c]'>
                 <BsFillBookmarkCheckFill/>
               </p>
               <div>
-              <p className='font-bold text-sm text-gray-400'>CONFIRMED BOOKINGS</p>
-              <p className='text-3xl text-center text-green-800'>{confirmedBookingsCount}</p>
+              <p className='font-bold text-sm text-white'>CONFIRMED BOOKINGS</p>
+              <p className='text-3xl text-center text-white'>{confirmedBookingsCount}</p>
               </div>
             </div>
           
           </div>
-          <div className='bg-white shadow-lg  rounded-xl p-4'>
-            <div className='flex items-center justify-between border-b-[0.8px] pb-8 pl-4'>
-              <p className='text-4xl text-emerald-800'>
+          <div className='bg-slate-700 shadow-lg  p-4'>
+            <div className='flex items-center justify-between border-b-[0.8px] pb-8 pl-2'>
+              <p className='text-4xl text-[#2cc52c]'>
                 <BsFillBookmarkDashFill/>
               </p>
               <div>
-              <p className='font-bold text-sm text-gray-400'>PENDING BOOKINGS</p>
-              <p className='text-3xl text-green-800 text-center'>{pendingBookingsCount}</p>
+              <p className='font-bold text-sm text-white'>PENDING BOOKINGS</p>
+              <p className='text-3xl text-white text-center'>{pendingBookingsCount}</p>
               </div>
             </div>
           
@@ -157,22 +263,57 @@ const Admin = () => {
       
      
         </div>
-        <h3>Top 3 Houses by Total Amount:</h3>
-       
-
-        <PieChart width={400} height={400}>
-          <Pie data={houseAmounts} dataKey="totalAmount" isAnimationActive={false} cx={150} cy={150} outerRadius={70} fill='#8884d8' label/>
-          <Tooltip formatter={(value, name) => [`${name}: ${value}`,]}/>
-        </PieChart>
-
-        <div className='text-center'>
-        
         </div>
+        <div className="mt-4 grid grid-cols-12 gap-4">
+          <div className="bg-slate-700 col-span-7 h-[350px] shadow-2xl">
+            <h3 className="text-center text-white py-2 text-sm uppercase font-bold">MONTHLY REVENUE</h3>
+           <LineComponent/>
+           
+          </div>
+          <div className="bg-slate-700 col-span-5 h-[350px] shadow-2xl">
+            <div className="">
+            <h3 className="text-center text-white py-2 text-sm  uppercase font-bold">AGGREGATE REVENUE / ACCOMODATION</h3>
+            <PieComponent houseNamesArray={houseNames} houseTotalsArray={housePrices}/>
+            </div>
+          
+          </div>
 
+        </div>
+        <div className="mt-4 grid grid-cols-12 gap-4">
+        <div className="bg-slate-700 col-span-7 shadow-2xl">
 
+          <h3 className="text-center text-white py-2 text-sm  uppercase font-bold">LAST FIVE BOOKINGS</h3>
+
+          <DataTable 
+          
+          columns={columns}
+          data={bookings.slice(0,5)}
+          selectableRows
+          dense
+          customStyles={customStyles}
+          
+          />
+        
+           
+          </div>
+          <div className="bg-slate-700 col-span-5 h-[240px] shadow-2xl relative">
+            <div className="">
+            <h3 className="text-center text-white py-2 text-sm  uppercase font-bold">MESSAGES</h3>
+            <div className='absolute top-[30%] left-[40%]'>
+            <p className='text-[100px] text-[green]'><FaBell/></p>
+            </div>
+
+            <div className='absolute top-[30%] left-[52%] bg-yellow-400 rounded-full h-10 w-10 flex items-center justify-center'>
+              <p className='font-semibold text-lg'>150</p>
+            </div>
+            
+            </div>
+          
+          </div>
+        </div>
       </div>
     </AdminLayout>
   )
 }
 
-export default Admin
+export default DashBoard

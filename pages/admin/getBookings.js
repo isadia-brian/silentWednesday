@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react'
 import { useRouter } from 'next/router';
 import axios from 'axios'
 import AdminLayout from '@/components/AdminLayout'
-import {Space,Table,Tag} from 'antd'
+import {Space,Table} from 'antd'
 
 const GetBookings = () => {
 
@@ -123,7 +123,7 @@ const GetBookings = () => {
     <AdminLayout>
 
         <div>
-         <Table dataSource={bookings} columns={columns}>
+         <Table dataSource={bookings} size='small' columns={columns}>
 
 
          </Table>

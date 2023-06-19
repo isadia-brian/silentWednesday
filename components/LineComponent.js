@@ -23,11 +23,11 @@ const LineComponent = () => {
     
       // Create an array of month names
       const monthNames = [
-        'June',
-        'July', 'August', 'September', 'October', 'November', 'December',
+        'January',"February", 'March', 'April', "May",'June',
+        'July', 'August',"September", "October", "November", "December"
       ];
       const colors = [
-        'green', 'magenta', 'black', 'orange', 'purple', 'cyan',
+        'green', 'yellow', 'red', 'orange', 'purple', 'cyan',
         'magenta', 'yellow', 'teal', 'navy', 'lime', 'pink',
       ];
     
@@ -53,6 +53,13 @@ const LineComponent = () => {
     
      
       const options = {
+        plugins:{
+          legend:{
+            labels:{
+              color:'#fff'
+            }
+          }
+        },
         scales:{
            x:{
                grid:{
