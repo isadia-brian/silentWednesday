@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import ClientLayout from "@/components/ClientLayout";
 import Heading from "@/components/Heading";
@@ -9,25 +9,10 @@ import Image from "next/image";
 import moment from "moment";
 import axios from "axios";
 const Book = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [address, setAddress] = useState("");
-  const [nationality, setNationality] = useState("");
-  const [specialRequest, setSpecialRequest] = useState("");
-  const [arrival, setArrival] = useState("");
-  const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("");
-  const [startDay, setStartDay] = useState("");
-  const [startMonth, setStartMonth] = useState("");
-  const [endDay, setEndDay] = useState("");
-  const [endMonth, setEndMonth] = useState("");
-
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
-  const { houseId, house, details, fromDate, toDate } = router.query;
+  const { houseId, house, details, fromDate, toDate, guests } = router.query;
   const fromDay = moment(fromDate, "DD-MM-YYYY").format("DD");
   const fromThisDay = moment(fromDate, "DD-MM-YYYY").format("DD-MM-YYYY");
   const fromMonth = moment(fromDate, "DD-MM-YYYY").format("MMM").toUpperCase();
@@ -42,23 +27,6 @@ const Book = () => {
   const parsedHouse = house ? JSON.parse(house) : {};
   const houseName = parsedHouse.title;
   const amountTotal = parsedHouse.amount * noOfDays;
-
-  useEffect(() => {
-    setFirstName(parsedDetails.firstName);
-    setLastName(parsedDetails.lastName);
-    setEmail(parsedDetails.email);
-    setTitle(houseName);
-    setContact(parsedDetails.phoneNumber);
-    setAddress(parsedDetails.address);
-    setNationality(parsedDetails.nationality);
-    setSpecialRequest(parsedDetails.specialRequest);
-    setArrival(parsedDetails.arrival);
-    setStartDay(fromDay);
-    setStartMonth(fromMonth);
-    setAmount(amountTotal);
-    setEndDay(toDay);
-    setEndMonth(toMonth);
-  }, [router.query]);
 
   const handlePost = async () => {
     const bookingDetails = {
@@ -116,43 +84,43 @@ const Book = () => {
                   <h4 className="text-lg text-green-800 font-extrabold">
                     FirstName
                   </h4>
-                  <p>{firstName}</p>
+                  <p>{parsedDetails.firstName}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     LastName
                   </h4>
-                  <p>{lastName}</p>
+                  <p>{parsedDetails.lastName}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Contact
                   </h4>
-                  <p>{contact}</p>
+                  <p>{parsedDetails.phoneNumber}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Email
                   </h4>
-                  <p>{email}</p>
+                  <p>{parsedDetails.email}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Address
                   </h4>
-                  <p>{address}</p>
+                  <p>{parsedDetails.address}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Nationality
                   </h4>
-                  <p>{nationality}</p>
+                  <p>{parsedDetails.nationality}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Special Requests
                   </h4>
-                  <p>{specialRequest}</p>
+                  <p>{parsedDetails.specialRequest}</p>
                 </div>
               </div>
 
@@ -161,7 +129,7 @@ const Book = () => {
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Arrival Time
                   </h4>
-                  <p>{arrival}</p>
+                  <p>{parsedDetails.arrival}</p>
                 </div>
               </div>
 
@@ -247,17 +215,17 @@ const Book = () => {
                 </div>
                 <div className="my-6">
                   <p className="text-md text-green-800 font-extrabold text-center">
-                    {title}
+                    {houseName}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-2  px-5 mb-2 w-[300px] mx-auto">
                   <div className="bg-green-400 h-[100px] flex justify-center items-center flex-col">
-                    <p className="text-5xl text-white font-bold">{startDay}</p>
-                    <p className="text-2xl text-white">{startMonth}</p>
+                    <p className="text-5xl text-white font-bold">{fromDay}</p>
+                    <p className="text-2xl text-white">{fromMonth}</p>
                   </div>
                   <div className="bg-green-400 h-[100px] flex justify-center items-center flex-col">
-                    <p className="text-5xl text-white font-bold">{endDay}</p>
-                    <p className="text-2xl text-white">{endMonth}</p>
+                    <p className="text-5xl text-white font-bold">{toDay}</p>
+                    <p className="text-2xl text-white">{toMonth}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2 px-5 w-[300px] mx-auto">
@@ -265,20 +233,20 @@ const Book = () => {
                     <p className="text-5xl text-white font-bold">
                       <FaUsers />
                     </p>
-                    <p className="text-2xl text-white">4 Guests</p>
+                    <p className="text-2xl text-white">{guests}</p>
                   </div>
                   <div className="bg-green-400 h-[100px] flex justify-center items-center flex-col">
                     <p className="text-5xl text-white font-bold">
                       <BsCashStack />
                     </p>
-                    <p className="text-2xl text-white">{amount}</p>
+                    <p className="text-2xl text-white">{amountTotal}</p>
                   </div>
                 </div>
                 <div className="my-6 w-[300px] mx-auto text-center">
                   <p className="px-4">
                     You are required to pay an initial deposit of KES{" "}
-                    {amount / 2} or a full payment of KES {amount} via lia na
-                    mpesa paybill no below then click confirm payment.
+                    {amountTotal / 2} or a full payment of KES {amountTotal} via
+                    lia na mpesa paybill no below then click confirm payment.
                   </p>
                   <div className="mt-6">
                     <p className="text-lg">TILL</p>
@@ -310,7 +278,7 @@ const Book = () => {
                   </p>
                   <p>+245798024710</p>
                 </div>
-                <div className="flex items-center mt-5 mb-16 space-x-3">
+                <div className="flex items-center mt-3 mb-16 space-x-3">
                   <p className="text-3xl">
                     <AiOutlineMail />
                   </p>
