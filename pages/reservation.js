@@ -536,16 +536,16 @@ const Reservation = () => {
                                             <option value="">
                                               Select Time
                                             </option>
-                                            <option value="2:00 PM">
+                                            <option value="10:00 AM">
                                               10:00 AM
                                             </option>
-                                            <option value="2:00 PM">
+                                            <option value="11:00 AM">
                                               11:00 AM
                                             </option>
-                                            <option value="2:00 PM">
+                                            <option value="12:00 PM">
                                               12:00 NOON
                                             </option>
-                                            <option value="2:00 PM">
+                                            <option value="1:00 PM">
                                               1:00 PM
                                             </option>
                                             <option value="2:00 PM">

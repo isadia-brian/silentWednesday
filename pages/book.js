@@ -32,9 +32,9 @@ const Book = () => {
     const bookingDetails = {
       fromDate: fromThisDay,
       toDate: toThisDay,
-      house: title,
+      house: houseName,
       user: parsedDetails,
-      amount: amount,
+      amount: amountTotal,
       totalDays: noOfDays,
       houseId,
     };

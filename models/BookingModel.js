@@ -1,57 +1,54 @@
-import {Schema,model,models} from 'mongoose'
+import { Schema, model, models } from "mongoose";
 
-
-
-const bookingSchema  =  new Schema({
-
-
-    house:{
-        type:String, 
-        required:true
+const bookingSchema = new Schema(
+  {
+    house: {
+      type: String,
+      required: true,
     },
-    houseId:{
-        type:String,
-        required:true
+    houseId: {
+      type: String,
+      required: true,
     },
-    user:{
-        type:Object,
-        required:true
+    user: {
+      type: Object,
+      required: true,
     },
-    fromDate:{
-        type:String,
-        required:true
+    fromDate: {
+      type: String,
+      required: true,
     },
-    toDate:{
-        type:String,
-        required:true
-        },
-    amount:{
-        type:Number,
-        required:true
+    toDate: {
+      type: String,
+      required: true,
     },
-    totalDays:{
-        type:Number,
-        required:true
+    amount: {
+      type: Number,
+      required: true,
     },
-    bookingStatus:{
-        type:String,
-        default:"pending"
+    totalDays: {
+      type: Number,
+      required: true,
     },
-    status:{
-        type:String,
-        required:true,
-        default:"booked"
+    bookingStatus: {
+      type: String,
+      default: "pending",
+    },
+    status: {
+      type: String,
+      required: true,
+      default: "booked",
     },
     month: {
-        type: String,
-        default: () => new Date().toLocaleString('default', { month: 'long' })
-      }
+      type: String,
+      default: () => new Date().toLocaleString("default", { month: "long" }),
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
+const Bookings = models.Bookings || model("Bookings", bookingSchema);
 
-},{
-    timestamps:true
-})
-
-const Bookings = models.Bookings || model("Bookings",bookingSchema)
-
-export default Bookings
+export default Bookings;

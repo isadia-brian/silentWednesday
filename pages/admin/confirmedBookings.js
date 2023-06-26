@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+
 import axios from "axios";
 import AdminLayout from "./AdminLayout";
 import DataTable from "react-data-table-component";
@@ -31,8 +31,9 @@ const poppins = localFont({
   ],
 });
 
-const GetBookings = () => {
+const ConfirmedBookings = () => {
   const [bookings, setBookings] = useState([]);
+  const [handleCancelTriggered, setHandleCancelTriggered] = useState(false);
 
   const columns = [
     {
@@ -89,29 +90,15 @@ const GetBookings = () => {
     {
       name: "Action",
       ignoreRowClick: true,
-      cell: (row) => {
-        if (row.bookingStatus === "Confirmed") {
-          return (
-            <span
-              className="text-red-500 font-bold underline cursor-pointer"
-              onClick={() => handleAction(row)}
-              id={row._id}
-            >
-              Cancel Booking
-            </span>
-          );
-        } else if (row.bookingStatus === "pending") {
-          return (
-            <span
-              className="text-green-500 font-bold underline cursor-pointer"
-              onClick={() => handleAction(row)}
-              id={row._id}
-            >
-              Approve
-            </span>
-          );
-        }
-      },
+      cell: (row) => (
+        <span
+          className="text-red-500 font-bold underline cursor-pointer"
+          onClick={() => handleCancel(row)}
+          id={row._id}
+        >
+          Cancel Booking
+        </span>
+      ),
 
       button: true,
       minWidth: "150px",
@@ -153,15 +140,36 @@ const GetBookings = () => {
       try {
         const response = await axios.get(`/api/getBookings`);
 
-        setBookings(response.data);
+        const confirmedBookings = response.data;
+
+        const filteredConfirmed = confirmedBookings.filter(
+          (confirmed) => confirmed.bookingStatus === "Confirmed"
+        );
+
+        setBookings(filteredConfirmed);
       } catch (error) {
         console.log(error);
       }
     }
+    if (handleCancelTriggered) {
+      setHandleCancelTriggered(false);
+    }
     fetchBookings();
-  }, [bookings]);
+  }, [handleCancelTriggered]);
 
-  const handleAction = async (row) => {
+  useEffect(() => {
+    async function fetchHouses() {
+      try {
+        const housesResponse = await axios.get("/api/getHouses");
+        console.log(housesResponse.data);
+      } catch (error) {
+        console.log("Error fetching House", error);
+      }
+    }
+    fetchHouses();
+  });
+
+  const handleCancel = async (row) => {
     const bookingId = row._id;
     const houseId = row.houseId;
     try {
@@ -181,6 +189,8 @@ const GetBookings = () => {
           console.log("Error updating booking status", error);
         }
       }
+      // Set handleConfirmTriggered to true to trigger the useEffect
+      setHandleCancelTriggered(true);
       // Handle the response or perform any necessary actions
     } catch (error) {
       // Handle errors
@@ -195,7 +205,7 @@ const GetBookings = () => {
       >
         <div className="">
           <DataTable
-            title={`Bookings - ${bookings.length} Total`}
+            title={`Confirmed Bookings - ${bookings.length} Total`}
             columns={columns}
             data={bookings}
             pagination
@@ -207,4 +217,4 @@ const GetBookings = () => {
   );
 };
 
-export default GetBookings;
+export default ConfirmedBookings;
