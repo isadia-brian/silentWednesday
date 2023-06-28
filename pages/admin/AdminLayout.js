@@ -53,23 +53,13 @@ const Links = [
   },
   {
     title: "Messages",
-    link: "/admin/",
+    link: "/admin/messages",
     icon: <ClipboardDocumentCheckIcon />,
   },
   {
     title: "Houses",
     link: "/admin/getHouses",
     icon: <HomeModernIcon />,
-  },
-  {
-    title: "Pie Chart",
-    link: "/admin/getHouses",
-    icon: <HiChartPie />,
-  },
-  {
-    title: "Line Chart",
-    link: "/admin/getHouses",
-    icon: <MdTimeline />,
   },
 ];
 

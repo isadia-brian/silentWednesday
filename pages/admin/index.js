@@ -42,6 +42,7 @@ const poppins = localFont({
 
 const DashBoard = () => {
   const [bookings, setBookings] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [pendingBookingsCount, setPendingBookingsCount] = useState(0);
   const [confirmedBookingsCount, setConfirmedBookingsCount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -178,6 +179,18 @@ const DashBoard = () => {
 
     getAllBookings();
   }, []);
+
+  useEffect(() => {
+    async function getMessages() {
+      try {
+        const response = await axios.get("/api/getMessage");
+        setMessages(response.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    }
+    getMessages();
+  });
   return (
     <AdminLayout>
       <div className={`${poppins.className} py-14 px-4 bg-green-600 w-full`}>
@@ -274,7 +287,10 @@ const DashBoard = () => {
               customStyles={customStyles}
             />
           </div>
-          <div className="bg-slate-700 col-span-5 h-[240px] shadow-2xl relative hover:scale-105 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black ">
+          <Link
+            href="/admin/messages"
+            className="bg-slate-700 col-span-5 h-[240px] shadow-2xl relative hover:scale-105 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+          >
             <div className="">
               <h3 className="text-center  py-2 text-sm  uppercase font-bold">
                 MESSAGES
@@ -286,10 +302,10 @@ const DashBoard = () => {
               </div>
 
               <div className="absolute top-[30%] left-[52%] bg-yellow-700 rounded-full h-10 w-10 flex items-center justify-center">
-                <p className="font-semibold text-lg">150</p>
+                <p className="font-semibold text-lg">{messages.length}</p>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </AdminLayout>

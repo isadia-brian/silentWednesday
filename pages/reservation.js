@@ -127,6 +127,7 @@ const Reservation = () => {
 
   const filterByType = (e) => {
     setRoomType(e);
+    console.log(roomType);
 
     // Filter by room type
     let tempRooms = duplicateHouses.filter((house) => house.roomType === e);
@@ -248,7 +249,8 @@ const Reservation = () => {
                     value={roomType}
                     onChange={(e) => filterByType(e.target.value)}
                   >
-                    <option value="">All</option>
+                    <option value="">Select Type</option>
+                    <option value="All">All</option>
                     <option value="Executive">Executive</option>
                     <option value="Standard">Standard</option>
                     <option value="Studio">Studio</option>
@@ -304,7 +306,8 @@ const Reservation = () => {
               value={roomType}
               onChange={(e) => filterByType(e.target.value)}
             >
-              <option value="">All</option>
+              <option value="">Select Type</option>
+              <option value="All">All</option>
               <option value="Executive">Executive</option>
               <option value="Standard">Standard</option>
               <option value="Studio">Studio</option>

@@ -1,7 +1,9 @@
+import Form from "@/components/Form";
+
 const TestPage = () => {
   return (
     <div>
-      <h1>Hello</h1>
+      <Form />
     </div>
   );
 };
