@@ -168,14 +168,14 @@ const PendingBookings = () => {
     try {
       // Make the API call to update the booking status
       const booking = await axios.put(`/api/allBookings/${bookingId}`);
-      const house = await axios.get(`/api/getHouses?id=${houseId}`);
+      const house = await axios.get(`/api/updateHouse/confirmed?id=${houseId}`);
       const monthsArray = house.data.months;
       for (const month of monthsArray) {
         const monthId = month._id;
 
         try {
           const newBookingStatus = await axios.put(
-            `/api/getHouses?id=${houseId}&monthId=${monthId}`
+            `/api/updateHouse/confirmed?id=${houseId}&monthId=${monthId}`
           );
           console.log(newBookingStatus.data);
         } catch (error) {

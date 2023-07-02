@@ -10,35 +10,32 @@ import Why from "@/components/Why";
 
 import Loading from "@/components/Loading";
 
-
 const Home = () => {
+  const [loading, setLoading] = useState(true);
 
-  const [loading, setLoading] = useState(true)
-
-  useEffect(()=>{
-    setTimeout(()=>{
-      setLoading(false)
-      }, 6000)
-
-  },[])
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 6000);
+  }, []);
   return (
-
     <div>
-      {loading ?(<Loading/>):(
+      {loading ? (
+        <Loading />
+      ) : (
         <div>
-               <ClientLayout>
-      <Hero />
-      <Story />
-      <Featured />
-      <Things />
-      <Why/>
-      <Video/>
-      <Testimonials />
-    </ClientLayout>
+          <ClientLayout>
+            <Hero />
+            <Story />
+            <Featured />
+            <Things />
+            <Why />
+            <Video />
+            <Testimonials />
+          </ClientLayout>
         </div>
       )}
     </div>
-   
   );
 };
 export default Home;

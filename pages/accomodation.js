@@ -19,10 +19,10 @@ const Rooms = () => {
     <ClientLayout>
       <div className="px-4 h-full mb-20">
         <div
-          className={`${cormorant.className} text-[30px] md:text-[40px]  font-bold text-green-800 pt-4`}
+          className={`${cormorant.className} text-[30px] text-center md:text-left md:text-[40px]  pt-4 font-bold text-green-800 my-12`}
         >
-          <h1>ROOMS & </h1>
-          <h1 className="-mt-3 md:-mt-6">ACCOMODATIONS</h1>
+          <h1>ROOMS &</h1>
+          <h1 className="-mt-2 md:-mt-5"> ACCOMODATIONS</h1>
         </div>
         <p
           className={`${cormorant.className} text-green-800 font-bold text-3xl mt-3 mb-2 md:hidden`}
@@ -65,9 +65,11 @@ const Rooms = () => {
               <p className="text-[14px] mt-4 md:mt-0">
                 This luxury accommodation offers fully en-suite rooms, providing
                 a private and comfortable space for guests. The rooms feature a
-                spacious lounge with a dining table and a coffee table, allowing
-                guests to enjoy a cup of coffee or tea while spending time
-                together or relaxing.{" "}
+                spacious lounge with a coffee table, allowing guests to enjoy a
+                cup of coffee or tea while spending time together or relaxing.
+                Guests can also enjoy their favorite shows or movies on the
+                provided television set for entertainment. An additional
+                cloakroom is available for added convenience.
               </p>
             </div>
             <div></div>
@@ -80,7 +82,7 @@ const Rooms = () => {
           </div>
         </div>
         <p
-          className={`${cormorant.className} text-green-800 font-bold text-3xl mt-24 mb-2 md:hidden`}
+          className={`${cormorant.className} text-green-800 font-bold text-3xl mt-44 mb-2 md:hidden`}
         >
           2 Bedroom Standard Villa
         </p>
@@ -170,7 +172,7 @@ const Rooms = () => {
                 <div className="h-[150px] relative">
                   <Image src="/images/2bed.webp" alt="image" fill />
                 </div>
-                <div className="h-[150px] relative">
+                <div className="h-[150px] col-span-2 md:col-span-1 relative">
                   <Image src="/images/bal1.webp" alt="image" fill />
                 </div>
               </div>

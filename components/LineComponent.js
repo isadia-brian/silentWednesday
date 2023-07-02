@@ -13,7 +13,6 @@ import {
   LineElement,
 } from "chart.js";
 import axios from "axios";
-import { GiTransparentTubes } from "react-icons/gi";
 
 ChartJS.register(
   ArcElement,

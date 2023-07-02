@@ -12,7 +12,8 @@ const Book = () => {
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
-  const { houseId, house, details, fromDate, toDate, guests } = router.query;
+  const { values, fromDate, toDate, guests } = router.query;
+
   const fromDay = moment(fromDate, "DD-MM-YYYY").format("DD");
   const fromThisDay = moment(fromDate, "DD-MM-YYYY").format("DD-MM-YYYY");
   const fromMonth = moment(fromDate, "DD-MM-YYYY").format("MMM").toUpperCase();
@@ -23,20 +24,28 @@ const Book = () => {
 
   // Parse the JSON string back to objects
 
-  const parsedDetails = details ? JSON.parse(details) : {};
-  const parsedHouse = house ? JSON.parse(house) : {};
-  const houseName = parsedHouse.title;
-  const amountTotal = parsedHouse.amount * noOfDays;
+  const parsedValues = values ? JSON.parse(values) : {};
+
+  const amountTotal = parsedValues.house?.amount * noOfDays;
+  const userDetails = {
+    firstName: parsedValues.firstName,
+    lastName: parsedValues.lastName,
+    phoneNumber: parsedValues.phoneNumber,
+    email: parsedValues.email,
+    arrival: parsedValues.arrival,
+    address: parsedValues.address,
+    nationality: parsedValues.nationality,
+  };
 
   const handlePost = async () => {
     const bookingDetails = {
       fromDate: fromThisDay,
       toDate: toThisDay,
-      house: houseName,
-      user: parsedDetails,
+      house: parsedValues.house.title,
+      user: userDetails,
       amount: amountTotal,
       totalDays: noOfDays,
-      houseId,
+      houseId: parsedValues.houseId,
     };
 
     try {
@@ -73,7 +82,7 @@ const Book = () => {
           </div>
         </div>
       ) : (
-        <div className="h-full bg-gray-200 -mt-2 px-4">
+        <div className="h-full  -mt-2 px-4">
           <div className=" py-8  border-b-[0.8px] border-yellow-400">
             <Heading title="Booking Details" />
           </div>
@@ -84,43 +93,43 @@ const Book = () => {
                   <h4 className="text-lg text-green-800 font-extrabold">
                     FirstName
                   </h4>
-                  <p>{parsedDetails.firstName}</p>
+                  <p>{parsedValues.firstName}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     LastName
                   </h4>
-                  <p>{parsedDetails.lastName}</p>
+                  <p>{parsedValues.lastName}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Contact
                   </h4>
-                  <p>{parsedDetails.phoneNumber}</p>
+                  <p>{parsedValues.phoneNumber}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Email
                   </h4>
-                  <p>{parsedDetails.email}</p>
+                  <p>{parsedValues.email}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Address
                   </h4>
-                  <p>{parsedDetails.address}</p>
+                  <p>{parsedValues.address}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Nationality
                   </h4>
-                  <p>{parsedDetails.nationality}</p>
+                  <p>{parsedValues.nationality}</p>
                 </div>
                 <div>
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Special Requests
                   </h4>
-                  <p>{parsedDetails.specialRequest}</p>
+                  <p>{parsedValues.request}</p>
                 </div>
               </div>
 
@@ -129,7 +138,7 @@ const Book = () => {
                   <h4 className="text-lg text-green-800 font-extrabold">
                     Arrival Time
                   </h4>
-                  <p>{parsedDetails.arrival}</p>
+                  <p>{parsedValues.arrival}</p>
                 </div>
               </div>
 
@@ -208,14 +217,15 @@ const Book = () => {
               <div>
                 <div className="relative h-[280px] md:w-[350px] mx-auto">
                   <Image
-                    src={parsedHouse.imageUrl}
+                    src={parsedValues.house?.imageUrl}
                     fill
+                    alt={parsedValues.house?.title}
                     className="box object-cover"
                   />
                 </div>
                 <div className="my-6">
                   <p className="text-md text-green-800 font-extrabold text-center">
-                    {houseName}
+                    {parsedValues.house?.title}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-2  px-5 mb-2 w-[300px] mx-auto">

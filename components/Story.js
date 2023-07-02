@@ -4,10 +4,10 @@ import Heading from "./Heading";
 
 const Story = () => {
   return (
-    <div className="h-full relative w-full">
+    <div className="h-full relative w-full md:pr-4">
       <div className="w-full flex flex-col md:flex-row items-center mt-0 bg-green-50 ">
         <div className="w-full md:w-1/2 h-full md:flex justify-center items-center">
-          <div className="py-12 px-4 md:px-16 text-center md:text-left">
+          <div className="py-12 px-4 md:px-12 text-center md:text-left">
             <div className="relative w-full md:w-fit">
               <motion.h2
                 initial={{ opacity: 0, y: 100 }}

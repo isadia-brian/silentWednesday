@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import ClientLayout from "@/components/ClientLayout";
 import axios from "axios";
-import { DatePicker, Space } from "antd";
-import "antd/dist/reset.css";
 import Image from "next/image";
 import { AiOutlineWifi } from "react-icons/ai";
 import { FaSwimmingPool } from "react-icons/fa";
@@ -13,16 +11,23 @@ import {
   MdScreenshotMonitor,
   MdStarRate,
 } from "react-icons/md";
-import { AiOutlineUser } from "react-icons/ai";
+import { Calendar } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { AiOutlineUser, AiOutlineCalendar } from "react-icons/ai";
 import { HiUsers } from "react-icons/hi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { DatePicker, Space } from "antd";
+import "antd/dist/reset.css";
 import { Collapse } from "react-collapse";
 import { BsHouse } from "react-icons/bs";
 import moment from "moment";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import LoadingHouse from "@/components/LoadingHouse";
+import { useFormik } from "formik";
+import { format } from "date-fns";
 
 const Reservation = () => {
+  const router = useRouter();
   const [houses, setHouses] = useState([]);
   const [filteredHouses, setFilteredHouses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,30 +37,68 @@ const Reservation = () => {
   const [child, setChild] = useState(0);
   const [guests, setGuests] = useState(0);
   const [roomType, setRoomType] = useState("");
-  const [fromDate, setFromDate] = useState();
-  const [toDate, setToDate] = useState();
-  const [open, setIsOpen] = useState(false);
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
   const [opend, setIsOpend] = useState(false);
+  const [open, setIsOpen] = useState(false);
+  const [startDateOpened, setStartDateOpened] = useState(false);
+  const [endDateOpened, setEndDateOpened] = useState(false);
   const [duplicateHouses, setDuplicateHouses] = useState([]);
-  const [value, setValue] = useState();
-  const [disableEnterDetails, setDisableEnterDetails] = useState(true);
 
-  const [details, setDetails] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    arrival: "",
-    address: "",
-    nationality: "",
-    request: "",
-  });
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+  const [disableEnterDetails, setDisableEnterDetails] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const today = new Date();
+
+  const handleSelect = (date) => {
+    setSelectedDate(date);
+    const formattedStartDate = format(date, "dd-MM-yyyy");
+
+    setFromDate(formattedStartDate);
+  };
+  const handleNextSelect = (date) => {
+    setSelectedDate(date);
+    const formattedToDate = format(date, "dd-MM-yyyy");
+
+    setToDate(formattedToDate);
   };
 
-  const router = useRouter();
+  const handleStartChange = () => {
+    setStartDateOpened(false);
+    setEndDateOpened(true);
+  };
+  const handleEndChange = () => {
+    setStartDateOpened(true);
+    setEndDateOpened(false);
+  };
+
+  const disabledDates = {
+    before: today,
+  };
+
+  const handleSubmit = (values, houseIndex) => {
+    const queryParams = {
+      values: JSON.stringify(values),
+      toDate,
+      fromDate,
+      guests,
+    };
+
+    const queryString = new URLSearchParams(queryParams).toString();
+    router.push(`/book?${queryString}`);
+  };
+  const timeOptions = [
+    { label: "10:00 am", value: "10:00 am" },
+    { label: "11:00 am", value: "11:00 am" },
+    { label: "12:00 noon", value: "12:00 noon" },
+    { label: "1:00 pm", value: "1:00 pm" },
+    { label: "2:00 pm", value: "2:00 pm" },
+    { label: "3:00 pm", value: "3:00 pm" },
+    { label: "4:00 pm", value: "4:00 pm" },
+  ];
+  const nationalityOptions = [
+    { label: "Kenyan", value: "kenyan" },
+    { label: "Foreigner", value: "foreigner" },
+  ];
 
   useEffect(() => {
     const fetchHouses = async () => {
@@ -74,23 +117,25 @@ const Reservation = () => {
 
   useEffect(() => {
     const createGuests = () => {
-      let guestList = [];
+      let guestList;
       guestList = Number(adults) + Number(child);
+
       setGuests(guestList);
     };
 
     createGuests();
-  });
+  }, [adults, child]);
+
+  useEffect(() => {
+    if (fromDate != null && toDate != null) {
+      console.log("date selected", fromDate, "to ", toDate);
+      setDisableEnterDetails(false);
+    }
+  }, [fromDate, toDate]);
 
   const filterByDate = (dates) => {
     setFromDate(moment(dates[0].$d).format("DD-MM-YYYY"));
     setToDate(moment(dates[1].$d).format("DD-MM-YYYY"));
-
-    if (dates[0] && dates[1]) {
-      setDisableEnterDetails(false);
-    } else {
-      setDisableEnterDetails(true);
-    }
 
     var tempRooms = [];
     var availability = false;
@@ -169,26 +214,6 @@ const Reservation = () => {
     setIsOpen((prevOpen) => (prevOpen === houseId ? false : houseId));
   };
 
-  const handleConfirm = (houseId, house) => {
-    const queryParams = {
-      houseId: houseId,
-      house: JSON.stringify(house),
-      details: JSON.stringify(details),
-      value,
-      toDate: toDate,
-      guests,
-      fromDate: fromDate,
-    };
-
-    const queryString = new URLSearchParams(queryParams).toString();
-    router.push(`/book?${queryString}`, { toDate });
-  };
-
-  const handleClick = (event, houseId, house) => {
-    event.preventDefault();
-    handleConfirm(houseId, house);
-  };
-
   return (
     <ClientLayout>
       <div className="bg-gray-100  h-fit py-12">
@@ -197,7 +222,7 @@ const Reservation = () => {
             <form className="w-full bg-white h-full px-6 py-4 rounded-full flex shadow-lg relative">
               <div className="flex items-center space-x-6 w-full">
                 <div
-                  className="flex items-center space-x-4 mt-1 "
+                  className="flex items-center space-x-4 mt-1"
                   onClick={() => setIsOpend(!opend)}
                 >
                   <RangePicker
@@ -218,6 +243,7 @@ const Reservation = () => {
                     <input
                       type="number"
                       max="6"
+                      className="pt-1 text-sm"
                       value={adults}
                       onChange={(e) => setAdults(e.target.value)}
                     />
@@ -231,6 +257,7 @@ const Reservation = () => {
                     </div>
                     <input
                       type="number"
+                      className="pt-1 text-sm"
                       value={child}
                       onChange={(e) => setChild(e.target.value)}
                     />
@@ -245,7 +272,7 @@ const Reservation = () => {
                   </div>
 
                   <select
-                    className="text-sm  outline-none"
+                    className="text-sm  outline-none pt-1"
                     value={roomType}
                     onChange={(e) => filterByType(e.target.value)}
                   >
@@ -329,12 +356,12 @@ const Reservation = () => {
           </p>
 
           {loading ? (
-            <div className="px-4 h-screen">
-              <h1>Loading...</h1>
+            <div className="px-4 h-full">
+              <LoadingHouse />
             </div>
           ) : (
             <div className="h-full">
-              {filteredHouses.map((house) => {
+              {filteredHouses.map((house, index) => {
                 return (
                   <div key={house._id}>
                     <div className="h-full">
@@ -352,8 +379,8 @@ const Reservation = () => {
                                 fill
                               />
                             </div>
-                            <div className="flex flex-col mt-3">
-                              <div className="text-center">
+                            <div className="flex flex-col ">
+                              <div className="text-center space-y-1">
                                 <h1 className="text-xl md:text-2xl text-center md:text-left font-bold">
                                   {house.title}
                                 </h1>
@@ -389,7 +416,7 @@ const Reservation = () => {
                                     <MdKingBed />
                                   </p>
                                   <p className="text-gray-500 text-[15px]">
-                                    {house.rooms || 2} beds
+                                    {house.rooms} beds
                                   </p>
                                 </div>
                               </div>
@@ -410,12 +437,12 @@ const Reservation = () => {
                                 </span>
                               </div>
                               <div>
-                                <p className="line-clamp-4 text-center mt-3 md:text-left md:mt-0">
+                                <p className="line-clamp-4 text-center mt-3 md:text-left md:-mt-2">
                                   {house.description}
                                 </p>
                               </div>
                               <div>
-                                <div className="flex flex-col mt-3 md:flex-row md:mt-0 items-center justify-between">
+                                <div className="flex flex-col mt-3 md:flex-row  items-center justify-between">
                                   <div>
                                     <span className="text-xs text-yellow-500">
                                       FROM
@@ -432,7 +459,7 @@ const Reservation = () => {
                                     onClick={(event) =>
                                       handleOpen(event, house._id)
                                     }
-                                    className={`text-white px-4 py-3 -mt-4 ${
+                                    className={`text-white px-4 py-3 md:-mt-4 ${
                                       disableEnterDetails
                                         ? "bg-gray-300"
                                         : "bg-green-800"
@@ -448,175 +475,22 @@ const Reservation = () => {
                             <Collapse isOpened={open === house._id}>
                               <div className={open ? "active" : "inactive"}>
                                 <div className="border-gray-400 border-t mt-9  pt-9">
-                                  <form>
-                                    <div className="w-full flex flex-row-reverse">
-                                      <p
-                                        className="text-3xl md:hidden bg-red-500 rounded-full text-white cursor-pointer"
-                                        onClick={() => setIsOpen(false)}
-                                      >
-                                        <AiOutlineCloseCircle />
-                                      </p>
-                                    </div>
-                                    <div className="flex items-center w-full justify-between">
-                                      <p className="font-bold text-center">
-                                        Your Booking Information -{" "}
-                                        <span>
-                                          {" "}
-                                          {fromDate} - {toDate}{" "}
-                                        </span>
-                                      </p>
-                                      <p
-                                        className="text-3xl hidden md:flex bg-red-500 rounded-full text-white cursor-pointer"
-                                        onClick={() => setIsOpen(false)}
-                                      >
-                                        <AiOutlineCloseCircle />
-                                      </p>
-                                    </div>
-
-                                    <p className="my-3">
-                                      You have selected {adults} Adult(s) and{" "}
-                                      {child} Kid(s)
-                                    </p>
-                                    <div>
-                                      <p>Personal Information</p>
-                                      <p>Enter your details below</p>
-                                      <div className="grid md:grid-cols-3  gap-6 mt-6">
-                                        <div className="flex flex-col">
-                                          <label>First Name</label>
-                                          <input
-                                            type="text"
-                                            name="firstName"
-                                            value={details.firstName}
-                                            className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                                            onChange={handleInputChange}
-                                          />
-                                        </div>
-                                        <div className="flex flex-col">
-                                          <label>Last Name</label>
-                                          <input
-                                            type="text"
-                                            name="lastName"
-                                            value={details.lastName}
-                                            className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                                            onChange={handleInputChange}
-                                          />
-                                        </div>
-                                        <div>
-                                          <div className="flex flex-col row-span-2">
-                                            <label>Email</label>
-                                            <input
-                                              type="email"
-                                              name="email"
-                                              value={details.email}
-                                              placeholder="johndoe@gmail.com"
-                                              className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                                              onChange={handleInputChange}
-                                            />
-                                          </div>
-                                        </div>
-
-                                        <div className="flex flex-col">
-                                          <label>Phone Number</label>
-                                          <input
-                                            name="phoneNumber"
-                                            type="text"
-                                            value={details.phoneNumber}
-                                            className="border px-4 outline-none bg-white py-2 placeholder:text-[8px]"
-                                            onChange={handleInputChange}
-                                          />
-                                        </div>
-                                        <div className="flex flex-col">
-                                          <label>
-                                            Approximate Arrival Time
-                                          </label>
-
-                                          <select
-                                            className="outline-none border px-2 py-2 text-[14px]"
-                                            value={details.arrival}
-                                            onChange={handleInputChange}
-                                            name="arrival"
-                                          >
-                                            <option value="">
-                                              Select Time
-                                            </option>
-                                            <option value="10:00 AM">
-                                              10:00 AM
-                                            </option>
-                                            <option value="11:00 AM">
-                                              11:00 AM
-                                            </option>
-                                            <option value="12:00 PM">
-                                              12:00 NOON
-                                            </option>
-                                            <option value="1:00 PM">
-                                              1:00 PM
-                                            </option>
-                                            <option value="2:00 PM">
-                                              2:00 PM
-                                            </option>
-                                            <option value="3:00 PM">
-                                              3:00 PM
-                                            </option>
-                                            <option value="4:00 PM">
-                                              4:00 PM
-                                            </option>
-                                          </select>
-                                        </div>
-                                        <div className="flex flex-col">
-                                          <label>Special Requests</label>
-                                          <textarea
-                                            type="text"
-                                            name="request"
-                                            value={details.request}
-                                            className="border px-4 outline-none py-2"
-                                            onChange={handleInputChange}
-                                          />
-                                        </div>
-                                        <div className="flex flex-col">
-                                          <label>Address</label>
-                                          <input
-                                            type="text"
-                                            name="address"
-                                            value={details.address}
-                                            placeholder="e.g city"
-                                            className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                                            onChange={handleInputChange}
-                                          />
-                                        </div>
-                                        <div className="flex flex-col">
-                                          <label>Nationality</label>
-                                          <select
-                                            className="outline-none border px-2 py-2 text-[14px]"
-                                            value={details.nationality}
-                                            onChange={handleInputChange}
-                                            name="nationality"
-                                          >
-                                            <option value="">
-                                              Select nationality
-                                            </option>
-                                            <option value="Kenyan">
-                                              Kenyan
-                                            </option>
-                                            <option value="Foreigner">
-                                              Foreigner
-                                            </option>
-                                          </select>
-                                        </div>
-                                      </div>
-
-                                      <div className="w-full flex justify-between flex-row-reverse">
-                                        <button
-                                          type="submit"
-                                          className="px-6 py-3 my-3  bg-green-800 text-white"
-                                          onClick={(event) =>
-                                            handleClick(event, house._id, house)
-                                          }
-                                        >
-                                          CONFIRM
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </form>
+                                  <HouseForm
+                                    key={index}
+                                    fromDate={fromDate}
+                                    toDate={toDate}
+                                    adults={adults}
+                                    child={child}
+                                    guests={guests}
+                                    timeOptions={timeOptions}
+                                    nationalityOptions={nationalityOptions}
+                                    houseId={house._id}
+                                    house={house}
+                                    open={open}
+                                    onSubmit={(values) =>
+                                      handleSubmit(values, index)
+                                    }
+                                  />
                                 </div>
                               </div>
                             </Collapse>
@@ -634,5 +508,293 @@ const Reservation = () => {
     </ClientLayout>
   );
 };
+
+function HouseForm({
+  houseId,
+  onSubmit,
+  toDate,
+  fromDate,
+  adults,
+  child,
+  timeOptions,
+  nationalityOptions,
+
+  house,
+}) {
+  const validate = (values) => {
+    const errors = {};
+    if (!values.firstName) {
+      errors.firstName = "Required";
+    } else if (values.firstName.length > 15) {
+      errors.firstName = "Must be 15 characters or less";
+    }
+    if (!values.lastName) {
+      errors.lastName = "Required";
+    } else if (values.lastName.length > 15) {
+      errors.lastName = "Must be 15 characters or less";
+    }
+
+    if (!values.email) {
+      errors.email = "Required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+    if (!values.phoneNumber) {
+      errors.phoneNumber = "Required";
+    } else if (
+      !/^(\+254|0)([7][0-9]|[1][0-1])[0-9]{7}$/.test(values.phoneNumber)
+    ) {
+      errors.phoneNumber = "Invalid phone number";
+    }
+    if (values.arrival === "") {
+      errors.arrival = "Please Select time";
+    }
+    if (values.nationality === "") {
+      errors.nationality = "Please Select nationality";
+    }
+    if (!values.address) {
+      errors.address = "Required";
+    } else if (values.address.length > 15) {
+      errors.address = "Must be 15 characters or less";
+    }
+    if (values.request.length > 300) {
+      errors.request = "Must be 300 characters or less";
+    }
+
+    return errors;
+  };
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      arrival: "",
+      address: "",
+      nationality: "",
+      request: "",
+      houseId: houseId,
+
+      house: house,
+    },
+    validate,
+    onSubmit,
+  });
+
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <div className="w-full flex flex-row-reverse">
+        <p
+          className="text-3xl md:hidden bg-red-500 rounded-full text-white cursor-pointer"
+          onClick={() => setIsOpen(false)}
+        >
+          <AiOutlineCloseCircle />
+        </p>
+      </div>
+      <div className="flex items-center w-full justify-between">
+        <p className="font-bold text-center">
+          Your Booking Information -{" "}
+          <span>
+            {" "}
+            {fromDate} - {toDate}{" "}
+          </span>
+        </p>
+        <p
+          className="text-3xl hidden md:flex bg-red-500 rounded-full text-white cursor-pointer"
+          onClick={() => setIsOpen(false)}
+        >
+          <AiOutlineCloseCircle />
+        </p>
+      </div>
+
+      <p className="my-3">
+        You have selected {adults} Adult(s) and {child} Kid(s)
+      </p>
+      <div>
+        <p>Personal Information</p>
+        <p>Enter your details below</p>
+        <div className="grid md:grid-cols-3  gap-6 mt-6">
+          <div className="flex flex-col">
+            <label>First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              className={`border ${
+                formik.errors.firstName ? "border-red-500" : "border-black"
+              } px-2 py-3`}
+              id="firstName"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.firstName}
+            />
+            {formik.errors.firstName ? (
+              <div className="text-red-500 -mb-2 text-sm">
+                {formik.errors.firstName}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex flex-col">
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              className={`border ${
+                formik.errors.lastName ? "border-red-500" : "border-black"
+              } px-2 py-3`}
+              id="lastName"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.lastName}
+            />
+            {formik.errors.lastName ? (
+              <div className="text-red-500 -mb-2 text-sm">
+                {formik.errors.lastName}
+              </div>
+            ) : null}
+          </div>
+          <div>
+            <div className="flex flex-col row-span-2">
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                className={`border ${
+                  formik.errors.email ? "border-red-500" : "border-black"
+                } px-2 py-3`}
+                id="email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+              />
+              {formik.errors.email ? (
+                <div className="text-red-500 -mb-2 text-sm">
+                  {formik.errors.email}
+                </div>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="flex flex-col">
+            <label>Phone Number</label>
+            <input
+              type="text"
+              name="phoneNumber"
+              className={`border ${
+                formik.errors.phoneNumber ? "border-red-500" : "border-black"
+              } px-2 py-3`}
+              id="phoneNumber"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.phoneNumber}
+            />
+            {formik.errors.phoneNumber ? (
+              <div className="text-red-500 -mb-2 text-sm">
+                {formik.errors.phoneNumber}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="selectValue">Arrival Time</label>
+
+            <select
+              id="arrival"
+              name="arrival"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.arrival}
+              className={`border ${
+                formik.errors.address ? "border-red-500" : "border-black"
+              } px-2 py-[10px]`}
+            >
+              <option value="">Select...</option>
+              {timeOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            {formik.touched.arrival && formik.errors.arrival && (
+              <div>{formik.errors.arrival}</div>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <label>Special Requests</label>
+            <textarea
+              type="text"
+              name="request"
+              className={`border ${
+                formik.errors.request ? "border-red-500" : "border-black"
+              } px-2 py-3`}
+              id="request"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.request}
+            />
+            {formik.errors.request ? (
+              <div className="text-red-500 -mb-2 text-sm">
+                {formik.errors.request}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex flex-col">
+            <label>Address</label>
+            <input
+              type="text"
+              name="address"
+              className={`border ${
+                formik.errors.address ? "border-red-500" : "border-black"
+              } px-2 py-3`}
+              id="address"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.address}
+            />
+            {formik.errors.address ? (
+              <div className="text-red-500 -mb-2 text-sm">
+                {formik.errors.address}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex flex-col">
+            <label>Nationality</label>
+            <select
+              id="nationality"
+              name="nationality"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.nationality}
+              className={`border ${
+                formik.errors.address ? "border-red-500" : "border-black"
+              } px-2 py-[10px]`}
+            >
+              <option value="">Select...</option>
+              {nationalityOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            {formik.touched.nationality && formik.errors.nationality && (
+              <div>{formik.errors.nationality}</div>
+            )}
+
+            <input type="hidden" name="houseId" value={formik.values.houseId} />
+          </div>
+        </div>
+
+        <div className="w-full flex justify-between flex-row-reverse">
+          <button
+            type="submit"
+            className="px-6 py-3 my-3  bg-green-800 text-white"
+          >
+            CONFIRM
+          </button>
+        </div>
+      </div>
+    </form>
+  );
+}
 
 export default Reservation;

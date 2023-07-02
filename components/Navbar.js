@@ -1,17 +1,11 @@
-import {useState} from 'react'
+import { useState } from "react";
 import Link from "next/link";
-import { SlLocationPin } from "react-icons/sl";
 import { SlPhone } from "react-icons/sl";
-import { VscMail } from "react-icons/vsc";
-import { AiOutlineSend } from "react-icons/ai";
 import { BsWhatsapp } from "react-icons/bs";
 import { BsFacebook } from "react-icons/bs";
 import { BsInstagram } from "react-icons/bs";
 import Image from "next/image";
-import {HiBars3BottomLeft} from 'react-icons/hi2'
-
-
-
+import { HiBars3BottomLeft } from "react-icons/hi2";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -24,13 +18,12 @@ const Navbar = () => {
       title: "Accomodations",
       link: "/accomodation",
     },
-   
+
     {
       title: "Activities",
       link: "/activities",
     },
-   
-    
+
     {
       title: "Rates",
       link: "/rates",
@@ -43,17 +36,11 @@ const Navbar = () => {
       title: "Gallery",
       link: "/gallery",
     },
-    
-    // {
-    //   title: "Location",
-    //   link: "/location",
-    // },
-    
+
     {
       title: "FAQS",
       link: "/faqs",
     },
-    
   ];
   return (
     <div className="relative">
@@ -78,75 +65,86 @@ const Navbar = () => {
       </div>
       <div className="flex items-center justify-between w-full px-4">
         <div className="flex items-center space-x-3">
-        <div className="relative h-16 w-16 rounded-full">
-          <Image
-            src="/images/logo.jpeg"
-            alt="logo"
-            fill
-            className="rounded-full"
-          />
+          <div className="relative h-16 w-16 rounded-full">
+            <Image
+              src="/images/logo.jpeg"
+              alt="logo"
+              fill
+              className="rounded-full"
+            />
+          </div>
+          <div className="max-w-[200px]">
+            <h5 className="md:text-[22px] font-extrabold leading-none text-green-800 max-w-[150px]">
+              SILENT PALMS VILLAS DIANI
+            </h5>
+          </div>
         </div>
-        <div className="max-w-[200px]">
-          
-          <h5 className="md:text-[22px] font-extrabold leading-none text-green-800 max-w-[150px]">SILENT PALMS VILLAS DIANI</h5>
-        </div>
-        </div>
-       
+
         <div className="flex items-center space-x-12">
           <ul className="text-[14px] items-center space-x-10 hidden md:flex">
             {Links.splice(0, 5).map(({ title, link }, index) => {
               return (
                 <li key={index}>
-                  <Link href={link} className={` text-[15px] text-green-800 capitalize`}>{title}</Link>
+                  <Link
+                    href={link}
+                    className={` text-[15px] text-green-800 capitalize`}
+                  >
+                    {title}
+                  </Link>
                 </li>
               );
             })}
           </ul>
           <div className="hidden md:flex">
-<Link
-            href="/reservation"
-            className=" text-white bg-green-800 px-4 py-3"
-          >
-            RESERVATION
-          </Link>
+            <Link
+              href="/reservation"
+              className=" text-white bg-green-800 px-4 py-3"
+            >
+              RESERVATION
+            </Link>
           </div>
-          <div className="text-3xl md:hidden" onClick={()=>setShow(!show)}>
-            <HiBars3BottomLeft/>
+          <div className="text-3xl md:hidden" onClick={() => setShow(!show)}>
+            <HiBars3BottomLeft />
           </div>
-          
-          
         </div>
       </div>
 
       {show && (
-          <div className="absolute h-screen z-10 bg-green-800 w-screen left-0 px-4 py-10">
-       
+        <div className="absolute h-screen z-10 bg-green-800 w-screen left-0 px-4 py-10">
           <div className="flex flex-col mb-5 text-white text-4xl space-y-8 uppercase font-bold">
-          <Link href="/" onClick={()=>setShow(false)}>Home</Link>
-          <Link href="/accomodation" onClick={()=>setShow(false)}>Accomodation</Link>
-          <Link href="/activities" onClick={()=>setShow(false)}>Activities</Link>
-          <Link href="/" onClick={()=>setShow(false)}>About us</Link>
-          <Link href="/gallery" onClick={()=>setShow(false)}>Gallery</Link>
-          <Link href="/rates" onClick={()=>setShow(false)}>Rates</Link>
-          <Link href="/contact" onClick={()=>setShow(false)}>Contact</Link>
+            <Link href="/" onClick={() => setShow(false)}>
+              Home
+            </Link>
+            <Link href="/accomodation" onClick={() => setShow(false)}>
+              Accomodation
+            </Link>
+            <Link href="/activities" onClick={() => setShow(false)}>
+              Activities
+            </Link>
+
+            <Link href="/rates" onClick={() => setShow(false)}>
+              Rates
+            </Link>
+
+            <Link href="/gallery" onClick={() => setShow(false)}>
+              Gallery
+            </Link>
+
+            <Link href="/contact" onClick={() => setShow(false)}>
+              Contact
+            </Link>
           </div>
-          
-           
-            <div className="mt-12">
-  <Link
+
+          <div className="mt-12">
+            <Link
               href="/reservation"
               className=" text-green-800 bg-white px-4 py-3"
             >
               RESERVATION
             </Link>
-            </div>
-           
-            
-         
+          </div>
         </div>
       )}
-
-      
     </div>
   );
 };

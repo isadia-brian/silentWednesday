@@ -36,9 +36,12 @@ export default async function handler(req, res) {
       }
 
       // Update the booking property
-      booking.bookingStatus === "pending"
-        ? (booking.bookingStatus = "Confirmed")
-        : (booking.bookingStatus = "pending");
+
+      if (booking.bookingStatus === "pending") {
+        booking.bookingStatus = "Confirmed";
+      } else if (booking.bookingStatus === "Confirmed") {
+        booking.bookingStatus = "pending";
+      }
 
       // Save the updated booking
       const updatedBooking = await booking.save();

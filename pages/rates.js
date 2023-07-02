@@ -14,10 +14,10 @@ const Rates = () => {
     <ClientLayout>
       <div className="h-full md:h-full px-4 w-full mb-24">
         <div
-          className={`${cormorant.className} text-[30px] md:text-[40px] md:pt-4  font-bold text-green-800`}
+          className={`${cormorant.className} text-[30px] text-center md:text-left md:text-[40px]  pt-4 font-bold text-green-800 my-12`}
         >
           <h1>OUR</h1>
-          <h1 className="md:-mt-6 ">RATES</h1>
+          <h1 className="-mt-2 md:-mt-5"> RATES</h1>
         </div>
         <div className=" md:w-full border-b-[0.8px] pb-12">
           <table className=" md:hidden w-full">

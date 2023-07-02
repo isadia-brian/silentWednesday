@@ -9,33 +9,26 @@ export default async function handler(req, res) {
     return;
   }
 
-  const {
-    fromDate: fromThisDay,
-    toDate: toThisDay,
-    house: houseName,
-    user: parsedDetails,
-    amount: amountTotal,
-    totalDays: noOfDays,
-    houseId,
-  } = req.body;
+  const { fromDate, toDate, house, user, amount, totalDays, houseId } =
+    req.body;
 
   try {
     await connectMongoDB();
     const newBooking = new Bookings({
-      fromDate: fromThisDay,
-      toDate: toThisDay,
-      house: houseName,
-      user: parsedDetails,
-      amount: amountTotal,
-      totalDays: noOfDays,
+      fromDate,
+      toDate,
+      house,
+      user,
+      amount,
+      totalDays,
       houseId,
     });
     const booking = await newBooking.save();
 
     const houseTemp = await House.findById(houseId);
-    const month = moment(fromThisDay, "DD-MM-YYYY").format("MMMM");
+    const month = moment(fromDate, "DD-MM-YYYY").format("MMMM");
 
-    const bookingAmount = amountTotal;
+    const bookingAmount = amount;
 
     if (houseTemp) {
       // Check if houseTemp is defined before accessing it
@@ -51,8 +44,8 @@ export default async function handler(req, res) {
       }
       houseTemp.currentBookings.push({
         bookingId: booking._id,
-        fromDate: fromThisDay,
-        toDate: toThisDay,
+        fromDate,
+        toDate,
         status: booking.status,
       });
     }

@@ -62,17 +62,20 @@ const Featured = () => {
 
           <motion.p
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: [0.2, 0.3, 0.4, 0.6, 0.8, 1] }}
-            transition={{ duration: 1, delay: 1 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 2, delay: 1 }}
             className=" max-w-[550px] mt-8"
           >
             This luxury accommodation offers fully en-suite rooms, providing a
             private and comfortable space for guests. The rooms feature a
-            spacious lounge with a dining table and a coffee table allowing
-            guests to enjoy a cup of coffee or tea while spending time together
-            or relaxing. Guests can also enjoy their favorite shows or movies on
-            the provided television set for entertainment. An additional
-            cloakroom is available for added convenience.
+            spacious lounge with a coffee table, allowing guests to enjoy a cup
+            of coffee or tea while spending time together or relaxing. Guests
+            can also enjoy their favorite shows or movies on the provided
+            television set for entertainment. An additional cloakroom is
+            available for added convenience. The open-plan kitchen is
+            thoughtfully designed with strategically positioned windows,
+            allowing the refreshing North wind breeze from the ocean to flow
+            into the living room and kitchen area.
           </motion.p>
           <p className="text-[12px] max-w-[350px] mt-8">Max - 6 Guests</p>
 

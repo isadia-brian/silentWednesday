@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import axios from "axios";
 
 import { Poppins } from "next/font/google";
@@ -106,117 +106,122 @@ const Contact = () => {
     <ClientLayout>
       <div className="h-full md:h-full w-full mb-32 px-4">
         <div
-          className={`${cormorant.className} text-[40px] my-12 pt-4 font-bold text-green-800`}
+          className={`${cormorant.className} text-[30px] text-center md:text-left md:text-[40px]  pt-4 font-bold text-green-800 my-12`}
         >
-          <h1>GET </h1>
-          <h1 className="-mt-6">IN TOUCH</h1>
+          <h1>GET</h1>
+          <h1 className="-mt-2 md:-mt-5"> IN TOUCH</h1>
         </div>
-        <div className="mt-8">
-          <h2 className={`${cormorant.className} text-yellow-700 text-[25px]`}>
-            Contact Us
-          </h2>
-          <div className="flex flex-col md:flex-row space-x-4 justify-between">
-            <form
-              className="mt-4 md:w-1/2 md:mr-16"
-              onSubmit={formik.handleSubmit}
-              ref={form}
-            >
-              <div className="flex flex-col space-y-3">
-                <div className="flex flex-col">
-                  <label>Name</label>
-                  <input
-                    type="text"
-                    className={`border ${
-                      formik.errors.user_name
-                        ? "border-red-500"
-                        : "border-black"
-                    } my-4 px-2 py-3`}
-                    name="user_name"
-                    id="user_name"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.user_name}
-                  />
-                  {formik.errors.user_name ? (
-                    <div className="text-red-500">
-                      {formik.errors.user_name}
-                    </div>
-                  ) : null}
-                </div>
-                <div className="flex flex-col">
-                  <label>Phone Number</label>
-                  <input
-                    type="text"
-                    className={`border ${
-                      formik.errors.user_name
-                        ? "border-red-500"
-                        : "border-black"
-                    } my-4 px-2 py-3`}
-                    name="user_phone"
-                    id="user_phone"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.user_phone}
-                  />
-                  {formik.errors.user_phone ? (
-                    <div className="text-red-500">
-                      {formik.errors.user_phone}
-                    </div>
-                  ) : null}
-                </div>
-                <div className="flex flex-col">
-                  <label>Email Address</label>
-                  <input
-                    type="email"
-                    className={`border ${
-                      formik.errors.user_email
-                        ? "border-red-500"
-                        : "border-black"
-                    } my-4 px-2 py-3`}
-                    name="user_email"
-                    id="user_email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.user_email}
-                  />
-                  {formik.errors.user_email ? (
-                    <div className="text-red-500">
-                      {formik.errors.user_email}
-                    </div>
-                  ) : null}
-                </div>
+        <div className="">
+          <div className="flex flex-col md:flex-row md:space-x-4 justify-between md:items-center">
+            <div className="mt-4 md:w-1/2 md:mr-16">
+              <h2
+                className={`${cormorant.className} text-black text-[25px] text-center font-extrabold`}
+              >
+                CONTACT US
+              </h2>
+              <form
+                onSubmit={formik.handleSubmit}
+                ref={form}
+                className="w-full"
+              >
+                <div className="flex flex-col space-y-5">
+                  <div className="flex flex-col ">
+                    <label>Name</label>
+                    <input
+                      type="text"
+                      className={`border ${
+                        formik.errors.user_name
+                          ? "border-red-500"
+                          : "border-black"
+                      } px-2 py-3`}
+                      name="user_name"
+                      id="user_name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.user_name}
+                    />
+                    {formik.errors.user_name ? (
+                      <div className="text-red-500 -mb-2 text-sm">
+                        {formik.errors.user_name}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="flex flex-col">
+                    <label>Phone Number</label>
+                    <input
+                      type="text"
+                      className={`border ${
+                        formik.errors.user_name
+                          ? "border-red-500"
+                          : "border-black"
+                      } px-2 py-3`}
+                      name="user_phone"
+                      id="user_phone"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.user_phone}
+                    />
+                    {formik.errors.user_phone ? (
+                      <div className="text-red-500 -mb-2 text-sm">
+                        {formik.errors.user_phone}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="flex flex-col">
+                    <label>Email Address</label>
+                    <input
+                      type="email"
+                      className={`border ${
+                        formik.errors.user_email
+                          ? "border-red-500"
+                          : "border-black"
+                      }  px-2 py-3`}
+                      name="user_email"
+                      id="user_email"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.user_email}
+                    />
+                    {formik.errors.user_email ? (
+                      <div className="text-red-500 -mb-2 text-sm">
+                        {formik.errors.user_email}
+                      </div>
+                    ) : null}
+                  </div>
 
-                <div className="flex flex-col">
-                  <label>Message</label>
-                  <textarea
-                    type="text"
-                    className={`border ${
-                      formik.errors.user_message
-                        ? "border-red-500"
-                        : "border-black"
-                    } my-4 px-2 py-3`}
-                    cols={10}
-                    rows="5"
-                    name="user_message"
-                    id="user_message"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.user_message}
+                  <div className="flex flex-col">
+                    <label>Message</label>
+                    <textarea
+                      type="text"
+                      className={`border ${
+                        formik.errors.user_message
+                          ? "border-red-500"
+                          : "border-black"
+                      }  px-2 py-3`}
+                      cols={10}
+                      rows="5"
+                      name="user_message"
+                      id="user_message"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.user_message}
+                    />
+                    {formik.errors.user_message ? (
+                      <div className="text-red-500 -mb-2 text-sm">
+                        {formik.errors.user_message}
+                      </div>
+                    ) : null}
+                  </div>
+                  <input
+                    type="submit"
+                    value="Send"
+                    className="bg-green-800 text-white py-4"
                   />
-                  {formik.errors.user_message ? (
-                    <div className="text-red-500">
-                      {formik.errors.user_message}
-                    </div>
-                  ) : null}
                 </div>
-                <input
-                  type="submit"
-                  value="Send"
-                  className="bg-green-800 text-white py-4"
-                />
-              </div>
-            </form>
-            <div className=" mt-6 md:w-1/2 md:-mt-2">
+              </form>
+            </div>
+
+            <div className="mt-12 md:w-1/2 md:-mt-2">
               <Map />
             </div>
           </div>

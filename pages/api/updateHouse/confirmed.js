@@ -22,7 +22,6 @@ export default async function handler(req, res) {
       res.status(400).send({ err, msg: "Something went wrong" });
     }
   }
-
   if (req.method === "PUT") {
     const { id, monthId } = req.query;
     try {

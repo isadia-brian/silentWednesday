@@ -22,7 +22,6 @@ export default async function handler(req, res) {
       res.status(400).send({ err, msg: "Something went wrong" });
     }
   }
-
   if (req.method === "PUT") {
     const { id, monthId } = req.query;
     try {
@@ -36,8 +35,8 @@ export default async function handler(req, res) {
         );
 
         if (targetMonth) {
-          if (targetMonth.bookingStatus === "pending") {
-            targetMonth.bookingStatus = "Confirmed";
+          if (targetMonth.bookingStatus === "Confirmed") {
+            targetMonth.bookingStatus = "pending";
           }
 
           res.status(201).json(targetMonth);
