@@ -44,7 +44,6 @@ const Reservation = () => {
   const [selectedDates, setSelectedDates] = useState([null, null]);
 
   const handleSubmit = (values) => {
-    console.log(guests);
     const queryParams = {
       values: JSON.stringify(values),
       toDate,
@@ -91,7 +90,7 @@ const Reservation = () => {
       setGuests(guestList);
     };
     createGuests();
-  });
+  }, [adults, child]);
 
   useEffect(() => {
     if (fromDate !== null && toDate !== null) {
@@ -479,6 +478,7 @@ const Reservation = () => {
                                     toDate={toDate}
                                     adults={adults}
                                     child={child}
+                                    guests={guests}
                                     timeOptions={timeOptions}
                                     nationalityOptions={nationalityOptions}
                                     houseId={house._id}

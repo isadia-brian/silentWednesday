@@ -34,6 +34,10 @@ const bookingSchema = new Schema(
       type: String,
       default: "pending",
     },
+    guests: {
+      type: Number,
+      default: 1,
+    },
     status: {
       type: String,
       required: true,

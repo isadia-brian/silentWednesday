@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 6000);
+    }, 3000);
   }, []);
   return (
     <div>

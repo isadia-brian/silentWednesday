@@ -21,7 +21,13 @@ const HeroSlider = () => {
   return (
     <Slider {...settings}>
       <div className="relative  h-[500px] md:h-[110vh] w-full md:w-full ">
-        <Image src="/images/img34.jpg" fill alt="heroImg" className="img" />
+        <Image
+          src="/images/img34.jpg"
+          fill
+          alt="diani villa"
+          className="img"
+          priority
+        />
         <div className="absolute flex flex-col items-center top-[32%] md:top-[35%] w-full transform -translate-y-1/2 md:transform md:-translate-y-1/4">
           <div className="text-white text-center text-[25px] px-5 md:text-[40px] z-10 font-bold">
             <h5 className={`${cormorant.className} uppercase font-bold`}>
@@ -37,7 +43,7 @@ const HeroSlider = () => {
         </div>
       </div>
       <div className="relative h-[500px] md:h-[110vh] w-full md:w-full">
-        <Image src="/images/hero2.jpg" alt="heroImg" fill />
+        <Image src="/images/hero2.jpg" alt="silent palms diani" fill />
         <div className="absolute flex flex-col items-center top-[32%] md:top-[35%] w-full transform -translate-y-1/2 md:transform md:-translate-y-1/4">
           <div className="text-white text-center text-[25px] px-5 md:text-[40px] z-10 font-bold">
             <h5 className={`${cormorant.className} uppercase font-bold`}>
@@ -55,7 +61,7 @@ const HeroSlider = () => {
       <div className="relative h-[500px] md:h-[110vh] w-full md:w-full">
         <Image
           src="/images/hero4.jpg"
-          alt="heroImg"
+          alt="diani resort"
           fill
           className="object-cover"
         />

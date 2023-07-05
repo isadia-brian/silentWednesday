@@ -26,7 +26,7 @@ const Book = () => {
 
   const parsedValues = values ? JSON.parse(values) : {};
 
-  const amountTotal = parsedValues.house?.amount * noOfDays;
+  const amountTotal = parsedValues.houseAmount * noOfDays;
   const userDetails = {
     firstName: parsedValues.firstName,
     lastName: parsedValues.lastName,
@@ -41,11 +41,12 @@ const Book = () => {
     const bookingDetails = {
       fromDate: fromThisDay,
       toDate: toThisDay,
-      house: parsedValues.house.title,
       user: userDetails,
       amount: amountTotal,
       totalDays: noOfDays,
       houseId: parsedValues.houseId,
+      house: parsedValues.houseTitle,
+      guests: guests,
     };
 
     try {
@@ -217,15 +218,15 @@ const Book = () => {
               <div>
                 <div className="relative h-[280px] md:w-[350px] mx-auto">
                   <Image
-                    src={parsedValues.house?.imageUrl}
+                    src={parsedValues.houseImage}
                     fill
-                    alt={parsedValues.house?.title}
+                    alt={parsedValues.houseTitle}
                     className="box object-cover"
                   />
                 </div>
                 <div className="my-6">
                   <p className="text-md text-green-800 font-extrabold text-center">
-                    {parsedValues.house?.title}
+                    {parsedValues.houseTitle}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-2  px-5 mb-2 w-[300px] mx-auto">

@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { motion } from "framer-motion";
+import axios from "axios";
 import ClientLayout from "../components/ClientLayout";
 import { Cormorant } from "next/font/google";
-import localFont from "next/font/local";
+
+import { useEffect, useState } from "react";
 
 const cormorant = Cormorant({
   subsets: ["cyrillic"],
@@ -10,6 +11,26 @@ const cormorant = Cormorant({
 });
 
 const Rates = () => {
+  const [houseA, setHouseA] = useState([]);
+  const [houseB, setHouseB] = useState([]);
+  const [houseC, setHouseC] = useState([]);
+
+  useEffect(() => {
+    const getRates = async () => {
+      try {
+        await axios.get("/api/rates").then((res) => {
+          const allRates = res.data;
+
+          setHouseA(allRates[0]);
+          setHouseB(allRates[1]);
+          setHouseC(allRates[2]);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRates();
+  }, []);
   return (
     <ClientLayout>
       <div className="h-full md:h-full px-4 w-full mb-24">
@@ -20,155 +41,184 @@ const Rates = () => {
           <h1 className="-mt-2 md:-mt-5"> RATES</h1>
         </div>
         <div className=" md:w-full border-b-[0.8px] pb-12">
-          <table className=" md:hidden w-full">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Low Season</th>
-                <th>High Season</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="text-center">
-                <td className="border border-slate-400 font-bold">
-                  Apartment Type
-                </td>
-                <td className="border border-slate-400">4th Jan - 30th June</td>
-                <td className="border border-slate-400">1st July - 20th Dec</td>
-              </tr>
-              <tr className="text-center">
-                <td className="border border-slate-400 font-bold">1 Bedroom</td>
-                <td className="border border-slate-400">KES 5,000</td>
-                <td className="border border-slate-400">KES 6,500</td>
-              </tr>
-              <tr className="text-center border border-separate">
-                <td className="border border-slate-400 font-bold">
-                  2 Bedroom Standard
-                </td>
-                <td className="border border-slate-400">KES 6,000</td>
-                <td className="border border-slate-400">KES 7,500</td>
-              </tr>
-              <tr className="text-center border border-separate">
-                <td className="border border-slate-400 font-bold">
-                  2 Bedroom Executive
-                </td>
-                <td className="border border-slate-400">KES 7,000</td>
-                <td className="border border-slate-400">KES 9,000</td>
-              </tr>
-            </tbody>
-          </table>
-          <table className=" md:hidden w-full mt-6">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Christmas/New Yr</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="text-center">
-                <td className="border border-slate-400 font-bold">
-                  Apartment Type
-                </td>
-                <td className="border border-slate-400">21st Dec - 6th Jan</td>
-              </tr>
-              <tr className="text-center">
-                <td className="border border-slate-400 font-bold">1 Bedroom</td>
-                <td className="border border-slate-400">-</td>
-              </tr>
-              <tr className="text-center border border-separate">
-                <td className="border border-slate-400 font-bold">
-                  2 Bedroom Standard
-                </td>
-                <td className="border border-slate-400">KES 9,000</td>
-              </tr>
-              <tr className="text-center border border-separate">
-                <td className="border border-slate-400 font-bold">
-                  2 Bedroom Executive
-                </td>
-                <td className="border border-slate-400">KES 15,000</td>
-              </tr>
-            </tbody>
-          </table>
-          <table className=" border-separate border border-slate-400 h-[400px] md:w-full mt-12 mytable ">
-            <thead className="">
-              <tr className="">
-                <th className=" py-4 px-2 md:px-6   text-black font-bold"></th>
+          <div>
+            <table className=" md:hidden w-full">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Low Season</th>
+                  <th>High Season</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="text-center">
+                  <td className="border border-slate-400 font-bold">
+                    Apartment Type
+                  </td>
+                  <td className="border border-slate-400">
+                    4th Jan - 30th June
+                  </td>
+                  <td className="border border-slate-400">
+                    1st July - 20th Dec
+                  </td>
+                </tr>
+                <tr className="text-center">
+                  <td className="border border-slate-400 font-bold">
+                    {houseA.houseName}
+                  </td>
+                  <td className="border border-slate-400">
+                    KES {houseA.lowSeason}
+                  </td>
+                  <td className="border border-slate-400">
+                    KES {houseA.highSeason}
+                  </td>
+                </tr>
+                <tr className="text-center border border-separate">
+                  <td className="border border-slate-400 font-bold">
+                    {houseB.houseName}
+                  </td>
+                  <td className="border border-slate-400">
+                    KES {houseB.lowSeason}
+                  </td>
+                  <td className="border border-slate-400">
+                    KES {houseB.highSeason}
+                  </td>
+                </tr>
+                <tr className="text-center border border-separate">
+                  <td className="border border-slate-400 font-bold">
+                    {houseC.houseName}
+                  </td>
+                  <td className="border border-slate-400">
+                    KES {houseC.lowSeason}
+                  </td>
+                  <td className="border border-slate-400">
+                    KES {houseC.highSeason}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className=" md:hidden w-full mt-6">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Christmas/New Yr</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="text-center">
+                  <td className="border border-slate-400 font-bold">
+                    Apartment Type
+                  </td>
+                  <td className="border border-slate-400">
+                    21st Dec - 6th Jan
+                  </td>
+                </tr>
+                <tr className="text-center">
+                  <td className="border border-slate-400 font-bold">
+                    {houseA.houseName}
+                  </td>
+                  <td className="border border-slate-400">-</td>
+                </tr>
+                <tr className="text-center border border-separate">
+                  <td className="border border-slate-400 font-bold">
+                    {houseB.houseName}
+                  </td>
+                  <td className="border border-slate-400">
+                    KES {houseB.christmasNewYear}
+                  </td>
+                </tr>
+                <tr className="text-center border border-separate">
+                  <td className="border border-slate-400 font-bold">
+                    {houseC.houseName}
+                  </td>
+                  <td className="border border-slate-400">
+                    KES {houseC.christmasNewYear}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className=" border-separate border border-slate-400 h-[400px] md:w-full mt-12 mytable ">
+              <thead className="">
+                <tr className="">
+                  <th className=" py-4 px-2 md:px-6   text-black font-bold"></th>
 
-                <th className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-300 text-white font-bold">
-                  Low Season
-                </th>
+                  <th className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-300 text-white font-bold">
+                    Low Season
+                  </th>
 
-                <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                  High Season
-                </th>
-                <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                  Christmas / New Yr
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border-b-[0.6px] border-slate-400 text-center py-4 font-bold">
-                  APARTMENT TYPE
-                </td>
-                <td className="border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                  4th Jan - 30th June
-                </td>
+                  <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                    High Season
+                  </th>
+                  <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                    Christmas / New Yr
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border-b-[0.6px] border-slate-400 text-center py-4 font-bold">
+                    APARTMENT TYPE
+                  </td>
+                  <td className="border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
+                    4th Jan - 30th June
+                  </td>
 
-                <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                  1st July - 20th Dec{" "}
-                </td>
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                  21st Dec - 6th Jan
-                </td>
-              </tr>
-              <tr>
-                <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">
-                  1 BEDROOM/STUDIO
-                </td>
-                <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                  KES 5,000
-                </td>
+                  <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                    1st July - 20th Dec{" "}
+                  </td>
+                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                    21st Dec - 6th Jan
+                  </td>
+                </tr>
+                <tr>
+                  <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">
+                    {houseA.houseName}
+                  </td>
+                  <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
+                    KES {houseA.lowSeason}
+                  </td>
 
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                  KES 6,500
-                </td>
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                  -
-                </td>
-              </tr>
-              <tr>
-                <td className="flex flex-col items-center justify-center h-full  py-4 border-b-[0.6px] border-slate-400">
-                  STANDARD 2 BEDROOM
-                </td>
-                <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                  KES 6,000
-                </td>
+                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                    KES {houseA.highSeason}
+                  </td>
+                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                    -
+                  </td>
+                </tr>
+                <tr>
+                  <td className="flex flex-col items-center justify-center h-full  py-4 border-b-[0.6px] border-slate-400">
+                    {houseB.houseName}
+                  </td>
+                  <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
+                    KES {houseB.lowSeason}
+                  </td>
 
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                  KES 7,500
-                </td>
-                <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                  KES 9,000
-                </td>
-              </tr>
-              <tr>
-                <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">
-                  EXECUTIVE 2 BEDROOM
-                </td>
-                <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                  KES 7,000
-                </td>
+                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                    KES {houseB.highSeason}
+                  </td>
+                  <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                    KES {houseB.christmasNewYear}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">
+                    {houseC.houseName}
+                  </td>
+                  <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
+                    KES {houseC.lowSeason}
+                  </td>
 
-                <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                  KES 9,000
-                </td>
-                <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                  KES 15,000
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                    KES {houseC.highSeason}
+                  </td>
+                  <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                    KES {houseC.christmasNewYear}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <div className="mt-12 flex flex-col space-y-4">
             <li className="list-disc">Rates include: Accommodation and Gas</li>
             <li className="list-disc">

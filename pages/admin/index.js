@@ -197,7 +197,7 @@ const DashBoard = () => {
         <h5 className="text-xl font-bold text-white">DASHBOARD</h5>
         <p className={` text-white`}>Welcome to your DashBoard</p>
         <div className="mt-10">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-4 gap-4">
             <div className=" shadow-lg p-4 bg-slate-700 hover:scale-110 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black ">
               <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
                 <p className="text-4xl text-[#2cc52c] ">
@@ -255,14 +255,17 @@ const DashBoard = () => {
             </Link>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-12 gap-4">
-          <div className="bg-slate-700 col-span-7 h-[350px] shadow-2xl">
+        <div className="mt-4 grid md:grid-cols-12 gap-4">
+          <div
+            className="bg-slate-700 md:col-span-7
+          md:h-[350px] shadow-2xl"
+          >
             <h3 className="text-center text-white py-2 text-sm uppercase font-bold">
               MONTHLY REVENUE
             </h3>
             <LineComponent />
           </div>
-          <div className="bg-slate-700 col-span-5 h-[350px] shadow-2xl">
+          <div className="bg-slate-700 md:col-span-5 h-[350px] shadow-2xl">
             <div className="">
               <h3 className="text-center text-white py-2 text-sm  uppercase font-bold">
                 AGGREGATE REVENUE / ACCOMODATION
@@ -274,8 +277,8 @@ const DashBoard = () => {
             </div>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-12 gap-4">
-          <div className="bg-slate-700 col-span-7 shadow-2xl">
+        <div className="mt-4 grid md:grid-cols-12 gap-4">
+          <div className="bg-slate-700 md:col-span-7 shadow-2xl hidden">
             <h3 className="text-center text-white py-2 text-sm  uppercase font-bold">
               LAST FIVE BOOKINGS
             </h3>
@@ -289,13 +292,13 @@ const DashBoard = () => {
           </div>
           <Link
             href="/admin/messages"
-            className="bg-slate-700 col-span-5 h-[240px] shadow-2xl relative hover:scale-105 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+            className="bg-slate-700 md:col-span-5 h-[240px] shadow-2xl relative hover:scale-105 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
           >
-            <div className="">
+            <div>
               <h3 className="text-center  py-2 text-sm  uppercase font-bold">
                 MESSAGES
               </h3>
-              <div className="absolute top-[30%] left-[40%]">
+              <div className="absolute top-[30%] left-[35%] md:left-[40%]">
                 <p className="text-[100px] text-[green]">
                   <FaBell />
                 </p>

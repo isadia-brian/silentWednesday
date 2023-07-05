@@ -1,15 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MdTimeline } from "react-icons/md";
-import { AiFillPieChart } from "react-icons/ai";
-import { HiChartPie } from "react-icons/hi";
 
 import {
   HomeIcon,
   UsersIcon,
   ClipboardDocumentCheckIcon,
   HomeModernIcon,
-  CogIcon,
+  BanknotesIcon,
 } from "@heroicons/react/24/solid";
 
 import localFont from "next/font/local";
@@ -61,6 +58,11 @@ const Links = [
     link: "/admin/getHouses",
     icon: <HomeModernIcon />,
   },
+  {
+    title: "Rates",
+    link: "/admin/rates",
+    icon: <BanknotesIcon />,
+  },
 ];
 
 const AdminLayout = ({ children }) => {
@@ -94,7 +96,7 @@ const AdminLayout = ({ children }) => {
             </ul>
             <ul className="cursor-pointer mt-16 flex flex-col space-y-5">
               <p className="text-sm underline mb-2 shadow-lg">MANAGEMENT</p>
-              {Links.slice(1, 4).map((link) => {
+              {Links.slice(1, 5).map((link) => {
                 return (
                   <li key={link.title}>
                     <Link href={link.link} className={`flex text-sm`}>
@@ -110,7 +112,7 @@ const AdminLayout = ({ children }) => {
           </nav>
         </div>
       </aside>
-      <div className="ml-[200px]">{children}</div>
+      <div className="md:ml-[200px] w-full">{children}</div>
     </div>
   );
 };
