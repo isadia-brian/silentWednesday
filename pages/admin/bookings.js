@@ -176,7 +176,6 @@ const GetBookings = () => {
           const newBookingStatus = await axios.put(
             `/api/getHouses?id=${houseId}&monthId=${monthId}`
           );
-          console.log(newBookingStatus.data);
         } catch (error) {
           console.log("Error updating booking status", error);
         }

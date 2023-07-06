@@ -42,9 +42,13 @@ const Reservation = () => {
   const [duplicateHouses, setDuplicateHouses] = useState([]);
   const [disableEnterDetails, setDisableEnterDetails] = useState(true);
   const [selectedDates, setSelectedDates] = useState([null, null]);
+  const [chosenDates, setChosenDates] = useState([null, null]);
+  const [firstDate, setFirstDate] = useState(null);
+  const [lastDate, setLastDate] = useState(null);
+
+  let formatter = new Intl.NumberFormat("en-us");
 
   const handleSubmit = (values) => {
-    console.log(guests);
     const queryParams = {
       values: JSON.stringify(values),
       toDate,
@@ -99,8 +103,22 @@ const Reservation = () => {
     }
   }, [fromDate, toDate]);
 
+  const handleFirstDateChange = (date) => {
+    const lastDate = chosenDates[1];
+    const updatedDates = [date, lastDate];
+    setSelectedDates(updatedDates);
+    handleSelect(updatedDates);
+  };
+
+  const handleLastDateChange = (date) => {
+    const firstDate = selectedDates[0];
+    const updatedDates = [firstDate, date];
+    setSelectedDates(updatedDates);
+    handleSelect(updatedDates);
+  };
+
   const handleSelect = (dates) => {
-    if (!dates) {
+    if (!dates || dates.includes(null)) {
       setDisableEnterDetails(true);
       setIsOpen(false);
       return;
@@ -154,8 +172,6 @@ const Reservation = () => {
             start: startDate,
             end: endDate,
           });
-
-        console.log(isOverlap);
 
         if (isOverlap) {
           availability = false;
@@ -339,12 +355,27 @@ const Reservation = () => {
               <option value="Studio">Studio</option>
             </select>
           </div>
-
-          <div className="flex w-full mt-8 " onClick={() => setIsOpend(!opend)}>
-            <RangePicker
-              className="border-b-[0.8px] border-black w-full"
-              onChange={handleSelect}
-            />
+          <div className="max-w-full">
+            <div className="mt-8 w-full grid grid-cols-2 gap-1">
+              <DatePicker
+                format="YYYY-MM-DD"
+                value={selectedDates[0]}
+                onChange={handleFirstDateChange}
+                placeholder="Start Date"
+                inputReadOnly
+                popupStyle={{ zIndex: 9999 }}
+                className="border border-black rounded-none"
+              />
+              <DatePicker
+                format="YYYY-MM-DD"
+                value={selectedDates[1]}
+                onChange={handleLastDateChange}
+                placeholder="End Date"
+                inputReadOnly
+                popupStyle={{ zIndex: 9999 }}
+                className="border border-black rounded-none"
+              />
+            </div>
           </div>
         </div>
 
@@ -406,7 +437,7 @@ const Reservation = () => {
                                     <HiUsers />
                                   </p>
                                   <p className="text-gray-500 text-[15px]">
-                                    {house.noOfGuests || 6} pax
+                                    {house.noOfGuests} pax
                                   </p>
                                 </div>
                                 <div className="flex items-center space-x-2">
@@ -446,7 +477,7 @@ const Reservation = () => {
                                       FROM
                                     </span>
                                     <p className="text-4xl  font-bold">
-                                      KES {house.amount}
+                                      KES {formatter.format(house.amount)}
                                       <span className="text-sm font-thin">
                                         /PER NIGHT
                                       </span>
@@ -486,6 +517,7 @@ const Reservation = () => {
                                     houseAmount={house.amount}
                                     houseImage={house.imageUrl}
                                     open={open}
+                                    setIsOpen={setIsOpen}
                                     onSubmit={(values) =>
                                       handleSubmit(values, index)
                                     }
@@ -520,6 +552,7 @@ function HouseForm({
   houseTitle,
   houseAmount,
   houseImage,
+  setIsOpen,
 }) {
   const validate = (values) => {
     const errors = {};

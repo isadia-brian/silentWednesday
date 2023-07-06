@@ -20,21 +20,3 @@ export default async function handler(req, res) {
     }
   }
 }
-//   const { houseId, month } = req.query;
-//   console.log(houseId)
-
-//   if (!houseId || !month) {
-//     res.status(400).json({ error: 'Missing parameters' });
-//     return;
-//   }
-
-//   try {
-//     const totalAmount = await getTotalBookingsPerMonth(houseId, month);
-
-//     res.status(200).json({ houseId, month, });
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// } else {
-//   res.status(405).json({ error: 'Method Not Allowed' });
-// }

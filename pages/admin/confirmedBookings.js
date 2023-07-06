@@ -161,7 +161,6 @@ const ConfirmedBookings = () => {
     async function fetchHouses() {
       try {
         const housesResponse = await axios.get("/api/getHouses");
-        console.log(housesResponse.data);
       } catch (error) {
         console.log("Error fetching House", error);
       }
@@ -184,7 +183,6 @@ const ConfirmedBookings = () => {
           const newBookingStatus = await axios.put(
             `/api/updateHouse/pending?id=${houseId}&monthId=${monthId}`
           );
-          console.log(newBookingStatus.data);
         } catch (error) {
           console.log("Error updating booking status", error);
         }

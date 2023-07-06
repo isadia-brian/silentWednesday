@@ -12,7 +12,6 @@ export default async function handler(req, res) {
       console.log("Error getting data:", error);
     }
   } else if (req.method === "PUT") {
-    console.log(lowSeason);
     try {
       await connectMongoDB();
 

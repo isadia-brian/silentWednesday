@@ -14,7 +14,7 @@ const Rates = () => {
   const [houseA, setHouseA] = useState([]);
   const [houseB, setHouseB] = useState([]);
   const [houseC, setHouseC] = useState([]);
-
+  let formatter = new Intl.NumberFormat("en-us");
   useEffect(() => {
     const getRates = async () => {
       try {
@@ -67,10 +67,10 @@ const Rates = () => {
                     {houseA.houseName}
                   </td>
                   <td className="border border-slate-400">
-                    KES {houseA.lowSeason}
+                    KES {formatter.format(houseA.lowSeason)}
                   </td>
                   <td className="border border-slate-400">
-                    KES {houseA.highSeason}
+                    KES {formatter.format(houseA.highSeason)}
                   </td>
                 </tr>
                 <tr className="text-center border border-separate">
@@ -78,10 +78,10 @@ const Rates = () => {
                     {houseB.houseName}
                   </td>
                   <td className="border border-slate-400">
-                    KES {houseB.lowSeason}
+                    KES {formatter.format(houseB.lowSeason)}
                   </td>
                   <td className="border border-slate-400">
-                    KES {houseB.highSeason}
+                    KES {formatter.format(houseB.highSeason)}
                   </td>
                 </tr>
                 <tr className="text-center border border-separate">
@@ -89,10 +89,10 @@ const Rates = () => {
                     {houseC.houseName}
                   </td>
                   <td className="border border-slate-400">
-                    KES {houseC.lowSeason}
+                    KES {formatter.format(houseC.lowSeason)}
                   </td>
                   <td className="border border-slate-400">
-                    KES {houseC.highSeason}
+                    KES {formatter.format(houseC.highSeason)}
                   </td>
                 </tr>
               </tbody>
@@ -124,7 +124,7 @@ const Rates = () => {
                     {houseB.houseName}
                   </td>
                   <td className="border border-slate-400">
-                    KES {houseB.christmasNewYear}
+                    KES {formatter.format(houseB.christmasNewYear)}
                   </td>
                 </tr>
                 <tr className="text-center border border-separate">
@@ -132,7 +132,7 @@ const Rates = () => {
                     {houseC.houseName}
                   </td>
                   <td className="border border-slate-400">
-                    KES {houseC.christmasNewYear}
+                    KES {formatter.format(houseC.christmasNewYear)}
                   </td>
                 </tr>
               </tbody>
@@ -175,11 +175,11 @@ const Rates = () => {
                     {houseA.houseName}
                   </td>
                   <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                    KES {houseA.lowSeason}
+                    KES {formatter.format(houseA.lowSeason)}
                   </td>
 
                   <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                    KES {houseA.highSeason}
+                    KES {formatter.format(houseA.highSeason)}
                   </td>
                   <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
                     -
@@ -190,14 +190,14 @@ const Rates = () => {
                     {houseB.houseName}
                   </td>
                   <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                    KES {houseB.lowSeason}
+                    KES {formatter.format(houseB.lowSeason)}
                   </td>
 
                   <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                    KES {houseB.highSeason}
+                    KES {formatter.format(houseB.highSeason)}
                   </td>
                   <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                    KES {houseB.christmasNewYear}
+                    KES {formatter.format(houseB.christmasNewYear)}
                   </td>
                 </tr>
                 <tr>
@@ -205,14 +205,14 @@ const Rates = () => {
                     {houseC.houseName}
                   </td>
                   <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                    KES {houseC.lowSeason}
+                    KES {formatter.format(houseC.lowSeason)}
                   </td>
 
                   <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                    KES {houseC.highSeason}
+                    KES {formatter.format(houseC.highSeason)}
                   </td>
                   <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                    KES {houseC.christmasNewYear}
+                    KES {formatter.format(houseC.christmasNewYear)}
                   </td>
                 </tr>
               </tbody>

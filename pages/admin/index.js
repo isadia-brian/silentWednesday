@@ -165,10 +165,6 @@ const DashBoard = () => {
           })
         );
 
-        // // Sort the array based on totalAmount in descending order
-        // console.log(houseAmountsArray.sort((a, b) => b.totalAmount - a.totalAmount));
-
-        // Select top 3 houseAmounts
         const top3HouseAmounts = houseAmountsArray;
 
         setHouseAmounts(top3HouseAmounts);
@@ -179,6 +175,8 @@ const DashBoard = () => {
 
     getAllBookings();
   }, []);
+
+  let formatter = new Intl.NumberFormat("en-us");
 
   useEffect(() => {
     async function getMessages() {
@@ -205,12 +203,14 @@ const DashBoard = () => {
                 </p>
                 <div>
                   <p className="font-bold text-sm ">TOTAL EARNINGS</p>
-                  <p className="text-3xl text-center">{totalAmount}</p>
+                  <p className="text-2xl text-center">
+                    KES {formatter.format(totalAmount)}
+                  </p>
                 </div>
               </div>
             </div>
             <Link
-              href="/admin/getBookings"
+              href="/admin/bookings"
               className="bg-slate-700 shadow-lg p-4 hover:scale-110 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
             >
               <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
@@ -219,12 +219,12 @@ const DashBoard = () => {
                 </p>
                 <div>
                   <p className="font-bold text-sm">TOTAL BOOKINGS</p>
-                  <p className="text-3xl text-center">{bookings?.length}</p>
+                  <p className="text-2xl text-center">{bookings?.length}</p>
                 </div>
               </div>
             </Link>
             <Link
-              href="/admin/confirmedBookings"
+              href="/admin/confirmedbookings"
               className="bg-slate-700 shadow-lg p-4 hover:scale-110 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
             >
               <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
@@ -233,14 +233,14 @@ const DashBoard = () => {
                 </p>
                 <div>
                   <p className="font-bold text-sm">CONFIRMED BOOKINGS</p>
-                  <p className="text-3xl text-center">
+                  <p className="text-2xl text-center">
                     {confirmedBookingsCount}
                   </p>
                 </div>
               </div>
             </Link>
             <Link
-              href="/admin/pendingBookings"
+              href="/admin/pendingbookings"
               className="bg-slate-700 shadow-lg  p-4 hover:scale-110 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
             >
               <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
@@ -249,7 +249,7 @@ const DashBoard = () => {
                 </p>
                 <div>
                   <p className="font-bold text-sm">PENDING BOOKINGS</p>
-                  <p className="text-3xl text-center">{pendingBookingsCount}</p>
+                  <p className="text-2xl text-center">{pendingBookingsCount}</p>
                 </div>
               </div>
             </Link>
@@ -278,7 +278,7 @@ const DashBoard = () => {
           </div>
         </div>
         <div className="mt-4 grid md:grid-cols-12 gap-4">
-          <div className="bg-slate-700 md:col-span-7 shadow-2xl hidden">
+          <div className="bg-slate-700 md:col-span-7 shadow-2xl">
             <h3 className="text-center text-white py-2 text-sm  uppercase font-bold">
               LAST FIVE BOOKINGS
             </h3>

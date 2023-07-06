@@ -28,6 +28,10 @@ export default async function handler(req, res) {
 
     const houseTemp = await House.findById(houseId);
 
+    if (!houseTemp) {
+      res.status(400).json({ msg: "House not found" });
+    }
+
     const bookingAmount = amount;
     if (houseTemp) {
       const id = houseTemp._id.toString();
@@ -62,6 +66,115 @@ export default async function handler(req, res) {
           });
         }
         await house2.save();
+      } else if (id === "64a37cb73ca959c91f7d658c") {
+        const month = moment(fromDate, "DD-MM-YYYY").format("MMMM");
+        const monthObject = houseTemp.months.find((m) => m.name === month);
+
+        if (monthObject) {
+          monthObject.amount += bookingAmount;
+        } else {
+          houseTemp.months.push({
+            name: month,
+            amount: bookingAmount,
+            bookingStatus: booking.bookingStatus,
+          });
+        }
+        houseTemp.currentBookings.push({
+          bookingId: booking._id,
+          fromDate,
+          toDate,
+          status: booking.status,
+        });
+
+        const house2 = await House.findById("647fc614b582465d08d5146a");
+        if (house2) {
+          house2.currentBookings.push({
+            bookingId: booking._id,
+            fromDate,
+            toDate,
+            status: booking.status,
+          });
+        }
+        await house2.save();
+      } else if (id === "64a37c623ca959c91f7d658b") {
+        const month = moment(fromDate, "DD-MM-YYYY").format("MMMM");
+        const monthObject = houseTemp.months.find((m) => m.name === month);
+
+        if (monthObject) {
+          monthObject.amount += bookingAmount;
+        } else {
+          houseTemp.months.push({
+            name: month,
+            amount: bookingAmount,
+            bookingStatus: booking.bookingStatus,
+          });
+        }
+        houseTemp.currentBookings.push({
+          bookingId: booking._id,
+          fromDate,
+          toDate,
+          status: booking.status,
+        });
+
+        const house2 = await House.findById("647fc88bb582465d08d5146e");
+        if (house2) {
+          house2.currentBookings.push({
+            bookingId: booking._id,
+            fromDate,
+            toDate,
+            status: booking.status,
+          });
+        }
+        await house2.save();
+      } else if (id === "647fc88bb582465d08d5146e") {
+        const month = moment(fromDate, "DD-MM-YYYY").format("MMMM");
+        const monthObject = houseTemp.months.find((m) => m.name === month);
+
+        if (monthObject) {
+          monthObject.amount += bookingAmount;
+        } else {
+          houseTemp.months.push({
+            name: month,
+            amount: bookingAmount,
+            bookingStatus: booking.bookingStatus,
+          });
+        }
+        houseTemp.currentBookings.push({
+          bookingId: booking._id,
+          fromDate,
+          toDate,
+          status: booking.status,
+        });
+
+        const house2 = await House.findById("64a37c623ca959c91f7d658b");
+        if (house2) {
+          house2.currentBookings.push({
+            bookingId: booking._id,
+            fromDate,
+            toDate,
+            status: booking.status,
+          });
+        }
+        await house2.save();
+      } else {
+        const month = moment(fromDate, "DD-MM-YYYY").format("MMMM");
+        const monthObject = houseTemp.months.find((m) => m.name === month);
+
+        if (monthObject) {
+          monthObject.amount += bookingAmount;
+        } else {
+          houseTemp.months.push({
+            name: month,
+            amount: bookingAmount,
+            bookingStatus: booking.bookingStatus,
+          });
+        }
+        houseTemp.currentBookings.push({
+          bookingId: booking._id,
+          fromDate,
+          toDate,
+          status: booking.status,
+        });
       }
       await houseTemp.save();
 

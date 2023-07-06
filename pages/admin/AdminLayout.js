@@ -7,6 +7,7 @@ import {
   ClipboardDocumentCheckIcon,
   HomeModernIcon,
   BanknotesIcon,
+  CalendarDaysIcon,
 } from "@heroicons/react/24/solid";
 
 import localFont from "next/font/local";
@@ -45,7 +46,7 @@ const Links = [
 
   {
     title: "Bookings",
-    link: "/admin/getBookings",
+    link: "/admin/bookings",
     icon: <ClipboardDocumentCheckIcon />,
   },
   {
@@ -55,13 +56,18 @@ const Links = [
   },
   {
     title: "Houses",
-    link: "/admin/getHouses",
+    link: "/admin/houses",
     icon: <HomeModernIcon />,
   },
   {
     title: "Rates",
     link: "/admin/rates",
     icon: <BanknotesIcon />,
+  },
+  {
+    title: "Calendar",
+    link: "/admin/calendar",
+    icon: <CalendarDaysIcon />,
   },
 ];
 
@@ -96,7 +102,7 @@ const AdminLayout = ({ children }) => {
             </ul>
             <ul className="cursor-pointer mt-16 flex flex-col space-y-5">
               <p className="text-sm underline mb-2 shadow-lg">MANAGEMENT</p>
-              {Links.slice(1, 5).map((link) => {
+              {Links.slice(1, 6).map((link) => {
                 return (
                   <li key={link.title}>
                     <Link href={link.link} className={`flex text-sm`}>

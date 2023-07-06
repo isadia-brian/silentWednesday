@@ -177,7 +177,6 @@ const PendingBookings = () => {
           const newBookingStatus = await axios.put(
             `/api/updateHouse/confirmed?id=${houseId}&monthId=${monthId}`
           );
-          console.log(newBookingStatus.data);
         } catch (error) {
           console.log("Error updating booking status", error);
         }

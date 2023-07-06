@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+
 import ClientLayout from "@/components/ClientLayout";
 import { Cormorant } from "next/font/google";
 import localFont from "next/font/local";

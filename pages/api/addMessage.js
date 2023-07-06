@@ -13,7 +13,6 @@ export default async function handler(req, res) {
     await connectMongoDB();
     Message.create({ user_name, user_phone, user_message, user_email }).then(
       (data) => {
-        console.log(data);
         res.status(201).json(data);
       }
     );

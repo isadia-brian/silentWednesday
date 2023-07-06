@@ -57,6 +57,7 @@ const Book = () => {
       console.error(error);
     }
   };
+  let formatter = new Intl.NumberFormat("en-us");
 
   const handleSuccess = (e) => {
     e.preventDefault();
@@ -250,14 +251,18 @@ const Book = () => {
                     <p className="text-5xl text-white font-bold">
                       <BsCashStack />
                     </p>
-                    <p className="text-2xl text-white">{amountTotal}</p>
+                    <p className="text-2xl text-white">
+                      <span className="text-lg">KES </span>
+                      {formatter.format(amountTotal)}
+                    </p>
                   </div>
                 </div>
                 <div className="my-6 w-[300px] mx-auto text-center">
                   <p className="px-4">
                     You are required to pay an initial deposit of KES{" "}
-                    {amountTotal / 2} or a full payment of KES {amountTotal} via
-                    lia na mpesa paybill no below then click confirm payment.
+                    {formatter.format(amountTotal / 2)} or a full payment of KES{" "}
+                    {formatter.format(amountTotal)} via lia na mpesa paybill no
+                    below then click confirm payment.
                   </p>
                   <div className="mt-6">
                     <p className="text-lg">TILL</p>
