@@ -34,6 +34,7 @@ const poppins = localFont({
 
 const GetHouses = () => {
   const [houses, setHouses] = useState([]);
+  const [open, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchHouses = async () => {
@@ -47,41 +48,36 @@ const GetHouses = () => {
     };
 
     fetchHouses();
-  }, []);
+  }, [houses]);
   return (
-    <AdminLayout>
-      <div
-        className={`${poppins.className} py-14 pl-[230px] pr-[30px] bg-green-600 h-full w-screen -ml-[200px] `}
-      >
-        <div>
-          <h1 className="font-bold underline">All Houses</h1>
-        </div>
-        <Link
-          href="/admin/addhouse"
-          className="bg-green-800 py-3 px-4 w-[150px] text-white border-none flex items-center justify-between"
+    <AdminLayout open={open} setIsOpen={setIsOpen}>
+      {!open && (
+        <div
+          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] py-6 px-4 bg-gray-200 h-full w-screen md:-ml-[200px] `}
         >
-          Add House{" "}
-          <span className="text-lg">
-            <TbHomePlus />
-          </span>
-        </Link>
-        <div>
-          {houses.map((house) => {
-            return (
-              <div key={house._id} className="bg-white">
-                <HorizontalAccordion
-                  title={house.title}
-                  description={house.description}
-                  price={house.amount}
-                  guests={house.noOfGuests}
-                  rooms={house.rooms}
-                  image={house.imageUrl}
-                />
-              </div>
-            );
-          })}
+          <div>
+            <h1 className="font-bold text-xl  uppercase">Houses</h1>
+          </div>
+
+          <div>
+            {houses.map((house) => {
+              return (
+                <div key={house._id} className="bg-white">
+                  <HorizontalAccordion
+                    title={house.title}
+                    description={house.description}
+                    price={house.amount}
+                    guests={house.noOfGuests}
+                    rooms={house.rooms}
+                    image={house.imageUrl}
+                    id={house._id}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </AdminLayout>
   );
 };

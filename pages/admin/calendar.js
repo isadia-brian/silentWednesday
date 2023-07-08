@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Badge, Calendar } from "antd";
+import { Badge, Calendar, Alert } from "antd";
 import AdminLayout from "./AdminLayout";
 import localFont from "next/font/local";
-import { parse, format, eachDayOfInterval } from "date-fns";
+import { parse, eachDayOfInterval, format } from "date-fns";
 import axios from "axios";
 
 const poppins = localFont({
@@ -12,16 +12,23 @@ const poppins = localFont({
       weight: "400",
       style: "normal",
     },
+
+    {
+      path: "../../public/fonts/poppins/Poppins-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
   ],
 });
 
 const CalendarComponent = () => {
   const [bookingData, setBookingData] = useState([]);
 
-  const getMonthData = (value) => {};
+  const [open, setIsOpen] = useState(false);
 
   const getDatesBetween = (fromDate, toDate) => {
     const parsedFromDate = parse(fromDate, "dd-MM-yyyy", new Date());
+
     const parsedToDate = parse(toDate, "dd-MM-yyyy", new Date());
     return eachDayOfInterval({ start: parsedFromDate, end: parsedToDate });
   };
@@ -58,11 +65,40 @@ const CalendarComponent = () => {
   const dateCellRender = (value) => {
     const listData = getListData(value);
 
+    const handleBadgeClick = () => {
+      if (listData.length > 0) {
+        const houseNames = listData.map((house) => {
+          return <p>{house.content}</p>;
+        });
+
+        let allHouseNames = [];
+
+        houseNames.forEach((newHouse) => {
+          const { props } = newHouse;
+          const allHouses = props.children;
+
+          if (Array.isArray(allHouses)) {
+            allHouses.forEach((house) => {
+              allHouseNames.push(house);
+            });
+          } else {
+            allHouseNames.push(allHouses);
+          }
+        });
+
+        alert(allHouseNames);
+      }
+    };
+
     return (
       <ul className="events">
         {listData.map((item) => (
           <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
+            <Badge
+              status={item.type}
+              text={item.content}
+              onClick={handleBadgeClick}
+            />
           </li>
         ))}
       </ul>
@@ -89,17 +125,19 @@ const CalendarComponent = () => {
   }, []);
 
   return (
-    <AdminLayout>
-      <div className="px-6 bg-green-600 h-screen">
-        <h1
-          className={`${poppins.className} pt-14 w-full text-xl font-bold underline text-white `}
-        >
-          Bookings Calendar
-        </h1>
-        <div className={`${poppins.className} py-5 w-full `}>
-          <Calendar cellRender={cellRender} />
+    <AdminLayout open={open} setIsOpen={setIsOpen}>
+      {!open && (
+        <div className="px-6 bg-gray-200 h-full text-black md:h-screen">
+          <h1
+            className={`${poppins.className} md:pt-14 pt-6 uppercase w-full text-xl font-bold `}
+          >
+            Daily Availability
+          </h1>
+          <div className={`${poppins.className} pt-6 w-full `}>
+            <Calendar cellRender={cellRender} />
+          </div>
         </div>
-      </div>
+      )}
     </AdminLayout>
   );
 };

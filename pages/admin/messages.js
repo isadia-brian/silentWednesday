@@ -35,11 +35,12 @@ const poppins = localFont({
 
 const DashBoard = () => {
   const [messages, setMessages] = useState([]);
+  const [open, setIsOpen] = useState(false);
   const ExpandableComponent = ({ data }) => (
-    <div className="p-4">
+    <div className="p-4 ">
       <p className="font-bold mb-4 text-lg">Message:</p>
 
-      <p className="text-sm">{data.user_message}</p>
+      <p className="text-sm max-w-[300px] md:max-w-full">{data.user_message}</p>
     </div>
   );
   const columns = [
@@ -105,19 +106,22 @@ const DashBoard = () => {
     getMessages();
   });
   return (
-    <AdminLayout>
-      <div
-        className={`${poppins.className} py-14 pl-[230px] pr-[30px] bg-green-600 h-screen w-screen -ml-[200px] `}
-      >
-        <DataTable
-          columns={columns}
-          data={messages}
-          customStyles={customStyles}
-          expandableRows
-          pagination
-          expandableRowsComponent={ExpandableComponent}
-        />
-      </div>
+    <AdminLayout open={open} setIsOpen={setIsOpen}>
+      {!open && (
+        <div
+          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] px-4 py-6 bg-gray-200 h-screen w-screen md:-ml-[200px] `}
+        >
+          <DataTable
+            title="Messages"
+            columns={columns}
+            data={messages}
+            customStyles={customStyles}
+            expandableRows
+            pagination
+            expandableRowsComponent={ExpandableComponent}
+          />
+        </div>
+      )}
     </AdminLayout>
   );
 };

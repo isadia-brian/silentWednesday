@@ -7,13 +7,24 @@ import {
   BsCashStack,
 } from "react-icons/bs";
 import axios from "axios";
-import LineComponent from "@/components/LineComponent";
+
+import {
+  HomeIcon,
+  UsersIcon,
+  ClipboardDocumentCheckIcon,
+  HomeModernIcon,
+  BanknotesIcon,
+  CalendarDaysIcon,
+} from "@heroicons/react/24/solid";
+
 import PieComponent from "@/components/PieComponent";
 import DataTable from "react-data-table-component";
 import { FaBell } from "react-icons/fa";
 
 import localFont from "next/font/local";
 import Link from "next/link";
+import SimpleCharts from "@/components/SimpleCharts";
+import Image from "next/image";
 
 const poppins = localFont({
   src: [
@@ -33,6 +44,11 @@ const poppins = localFont({
       style: "normal",
     },
     {
+      path: "../../public/fonts/poppins/Poppins-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
       path: "../../public/fonts/poppins/Poppins-Bold.ttf",
       weight: "700",
       style: "normal",
@@ -49,6 +65,7 @@ const DashBoard = () => {
   const [houseAmounts, setHouseAmounts] = useState([]);
   const [housePrices, setHousePrices] = useState([]);
   const [houseNames, setHouseNames] = useState([]);
+  const [open, setIsOpen] = useState(false);
 
   const columns = [
     {
@@ -92,15 +109,15 @@ const DashBoard = () => {
     rows: {
       style: {
         minHeight: "72px", // override the row height
-        backgroundColor: "rgb(51,65,85)",
-        color: "white",
+        backgroundColor: "rgb(255,255,255)",
+        color: "black",
       },
     },
     headCells: {
       style: {
         paddingLeft: "8px", // override the cell padding for head cells
         paddingRight: "8px",
-        backgroundColor: "rgb(51,65,85)",
+        backgroundColor: "rgb(44, 197, 44)",
         borderColor: "rgb(51,65,85)",
         color: "yellow",
       },
@@ -188,129 +205,153 @@ const DashBoard = () => {
       }
     }
     getMessages();
-  });
+  }, []);
   return (
-    <AdminLayout>
-      <div className={`${poppins.className} py-14 px-4 bg-green-600 w-full`}>
-        <h5 className="text-xl font-bold text-white">DASHBOARD</h5>
-        <p className={` text-white`}>Welcome to your DashBoard</p>
-        <div className="mt-10">
-          <div className="grid md:grid-cols-4 gap-4">
-            <div className=" shadow-lg p-4 bg-slate-700 hover:scale-110 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black ">
-              <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
-                <p className="text-4xl text-[#2cc52c] ">
-                  <BsCashStack />
-                </p>
+    <AdminLayout open={open} setIsOpen={setIsOpen}>
+      {!open && (
+        <div
+          className={`${poppins.className} pt-6 pb-10 px-4 bg-gray-200 h-full w-full`}
+        >
+          <h5 className="text-xl font-bold text-black">DASHBOARD</h5>
+          <p className={` text-black`}>Welcome to your DashBoard</p>
+          <div className="mt-10">
+            <div className="grid md:grid-cols-4 gap-4">
+              <div className=" shadow-lg p-4 bg-white hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black ">
+                <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
+                  <p className="text-4xl text-[#2cc52c] ">
+                    <BsCashStack />
+                  </p>
+                  <div>
+                    <p className="font-bold text-sm ">TOTAL EARNINGS</p>
+                    <p className="text-2xl text-center">
+                      KES {formatter.format(totalAmount)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <Link
+                href="/admin/bookings"
+                className="bg-white shadow-lg p-4 hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+              >
+                <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
+                  <p className="text-4xl text-[#2cc52c]">
+                    <BsFillJournalBookmarkFill />
+                  </p>
+                  <div>
+                    <p className="font-bold text-sm">TOTAL BOOKINGS</p>
+                    <p className="text-2xl text-center">{bookings?.length}</p>
+                  </div>
+                </div>
+              </Link>
+              <Link
+                href="/admin/confirmedbookings"
+                className="bg-white shadow-lg p-4 hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+              >
+                <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
+                  <p className="text-4xl text-[#2cc52c]">
+                    <BsFillBookmarkCheckFill />
+                  </p>
+                  <div>
+                    <p className="font-bold text-sm">CONFIRMED BOOKINGS</p>
+                    <p className="text-2xl text-center">
+                      {confirmedBookingsCount}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+              <Link
+                href="/admin/pendingbookings"
+                className="bg-white shadow-lg  p-4 md:hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out md:hover:bg-white md:hover:text-black text-center "
+              >
+                <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
+                  <p className="text-4xl text-[#2cc52c]">
+                    <BsFillBookmarkDashFill />
+                  </p>
+                  <div>
+                    <p className="font-bold text-sm">PENDING BOOKINGS</p>
+                    <p className="text-2xl text-center">
+                      {pendingBookingsCount}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+              <Link
+                href="/admin/messages"
+                className="bg-white md:hidden md:col-span-5 h-[200px] shadow-2xl relative hover:scale-105 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+              >
                 <div>
-                  <p className="font-bold text-sm ">TOTAL EARNINGS</p>
-                  <p className="text-2xl text-center">
-                    KES {formatter.format(totalAmount)}
+                  <h3 className="text-center text-black  py-2 text-sm  uppercase font-bold">
+                    MESSAGES
+                  </h3>
+                  <div className="absolute top-[30%] left-[35%] md:left-[40%]">
+                    <p className="text-[100px] text-[green]">
+                      <FaBell />
+                    </p>
+                  </div>
+
+                  <div className="absolute top-[30%] left-[52%] bg-yellow-700 rounded-full h-10 w-10 flex items-center justify-center">
+                    <p className="font-semibold text-lg">{messages.length}</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="mt-4 grid-cols-1 grid md:grid-cols-12 gap-4">
+            <div
+              className="bg-white md:col-span-7
+          h-full shadow-2xl"
+            >
+              <SimpleCharts />
+            </div>
+            <div className="bg-white md:col-span-5 h-[420px] shadow-2xl">
+              <div className="">
+                <h3 className=" text-slate-700 p-6 font-medium uppercase">
+                  AGGREGATE REVENUE / ACCOMODATION
+                </h3>
+                <PieComponent
+                  houseNamesArray={houseNames}
+                  houseTotalsArray={housePrices}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-12 gap-4">
+            <div className="bg-white md:col-span-7 shadow-2xl  md:w-full">
+              <h3 className="text-center text-black py-2 text-sm  uppercase font-bold">
+                LAST FIVE BOOKINGS
+              </h3>
+
+              <div className="">
+                <DataTable
+                  columns={columns}
+                  data={bookings.slice(0, 5)}
+                  dense
+                  customStyles={customStyles}
+                />
+              </div>
+            </div>
+            <Link
+              href="/admin/messages"
+              className="bg-white md:col-span-5 hidden md:block h-[240px] shadow-2xl relative hover:scale-105 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+            >
+              <div>
+                <h3 className="text-center  py-2 text-sm  uppercase font-bold">
+                  MESSAGES
+                </h3>
+                <div className="absolute top-[30%] left-[35%] md:left-[40%]">
+                  <p className="text-[100px] text-[green]">
+                    <FaBell />
                   </p>
                 </div>
-              </div>
-            </div>
-            <Link
-              href="/admin/bookings"
-              className="bg-slate-700 shadow-lg p-4 hover:scale-110 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
-            >
-              <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
-                <p className="text-4xl text-[#2cc52c]">
-                  <BsFillJournalBookmarkFill />
-                </p>
-                <div>
-                  <p className="font-bold text-sm">TOTAL BOOKINGS</p>
-                  <p className="text-2xl text-center">{bookings?.length}</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              href="/admin/confirmedbookings"
-              className="bg-slate-700 shadow-lg p-4 hover:scale-110 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
-            >
-              <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
-                <p className="text-4xl text-[#2cc52c]">
-                  <BsFillBookmarkCheckFill />
-                </p>
-                <div>
-                  <p className="font-bold text-sm">CONFIRMED BOOKINGS</p>
-                  <p className="text-2xl text-center">
-                    {confirmedBookingsCount}
-                  </p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              href="/admin/pendingbookings"
-              className="bg-slate-700 shadow-lg  p-4 hover:scale-110 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
-            >
-              <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
-                <p className="text-4xl text-[#2cc52c]">
-                  <BsFillBookmarkDashFill />
-                </p>
-                <div>
-                  <p className="font-bold text-sm">PENDING BOOKINGS</p>
-                  <p className="text-2xl text-center">{pendingBookingsCount}</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-        <div className="mt-4 grid md:grid-cols-12 gap-4">
-          <div
-            className="bg-slate-700 md:col-span-7
-          md:h-[350px] shadow-2xl"
-          >
-            <h3 className="text-center text-white py-2 text-sm uppercase font-bold">
-              MONTHLY REVENUE
-            </h3>
-            <LineComponent />
-          </div>
-          <div className="bg-slate-700 md:col-span-5 h-[350px] shadow-2xl">
-            <div className="">
-              <h3 className="text-center text-white py-2 text-sm  uppercase font-bold">
-                AGGREGATE REVENUE / ACCOMODATION
-              </h3>
-              <PieComponent
-                houseNamesArray={houseNames}
-                houseTotalsArray={housePrices}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="mt-4 grid md:grid-cols-12 gap-4">
-          <div className="bg-slate-700 md:col-span-7 shadow-2xl">
-            <h3 className="text-center text-white py-2 text-sm  uppercase font-bold">
-              LAST FIVE BOOKINGS
-            </h3>
 
-            <DataTable
-              columns={columns}
-              data={bookings.slice(0, 5)}
-              dense
-              customStyles={customStyles}
-            />
+                <div className="absolute top-[30%] left-[52%] bg-yellow-500 rounded-full h-10 w-10 flex items-center justify-center">
+                  <p className="font-semibold text-lg">{messages.length}</p>
+                </div>
+              </div>
+            </Link>
           </div>
-          <Link
-            href="/admin/messages"
-            className="bg-slate-700 md:col-span-5 h-[240px] shadow-2xl relative hover:scale-105 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
-          >
-            <div>
-              <h3 className="text-center  py-2 text-sm  uppercase font-bold">
-                MESSAGES
-              </h3>
-              <div className="absolute top-[30%] left-[35%] md:left-[40%]">
-                <p className="text-[100px] text-[green]">
-                  <FaBell />
-                </p>
-              </div>
-
-              <div className="absolute top-[30%] left-[52%] bg-yellow-700 rounded-full h-10 w-10 flex items-center justify-center">
-                <p className="font-semibold text-lg">{messages.length}</p>
-              </div>
-            </div>
-          </Link>
         </div>
-      </div>
+      )}
     </AdminLayout>
   );
 };

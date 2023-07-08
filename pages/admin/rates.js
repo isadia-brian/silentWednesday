@@ -22,6 +22,7 @@ const rates = () => {
   const [rates, setRates] = useState([]);
   const [editedRow, setEditedRow] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [open, setIsOpen] = useState(false);
 
   const handleAction = (row) => {
     setEditedRow(row);
@@ -157,13 +158,16 @@ const rates = () => {
   }, []);
   return (
     <div>
-      <AdminLayout />
-      <div
-        className={`${poppins.className} py-14 pl-[230px] pr-[30px] bg-green-600 h-screen w-screen text-white`}
-      >
-        <h1 className="font-bold text-2xl underline mb-16">House Rates</h1>
-        <DataTable columns={columns} data={rates} />
-      </div>
+      <AdminLayout open={open} setIsOpen={setIsOpen} />
+      {!open && (
+        <div
+          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] px-4 bg-gray-200 h-screen w-screen text-black`}
+        >
+          <div className="pt-6">
+            <DataTable title="Rates" columns={columns} data={rates} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

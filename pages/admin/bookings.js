@@ -33,6 +33,7 @@ const poppins = localFont({
 
 const GetBookings = () => {
   const [bookings, setBookings] = useState([]);
+  const [open, setIsOpen] = useState(false);
 
   const columns = [
     {
@@ -188,20 +189,22 @@ const GetBookings = () => {
   };
 
   return (
-    <AdminLayout>
-      <div
-        className={`${poppins.className} py-14 pl-[230px] pr-[30px] bg-green-600 h-screen w-screen -ml-[200px] `}
-      >
-        <div className="">
-          <DataTable
-            title={`Bookings - ${bookings.length} Total`}
-            columns={columns}
-            data={bookings}
-            pagination
-            customStyles={customStyles}
-          />
+    <AdminLayout open={open} setIsOpen={setIsOpen}>
+      {!open && (
+        <div
+          className={`${poppins.className} pt-6  px-4 md:py-14 md:pl-[230px] md:pr-[30px]  h-full md:w-screen md:-ml-[200px] bg-gray-200 `}
+        >
+          <div className="">
+            <DataTable
+              title={`Bookings - ${bookings.length} Total`}
+              columns={columns}
+              data={bookings}
+              pagination
+              customStyles={customStyles}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </AdminLayout>
   );
 };

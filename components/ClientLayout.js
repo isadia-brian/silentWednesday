@@ -13,12 +13,14 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400"],
 });
 
-export default function ClientLayout({ children }) {
+export default function ClientLayout({ children, open }) {
   return (
     <div className={`${karla.className} text-[16px]`}>
-      <div className="fixed top-0 w-full z-10 bg-white border-b-[1px] border-green-800 shadow-md">
-        <Navbar />
-      </div>
+      {!open && (
+        <div className="fixed top-0 w-full z-10 bg-white border-b-[1px] border-green-800 shadow-md">
+          <Navbar />
+        </div>
+      )}
 
       <div>
         <TawkMessengerReact

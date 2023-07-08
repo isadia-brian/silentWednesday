@@ -65,10 +65,10 @@ const Book = () => {
   };
 
   return (
-    <ClientLayout>
+    <ClientLayout open={open}>
       {open ? (
-        <div className="flex px-6 justify-center items-center bg-green-500 h-screen w-full z-10">
-          <div className="flex flex-col rounded-2xl md:h-[500px] p-8 md:w-[700px] justify-between text-center bg-white space-y-4">
+        <div className="absolute  bg-green-500 h-screen w-full z-50 ">
+          <div className="flex flex-col rounded-2xl md:h-[500px] p-8 md:w-[700px] justify-between text-center bg-white space-y-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <h1 className="text-xl md:text-4xl font-bold ">
               Congratulations Your Accomodation has been Booked Successfully
             </h1>

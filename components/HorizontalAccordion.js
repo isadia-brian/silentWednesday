@@ -9,58 +9,52 @@ import {
   MdStarRate,
 } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
-import Link from "next/link";
-import { useRouter } from "next/router";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import { Collapse } from "react-collapse";
+import axios from "axios";
 
-const HorizontalCard = ({
-  title,
-  description,
-  price,
-  image,
-  guests,
-  rooms,
-  link,
-  handleSubmit,
-}) => {
-  const [open, setIsOpen] = useState(false);
-  const router = useRouter();
+const HorizontalCard = ({ title, description, price, image, guests, id }) => {
   const [details, setDetails] = useState({
-    firstName: "Brian",
-    lastName: "Lusigi",
-    email: "brian@gmail.com",
-    phoneNumber: "072269955",
-    arrival: "1022",
-    address: "kenyan",
-    nationality: "kenyan",
-    request: "",
+    houseName: title,
+    guests: guests,
+    description: description,
+    amount: price,
+    id: id,
   });
+
+  const [open, setIsOpen] = useState(false);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    // Call the handleSubmit function passed from the Reservation component
-    handleSubmit(details);
+    try {
+      const updatedHouse = await axios.put("/api/updateHouse/update", details);
+      setIsOpen(!open);
+    } catch (error) {
+      alert("Something went wrong");
+    }
   };
 
   return (
     <div className="h-full">
       <div className="mt-10 w-full">
         <div className="shadow-2xl px-4 py-4">
-          <div className="flex space-x-8  ">
-            <div className="relative h-[300px] min-w-[400px]">
+          <div className="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0  ">
+            <div className="relative h-[250px] md:h-[300px] md:min-w-[400px]">
               <Image src={image} alt={title} fill />
             </div>
             <div className="flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between w-full">
-                  <h4 className="text-2xl font-semibold ">{title}</h4>
+                  <h4 className=" text-lg md:text-2xl font-semibold ">
+                    {title}
+                  </h4>
                 </div>
 
                 <div className="flex space-x-1">
@@ -88,18 +82,8 @@ const HorizontalCard = ({
                     </p>
                     <p className="text-slate-500 text-xs">{guests}-Guests</p>
                   </div>
-                  <div className="flex space-x-2 items-center">
-                    <p>
-                      <MdKingBed />
-                    </p>
-                    {rooms < 2 ? (
-                      <p className="text-xs text-slate-500">{rooms}-bedroom</p>
-                    ) : (
-                      <p className="text-xs text-slate-500">{rooms}-bedrooms</p>
-                    )}
-                  </div>
                 </div>
-                <div className="flex items-center space-x-4 text-[18px] mt-6 text-slate-500  ">
+                <div className="flex items-center space-x-4 text-[18px]  my-6 text-slate-500  ">
                   <AiOutlineWifi />
                   <FaSwimmingPool />
                   <MdKingBed />
@@ -108,9 +92,9 @@ const HorizontalCard = ({
                 </div>
               </div>
 
-              <p className="text-sm pr-4 line-clamp-4">{description}</p>
+              <p className="text-sm mb-6 line-clamp-4">{description}</p>
 
-              <div className="flex items-center justify-between w-full">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full space-y-2 md:space-y-0">
                 <div>
                   <span className="text-sm  text-yellow-500">From</span>
                   <p className="text-3xl -mt-2 font-bold">
@@ -118,6 +102,13 @@ const HorizontalCard = ({
                     <span className="text-sm font-light"> per night</span>
                   </p>
                 </div>
+                <button
+                  type="submit"
+                  className="px-6 py-3  bg-green-800 text-white"
+                  onClick={() => setIsOpen(true)}
+                >
+                  EDIT HOUSE
+                </button>
               </div>
             </div>
           </div>
@@ -125,12 +116,9 @@ const HorizontalCard = ({
             <Collapse isOpened={open}>
               <div className={open ? "active" : "inactive"}>
                 <div className="border-gray-400 border-t mt-16 pt-9">
-                  <form>
+                  <form className="">
                     <div className="flex items-center w-full justify-between">
-                      <p className="font-bold">
-                        Your Booking Information -{" "}
-                        <span> 1st May 2022 - 2nd May 2022 </span>
-                      </p>
+                      <p className="font-bold">Edit House Details</p>
                       <p
                         className="text-3xl bg-red-500 rounded-full text-white cursor-pointer"
                         onClick={() => setIsOpen(false)}
@@ -139,122 +127,59 @@ const HorizontalCard = ({
                       </p>
                     </div>
 
-                    <p className="mt-5">
-                      You have selected 2 Adults and 0 kids
-                    </p>
-                    <div>
-                      <p>Personal Information</p>
-                      <p>Enter your details below</p>
-                      <div className="grid grid-cols-3 gap-2 gap-y-10 mt-6">
+                    <div className="md:max-w-[700px]">
+                      <div className="grid  gap-2 gap-y-8 mt-6">
                         <div className="flex flex-col">
-                          <label>First Name</label>
+                          <label>House Name</label>
                           <input
                             type="text"
-                            name="firstName"
-                            value={details.firstName}
-                            placeholder="John"
+                            name="houseName"
+                            value={details.houseName}
                             className="border px-4 outline-none py-2 placeholder:text-[12px]"
                             onChange={handleInputChange}
                           />
                         </div>
                         <div className="flex flex-col">
-                          <label>Last Name</label>
+                          <label>Amount</label>
                           <input
                             type="text"
-                            placeholder="Doe"
-                            name="lastName"
-                            value={details.lastName}
+                            name="amount"
+                            value={details.amount}
                             className="border px-4 outline-none py-2 placeholder:text-[12px]"
                             onChange={handleInputChange}
                           />
                         </div>
                         <div className="flex flex-col">
-                          <label>Email</label>
+                          <label>No Of Guests</label>
                           <input
-                            type="email"
-                            name="email"
-                            value={details.email}
-                            placeholder="johndoe@gmail.com"
+                            type="number"
+                            name="guests"
+                            value={details.guests}
                             className="border px-4 outline-none py-2 placeholder:text-[12px]"
                             onChange={handleInputChange}
                           />
                         </div>
-                        <div className="flex flex-col">
-                          <label>Phone Number</label>
-                          <input
-                            type="text"
-                            name="phoneNumber"
-                            value={details.phoneNumber}
-                            placeholder="johndoe@gmail.com"
-                            className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div className="flex flex-col">
-                          <label>Approximate Arrival Time</label>
-                          <input
-                            type="clock"
-                            name="arrival"
-                            value={details.arrival}
-                            placeholder="--:--"
-                            className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div className="flex flex-col">
-                          <label>Address</label>
-                          <input
-                            type="text"
-                            name="address"
-                            value={details.address}
-                            placeholder="e.g city"
-                            className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div className="flex flex-col">
-                          <label>Nationality</label>
-                          <input
-                            type="text"
-                            name="nationality"
-                            value={details.nationality}
-                            placeholder="e.g resident"
-                            className="border px-4 outline-none py-2 placeholder:text-[12px]"
-                            onChange={handleInputChange}
-                          />
-                        </div>
+
                         <div className="flex flex-col mb-8">
-                          <label>Special Requests</label>
+                          <label>House Description</label>
                           <textarea
                             type="text"
-                            name="request"
-                            value={details.request}
+                            name="description"
+                            value={details.description}
+                            rows={5}
                             className="border px-4 outline-none py-2"
                             onChange={handleInputChange}
                           />
                         </div>
                       </div>
-                      <div className="flex items-center space-x-3 mb-4">
-                        <input type="checkbox" name="" id="" />
-                        <p>
-                          I acknowledge that i have read and agree to the terms
-                          & Conditions below
-                        </p>
-                      </div>
+
                       <button
                         type="submit"
                         className="px-6 py-3 mb-8 bg-green-800 text-white"
-                        onClick={(event) =>
-                          handleClick(event, house._id, house)
-                        }
+                        onClick={(event) => handleFormSubmit(event)}
                       >
                         CONFIRM
                       </button>
-                      <div>
-                        <h5 className="font-bold text-2xl border-b-2">
-                          Terms & Conditions
-                        </h5>
-                      </div>
                     </div>
                   </form>
                 </div>

@@ -390,148 +390,158 @@ const Reservation = () => {
             </div>
           ) : (
             <div className="h-full">
-              {filteredHouses.map((house, index) => {
-                return (
-                  <div key={house._id}>
-                    <div className="h-full">
-                      <div className="mt-10 w-full">
-                        <div
-                          className={`shadow-2xl mx-2 px-4 py-4 ${
-                            open ? "h-full" : "md:h-[330px]"
-                          }`}
-                        >
-                          <div className="flex flex-col md:flex-row md:space-x-8  ">
-                            <div className="relative h-[300px] md:min-w-[400px]">
-                              <Image
-                                src={house.imageUrl}
-                                alt={house.title}
-                                fill
-                              />
-                            </div>
-                            <div className="flex flex-col ">
-                              <div className="text-center space-y-1">
-                                <h1 className="text-xl md:text-2xl text-center md:text-left font-bold">
-                                  {house.title}
-                                </h1>
-                                <span className="flex mt-4 md:-mt-2 w-full justify-center md:justify-normal">
-                                  <p className="text-yellow-500 text-sm">
-                                    <MdStarRate />
-                                  </p>
-                                  <p className="text-yellow-500 text-sm">
-                                    <MdStarRate />
-                                  </p>
-                                  <p className="text-yellow-500 text-sm">
-                                    <MdStarRate />
-                                  </p>
-                                  <p className="text-yellow-500 text-sm">
-                                    <MdStarRate />
-                                  </p>
-                                  <p className="text-yellow-500 text-sm">
-                                    <MdStarRate />
-                                  </p>
-                                </span>
-                              </div>
-                              <div className="flex items-center space-x-5 w-full justify-center mt-3 md:justify-normal md:mt-0">
-                                <div className="flex items-center space-x-2">
-                                  <p className=" text-gray-500 text-[15px]">
-                                    <HiUsers />
-                                  </p>
-                                  <p className="text-gray-500 text-[15px]">
-                                    {house.noOfGuests} pax
-                                  </p>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <p className=" text-gray-500 text-[15px]">
-                                    <MdKingBed />
-                                  </p>
-                                  <p className="text-gray-500 text-[15px]">
-                                    {house.rooms} beds
-                                  </p>
-                                </div>
-                              </div>
-                              <div>
-                                <span className="flex items-center md:space-x-3 mt-3 w-full justify-between max-w-[200px] mx-auto md:w-full md:mx-0 md:mt-0">
-                                  <p className="text-[24px] text-green-900">
-                                    <AiOutlineWifi />
-                                  </p>
-                                  <p className="text-[24px] text-green-900">
-                                    <MdKitchen />
-                                  </p>
-                                  <p className="text-[24px] text-green-900">
-                                    <MdScreenshotMonitor />
-                                  </p>
-                                  <p className="text-[24px] text-green-900">
-                                    <FaSwimmingPool />
-                                  </p>
-                                </span>
-                              </div>
-                              <div>
-                                <p className="line-clamp-4 text-center mt-3 md:text-left md:-mt-2">
-                                  {house.description}
-                                </p>
-                              </div>
-                              <div>
-                                <div className="flex flex-col mt-3 md:flex-row  items-center justify-between">
-                                  <div>
-                                    <span className="text-xs text-yellow-500">
-                                      FROM
-                                    </span>
-                                    <p className="text-4xl  font-bold">
-                                      KES {formatter.format(house.amount)}
-                                      <span className="text-sm font-thin">
-                                        /PER NIGHT
-                                      </span>
-                                    </p>
-                                  </div>
-                                  <button
-                                    disabled={disableEnterDetails}
-                                    onClick={(event) =>
-                                      handleOpen(event, house._id)
-                                    }
-                                    className={`text-white px-4 py-3 md:-mt-4 ${
-                                      disableEnterDetails
-                                        ? "bg-gray-300"
-                                        : "bg-green-800"
-                                    }`}
-                                  >
-                                    ENTER DETAILS
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <Collapse isOpened={open === house._id}>
-                              <div className={open ? "active" : "inactive"}>
-                                <div className="border-gray-400 border-t mt-9  pt-9">
-                                  <HouseForm
-                                    key={index}
-                                    fromDate={fromDate}
-                                    toDate={toDate}
-                                    adults={adults}
-                                    child={child}
-                                    timeOptions={timeOptions}
-                                    nationalityOptions={nationalityOptions}
-                                    houseId={house._id}
-                                    houseTitle={house.title}
-                                    houseAmount={house.amount}
-                                    houseImage={house.imageUrl}
-                                    open={open}
-                                    setIsOpen={setIsOpen}
-                                    onSubmit={(values) =>
-                                      handleSubmit(values, index)
-                                    }
+              {filteredHouses.length > 0 ? (
+                <div>
+                  {filteredHouses.map((house, index) => {
+                    return (
+                      <div key={house._id}>
+                        <div className="h-full">
+                          <div className="mt-10 w-full">
+                            <div
+                              className={`shadow-2xl mx-2 px-4 py-4 ${
+                                open ? "h-full" : "md:h-[330px]"
+                              }`}
+                            >
+                              <div className="flex flex-col md:flex-row md:space-x-8  ">
+                                <div className="relative h-[300px] md:min-w-[400px]">
+                                  <Image
+                                    src={house.imageUrl}
+                                    alt={house.title}
+                                    fill
                                   />
                                 </div>
+                                <div className="flex flex-col ">
+                                  <div className="text-center space-y-1">
+                                    <h1 className="text-xl md:text-2xl text-center md:text-left font-bold">
+                                      {house.title}
+                                    </h1>
+                                    <span className="flex mt-4 md:-mt-2 w-full justify-center md:justify-normal">
+                                      <p className="text-yellow-500 text-sm">
+                                        <MdStarRate />
+                                      </p>
+                                      <p className="text-yellow-500 text-sm">
+                                        <MdStarRate />
+                                      </p>
+                                      <p className="text-yellow-500 text-sm">
+                                        <MdStarRate />
+                                      </p>
+                                      <p className="text-yellow-500 text-sm">
+                                        <MdStarRate />
+                                      </p>
+                                      <p className="text-yellow-500 text-sm">
+                                        <MdStarRate />
+                                      </p>
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center space-x-5 w-full justify-center mt-3 md:justify-normal md:mt-0">
+                                    <div className="flex items-center space-x-2">
+                                      <p className=" text-gray-500 text-[15px]">
+                                        <HiUsers />
+                                      </p>
+                                      <p className="text-gray-500 text-[15px]">
+                                        {house.noOfGuests} pax
+                                      </p>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                      <p className=" text-gray-500 text-[15px]">
+                                        <MdKingBed />
+                                      </p>
+                                      <p className="text-gray-500 text-[15px]">
+                                        {house.rooms} beds
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <span className="flex items-center md:space-x-3 mt-3 w-full justify-between max-w-[200px] mx-auto md:w-full md:mx-0 md:mt-0">
+                                      <p className="text-[24px] text-green-900">
+                                        <AiOutlineWifi />
+                                      </p>
+                                      <p className="text-[24px] text-green-900">
+                                        <MdKitchen />
+                                      </p>
+                                      <p className="text-[24px] text-green-900">
+                                        <MdScreenshotMonitor />
+                                      </p>
+                                      <p className="text-[24px] text-green-900">
+                                        <FaSwimmingPool />
+                                      </p>
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <p className="line-clamp-4 text-center mt-3 md:text-left md:-mt-2">
+                                      {house.description}
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <div className="flex flex-col mt-3 md:flex-row  items-center justify-between">
+                                      <div>
+                                        <span className="text-xs text-yellow-500">
+                                          FROM
+                                        </span>
+                                        <p className="text-4xl  font-bold">
+                                          KES {formatter.format(house.amount)}
+                                          <span className="text-sm font-thin">
+                                            /PER NIGHT
+                                          </span>
+                                        </p>
+                                      </div>
+                                      <button
+                                        disabled={disableEnterDetails}
+                                        onClick={(event) =>
+                                          handleOpen(event, house._id)
+                                        }
+                                        className={`text-white px-4 py-3 md:-mt-4 ${
+                                          disableEnterDetails
+                                            ? "bg-gray-300"
+                                            : "bg-green-800"
+                                        }`}
+                                      >
+                                        ENTER DETAILS
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </Collapse>
+                              <div>
+                                <Collapse isOpened={open === house._id}>
+                                  <div className={open ? "active" : "inactive"}>
+                                    <div className="border-gray-400 border-t mt-9  pt-9">
+                                      <HouseForm
+                                        key={index}
+                                        fromDate={fromDate}
+                                        toDate={toDate}
+                                        adults={adults}
+                                        child={child}
+                                        timeOptions={timeOptions}
+                                        nationalityOptions={nationalityOptions}
+                                        houseId={house._id}
+                                        houseTitle={house.title}
+                                        houseAmount={house.amount}
+                                        houseImage={house.imageUrl}
+                                        open={open}
+                                        setIsOpen={setIsOpen}
+                                        onSubmit={(values) =>
+                                          handleSubmit(values, index)
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                </Collapse>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="h-screen mt-8 px-4 md:px-0 ">
+                  <p className="text-center text-xl">
+                    No available rooms on this date. Choose a different date
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

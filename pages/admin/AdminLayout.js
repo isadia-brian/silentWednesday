@@ -9,6 +9,8 @@ import {
   BanknotesIcon,
   CalendarDaysIcon,
 } from "@heroicons/react/24/solid";
+import { AiOutlineClose } from "react-icons/ai";
+import { HiBars3BottomRight } from "react-icons/hi2";
 
 import localFont from "next/font/local";
 
@@ -71,10 +73,50 @@ const Links = [
   },
 ];
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = ({ children, open, setIsOpen }) => {
   return (
     <div className={`flex ${poppins.className}`}>
-      <aside className="fixed z-10 py-8 h-screen bg-green-700 w-[200px] flex flex-col items-center text-center text-white">
+      {open && (
+        <div
+          className={`${poppins.className} pt-8 pb-4 px-4 absolute z-50 bg-green-700 h-screen w-full md:hidden`}
+        >
+          <div className="flex items-center justify-between md:hidden">
+            <div className="h-24 w-24 rounded-full relative">
+              <Image
+                src="/images/logo.jpeg"
+                fill
+                alt="logo"
+                className="rounded-full"
+              />
+            </div>
+            <p
+              className="text-4xl text-white font-bold"
+              onClick={() => setIsOpen(!open)}
+            >
+              <AiOutlineClose />
+            </p>
+          </div>
+          <ul className="uppercase text-white  pt-5 flex flex-col space-y-6 font-bold">
+            {Links.map((link, index) => {
+              return (
+                <li key={index} className="" onClick={() => setIsOpen(!open)}>
+                  <Link
+                    href={link.link}
+                    className="xs:text-xl text-[45px] flex items-center"
+                  >
+                    <span className="text-yellow-400 text-sm ">
+                      <p className="h-[35px] w-[35px] mr-3">{link.icon}</p>
+                    </span>
+                    {link.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      <aside className="fixed z-10 py-8 h-screen bg-green-700 w-[200px] md:flex flex-col items-center text-center text-white hidden">
         <div className="relative rounded-full h-20 w-20 border border-green-800">
           <Image
             src="/images/logo.jpeg"
@@ -118,7 +160,25 @@ const AdminLayout = ({ children }) => {
           </nav>
         </div>
       </aside>
-      <div className="md:ml-[200px] w-full">{children}</div>
+      <div className="md:ml-[200px] bg-gray-200  w-full">
+        <div className=" flex items-center justify-between px-4 py-6 bg-green-700 md:hidden">
+          <div className="h-24 w-24 rounded-full relative">
+            <Image
+              src="/images/logo.jpeg"
+              fill
+              alt="logo"
+              className="rounded-full"
+            />
+          </div>
+          <p
+            className="text-4xl text-white font-bold"
+            onClick={() => setIsOpen(!open)}
+          >
+            <HiBars3BottomRight />
+          </p>
+        </div>
+        {children}
+      </div>
     </div>
   );
 };
