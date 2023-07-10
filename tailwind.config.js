@@ -17,7 +17,7 @@ module.exports = {
             faint: "#eff6ff", // blue-50
             muted: "#bfdbfe", // blue-200
             subtle: "#60a5fa", // blue-400
-            DEFAULT: "#3b82f6", // blue-500
+            DEFAULT: "#000000", // blue-500
             emphasis: "#1d4ed8", // blue-700
             inverted: "#ffffff", // white
           },
@@ -31,7 +31,7 @@ module.exports = {
             DEFAULT: "#e5e7eb", // gray-200
           },
           ring: {
-            DEFAULT: "#e5e7eb", // gray-200
+            DEFAULT: "ffffff", // white
           },
           content: {
             subtle: "#9ca3af", // gray-400
@@ -54,19 +54,19 @@ module.exports = {
           background: {
             muted: "#131A2B", // custom
             subtle: "#1f2937", // gray-800
-            DEFAULT: "#111827", // gray-900
+            DEFAULT: "#ffffff", // white
             emphasis: "#d1d5db", // gray-300
           },
           border: {
-            DEFAULT: "#1f2937", // gray-800
+            DEFAULT: "ffffff", // white
           },
           ring: {
-            DEFAULT: "#1f2937", // gray-800
+            DEFAULT: "ffffff", // white
           },
           content: {
             subtle: "#4b5563", // gray-600
             DEFAULT: "#6b7280", // gray-600
-            emphasis: "#e5e7eb", // gray-200
+            emphasis: "000000", // black
             strong: "#f9fafb", // gray-50
             inverted: "#000000", // black
           },

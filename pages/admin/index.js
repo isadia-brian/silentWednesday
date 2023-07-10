@@ -8,15 +8,6 @@ import {
 } from "react-icons/bs";
 import axios from "axios";
 
-import {
-  HomeIcon,
-  UsersIcon,
-  ClipboardDocumentCheckIcon,
-  HomeModernIcon,
-  BanknotesIcon,
-  CalendarDaysIcon,
-} from "@heroicons/react/24/solid";
-
 import PieComponent from "@/components/PieComponent";
 import DataTable from "react-data-table-component";
 import { FaBell } from "react-icons/fa";
@@ -24,7 +15,6 @@ import { FaBell } from "react-icons/fa";
 import localFont from "next/font/local";
 import Link from "next/link";
 import SimpleCharts from "@/components/SimpleCharts";
-import Image from "next/image";
 
 const poppins = localFont({
   src: [
@@ -210,7 +200,7 @@ const DashBoard = () => {
     <AdminLayout open={open} setIsOpen={setIsOpen}>
       {!open && (
         <div
-          className={`${poppins.className} pt-6 pb-10 px-4 bg-gray-200 h-full w-full`}
+          className={`${poppins.className} pt-6 px-4 bg-gray-200 h-full w-full`}
         >
           <h5 className="text-xl font-bold text-black">DASHBOARD</h5>
           <p className={` text-black`}>Welcome to your DashBoard</p>

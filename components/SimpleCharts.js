@@ -80,8 +80,8 @@ export default function SimpleCharts() {
   }, []);
   return (
     <div className="">
-      <Card className="h-60">
-        <Title>MONTHLY REVENUE</Title>
+      <Card className="tre">
+        <Title className="text-black">MONTHLY REVENUE</Title>
         <BarChart
           className="pt-2"
           data={chartdata}

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 import {
   HomeIcon,
@@ -74,6 +76,18 @@ const Links = [
 ];
 
 const AdminLayout = ({ children, open, setIsOpen }) => {
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // The user is not authenticated, handle it here.
+      router.push("/admin/login");
+    },
+  });
+
+  if (status === "loading") {
+    return "Loading";
+  }
   return (
     <div className={`flex ${poppins.className}`}>
       {open && (
