@@ -34,6 +34,7 @@ const poppins = localFont({
 const ConfirmedBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [handleCancelTriggered, setHandleCancelTriggered] = useState(false);
+  const [open, setIsOpen] = useState(false);
 
   const columns = [
     {
@@ -197,20 +198,22 @@ const ConfirmedBookings = () => {
   };
 
   return (
-    <AdminLayout>
-      <div
-        className={`${poppins.className} py-14 pl-[230px] pr-[30px] bg-green-600 h-screen w-screen -ml-[200px] `}
-      >
-        <div className="">
-          <DataTable
-            title={`Confirmed Bookings - ${bookings.length} Total`}
-            columns={columns}
-            data={bookings}
-            pagination
-            customStyles={customStyles}
-          />
+    <AdminLayout open={open} setIsOpen={setIsOpen}>
+      {!open && (
+        <div
+          className={`${poppins.className} md:py-14 md:pl-[230px] px-4 py-6 md:pr-[30px] bg-gray-200 h-full md:h-screen md:w-screen md:-ml-[200px] `}
+        >
+          <div className="">
+            <DataTable
+              title={`Confirmed Bookings - ${bookings.length} Total`}
+              columns={columns}
+              data={bookings}
+              pagination
+              customStyles={customStyles}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </AdminLayout>
   );
 };
