@@ -244,7 +244,7 @@ const DashBoard = () => {
                 </div>
               </Link>
               <Link
-                href="/admin/confirmedbookings"
+                href="/admin/confirmedBookings"
                 className="bg-white shadow-lg p-4 hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
               >
                 <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
@@ -260,7 +260,7 @@ const DashBoard = () => {
                 </div>
               </Link>
               <Link
-                href="/admin/pendingbookings"
+                href="/admin/pendingBookings"
                 className="bg-white shadow-lg  p-4 md:hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out md:hover:bg-white md:hover:text-black text-center "
               >
                 <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
