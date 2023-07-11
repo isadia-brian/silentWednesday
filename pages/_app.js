@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App({
   Component,
@@ -14,9 +15,13 @@ export default function App({
       {Component.auth ? (
         <Auth>
           <Component {...pageProps} />
+          <Analytics />
         </Auth>
       ) : (
-        <Component {...pageProps} />
+        <>
+          <Component {...pageProps} />
+          <Analytics />
+        </>
       )}
     </SessionProvider>
   );
