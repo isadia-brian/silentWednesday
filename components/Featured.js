@@ -6,10 +6,6 @@ import Heading from "./Heading";
 import Slider from "react-slick";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
-const melodrama = localFont({
-  src: "../public/fonts/melodrama/Melodrama-Semibold.ttf",
-});
-
 const Featured = () => {
   const settings = {
     infinite: true,

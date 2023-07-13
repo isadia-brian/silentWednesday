@@ -8,6 +8,8 @@ import { HiArrowLongRight } from "react-icons/hi2";
 import { Spin } from "antd";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 
 const cormorant = Cormorant({
   subsets: ["cyrillic"],
@@ -26,6 +28,11 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [forgot, setForgot] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+    setImagesLoaded(true);
+  };
 
   const handleForgot = () => {
     setForgot(true);
@@ -99,7 +106,22 @@ const LoginPage = () => {
           </div>
         </div>
 
-        {forgot ? (
+        {!imagesLoaded && (
+          <div className=" absolute z-10 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col md:h-full w-[400px] mx-auto px-7 justify-center text-white mt-4 md:mt-2">
+            <Stack spacing={1}>
+              {/* For variant="text", adjust the height via font-size */}
+              <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
+              <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+
+              {/* For other variants, adjust the size with `width` and `height` */}
+
+              <Skeleton variant="rectangular" height={60} />
+              <Skeleton variant="rounded" height={50} width={210} />
+            </Stack>
+          </div>
+        )}
+
+        {imagesLoaded && forgot ? (
           <div className=" absolute z-10 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col md:h-full w-full px-7 justify-center text-white mt-4 md:mt-2">
             <h1
               className={`${poppins.className} text-4xl text-white md:text-green-700 text-center  uppercase font-black`}
@@ -170,87 +192,91 @@ const LoginPage = () => {
             </form>
           </div>
         ) : (
-          <div className=" absolute z-10 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col md:h-full w-full px-7 justify-center text-white mt-4 md:mt-2">
-            <h1
-              className={`${poppins.className} text-4xl text-white md:text-green-700 text-center  uppercase font-black`}
-            >
-              Welcome Back
-            </h1>
-            <p className="text-white md:text-black font-normal text-center my-2 md:mt-2">
-              Fill in your details, to view latest insights
-            </p>
-            <form
-              onSubmit={handleLogin}
-              className={`${cormorant.className} text-xl font-bold text-white md:text-black w-full md:w-[450px] md:mt-4 mx-auto`}
-            >
-              {error && <p className="text-red-600">{error}</p>}
-              <div className="flex flex-col mt-2 space-y-3">
-                <div className="flex flex-col space-y-1">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    className={`${
-                      error
-                        ? "border border-red-500 text-red-500 "
-                        : "border text-black border-slate-400"
-                    } px-3 py-2 outline-none rounded-md`}
-                    value={email}
-                    required
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-
-                <div className="flex flex-col space-y-1">
-                  <label htmlFor="password">Password</label>
-                  <input
-                    type="password"
-                    className={`${
-                      error
-                        ? "border border-red-500 text-red-500 "
-                        : "border text-black border-slate-400"
-                    } px-3 py-2 outline-none rounded-md`}
-                    value={password}
-                    required
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <button
-                className="bg-green-500 shadow-2xl md:shadow-none text-white px-3 py-3 mt-7 w-full grid grid-cols-3 items-center"
-                type="submit"
-              >
-                <div></div>
-                <div>
-                  {loading ? (
-                    <Spin />
-                  ) : success ? (
-                    <div className=" grid justify-items-center">
-                      <CheckCircleIcon className="h-[28px] " />
-                    </div>
-                  ) : (
-                    <>Login</>
-                  )}
-                </div>
-                {success ? (
-                  <></>
-                ) : (
-                  <div className="grid justify-items-end ">
-                    <HiArrowLongRight />
-                  </div>
-                )}
-              </button>
-              <div
-                className="w-full mt-3 md:mt-3 grid cursor-pointer justify-items-end"
-                onClick={handleForgot}
-              >
-                <p
-                  className={`${poppins.className} text-white md:text-black font-semibold text-[15px]`}
+          <div>
+            {imagesLoaded && (
+              <div className=" absolute z-10 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col md:h-full w-full px-7 justify-center text-white mt-4 md:mt-2">
+                <h1
+                  className={`${poppins.className} text-4xl text-white md:text-green-700 text-center  uppercase font-black`}
                 >
-                  Forgot Password ?
+                  Welcome Back
+                </h1>
+                <p className="text-white md:text-black font-normal text-center my-2 md:mt-2">
+                  Fill in your details, to view latest insights
                 </p>
+                <form
+                  onSubmit={handleLogin}
+                  className={`${cormorant.className} text-xl font-bold text-white md:text-black w-full md:w-[450px] md:mt-4 mx-auto`}
+                >
+                  {error && <p className="text-red-600">{error}</p>}
+                  <div className="flex flex-col mt-2 space-y-3">
+                    <div className="flex flex-col space-y-1">
+                      <label htmlFor="email">Email</label>
+                      <input
+                        type="email"
+                        className={`${
+                          error
+                            ? "border border-red-500 text-red-500 "
+                            : "border text-black border-slate-400"
+                        } px-3 py-2 outline-none rounded-md`}
+                        value={email}
+                        required
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="flex flex-col space-y-1">
+                      <label htmlFor="password">Password</label>
+                      <input
+                        type="password"
+                        className={`${
+                          error
+                            ? "border border-red-500 text-red-500 "
+                            : "border text-black border-slate-400"
+                        } px-3 py-2 outline-none rounded-md`}
+                        value={password}
+                        required
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    className="bg-green-500 shadow-2xl md:shadow-none text-white px-3 py-3 mt-7 w-full grid grid-cols-3 items-center"
+                    type="submit"
+                  >
+                    <div></div>
+                    <div>
+                      {loading ? (
+                        <Spin />
+                      ) : success ? (
+                        <div className=" grid justify-items-center">
+                          <CheckCircleIcon className="h-[28px] " />
+                        </div>
+                      ) : (
+                        <>Login</>
+                      )}
+                    </div>
+                    {success ? (
+                      <></>
+                    ) : (
+                      <div className="grid justify-items-end ">
+                        <HiArrowLongRight />
+                      </div>
+                    )}
+                  </button>
+                  <div
+                    className="w-full mt-3 md:mt-3 grid cursor-pointer justify-items-end"
+                    onClick={handleForgot}
+                  >
+                    <p
+                      className={`${poppins.className} text-white md:text-black font-semibold text-[15px]`}
+                    >
+                      Forgot Password ?
+                    </p>
+                  </div>
+                </form>
               </div>
-            </form>
+            )}
           </div>
         )}
       </div>
@@ -261,6 +287,7 @@ const LoginPage = () => {
             alt="diani-villa-resort"
             fill
             priority
+            onLoad={handleImageLoad}
           />
         </div>
         <div className="relative hidden md:flex h-screen w-full">
@@ -269,6 +296,7 @@ const LoginPage = () => {
             alt="diani-villa-resort"
             fill
             priority
+            onLoad={handleImageLoad}
           />
         </div>
         <div
