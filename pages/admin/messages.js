@@ -6,7 +6,6 @@ import axios from "axios";
 import DataTable from "react-data-table-component";
 
 import localFont from "next/font/local";
-import Link from "next/link";
 
 const poppins = localFont({
   src: [
@@ -109,7 +108,7 @@ const DashBoard = () => {
     <AdminLayout open={open} setIsOpen={setIsOpen}>
       {!open && (
         <div
-          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] px-4 py-6 bg-gray-200 h-screen w-screen md:-ml-[200px] `}
+          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] px-4 py-6 bg-gray-50 h-screen w-screen md:-ml-[200px] `}
         >
           <DataTable
             title="Messages"

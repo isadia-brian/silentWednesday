@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import {
@@ -10,6 +10,8 @@ import {
   HomeModernIcon,
   BanknotesIcon,
   CalendarDaysIcon,
+  ChatBubbleLeftIcon,
+  ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 import { AiOutlineClose } from "react-icons/ai";
 import { HiBars3BottomRight } from "react-icons/hi2";
@@ -43,7 +45,7 @@ const poppins = localFont({
 
 const Links = [
   {
-    title: "Dashboard",
+    title: "Overview",
     link: "/admin",
     icon: <HomeIcon />,
   },
@@ -53,11 +55,7 @@ const Links = [
     link: "/admin/bookings",
     icon: <ClipboardDocumentCheckIcon />,
   },
-  {
-    title: "Messages",
-    link: "/admin/messages",
-    icon: <ClipboardDocumentCheckIcon />,
-  },
+
   {
     title: "Houses",
     link: "/admin/houses",
@@ -73,10 +71,24 @@ const Links = [
     link: "/admin/calendar",
     icon: <CalendarDaysIcon />,
   },
+
+  {
+    title: "Users",
+    link: "/admin/user",
+    icon: <UsersIcon />,
+  },
+  {
+    title: "Messages",
+    link: "/admin/messages",
+    icon: <ChatBubbleLeftIcon />,
+  },
 ];
 
 const AdminLayout = ({ children, open, setIsOpen }) => {
   const router = useRouter();
+  const handleLogOut = async () => {
+    await signOut({ callbackUrl: "/admin/login" });
+  };
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -86,7 +98,18 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
   });
 
   if (status === "loading") {
-    return "Loading";
+    return (
+      <div className="h-screen w-full flex items-center justify-center">
+        <div className="relative h-20 w-20 rounded-full animate-pulse">
+          <Image
+            src="/images/logo.jpeg"
+            alt="logo"
+            fill
+            className="rounded-full"
+          />
+        </div>
+      </div>
+    );
   }
   return (
     <div className={`flex ${poppins.className}`}>
@@ -110,8 +133,8 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
               <AiOutlineClose />
             </p>
           </div>
-          <ul className="uppercase text-white  pt-5 flex flex-col space-y-6 font-bold">
-            {Links.map((link, index) => {
+          <ul className="uppercase text-white  pt-16 flex flex-col space-y-6 font-bold">
+            {Links.slice(0, 6).map((link, index) => {
               return (
                 <li key={index} className="" onClick={() => setIsOpen(!open)}>
                   <Link
@@ -127,10 +150,22 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
               );
             })}
           </ul>
+          <div className=" w-fit mt-9 flex justify-center">
+            <button
+              type="button"
+              className="bg-black  py-3 w-[180px] flex items-center justify-center text-white text-sm font-semibold"
+              onClick={handleLogOut}
+            >
+              Log Out
+              <span className="ml-2">
+                <ArrowRightOnRectangleIcon className="h-4 w-4" />
+              </span>
+            </button>
+          </div>
         </div>
       )}
 
-      <aside className="fixed z-10 py-8 h-screen bg-green-700 w-[200px] md:flex flex-col items-center text-center text-white hidden">
+      <aside className="fixed z-10 py-8 h-screen bg-white w-[200px] md:flex flex-col items-center text-center text-black hidden">
         <div className="relative rounded-full h-20 w-20 border border-green-800">
           <Image
             src="/images/logo.jpeg"
@@ -139,8 +174,8 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
             className="rounded-full"
           />
         </div>
-        <p className="mt-8 font-bold">ADMIN</p>
-        <div className="mt-8">
+
+        <div className="mt-8 relative">
           <nav>
             <ul className="cursor-pointer text-sm">
               {Links.slice(0, 1).map((link) => {
@@ -148,7 +183,9 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
                   <li key={link.title}>
                     <Link href={link.link} className={`flex`}>
                       <span className="flex items-center space-x-4 w-full">
-                        <p className="h-[20px] w-[20px] mr-1">{link.icon}</p>
+                        <p className="h-[20px] text-green-700 w-[20px] mr-1">
+                          {link.icon}
+                        </p>
                         {link.title}
                       </span>
                     </Link>
@@ -156,14 +193,39 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
                 );
               })}
             </ul>
-            <ul className="cursor-pointer mt-16 flex flex-col space-y-5">
+            <ul className=" mt-16 flex flex-col space-y-5">
               <p className="text-sm underline mb-2 shadow-lg">MANAGEMENT</p>
-              {Links.slice(1, 6).map((link) => {
+              {Links.slice(1, 5).map((link) => {
                 return (
                   <li key={link.title}>
-                    <Link href={link.link} className={`flex text-sm`}>
+                    <Link
+                      href={link.link}
+                      className={`flex text-sm cursor-pointer`}
+                    >
                       <span className="flex items-center space-x-4 w-full ">
-                        <p className="h-[20px] w-[20px] mr-1 ">{link.icon}</p>
+                        <p className="h-[20px] text-green-700 w-[20px] mr-1 ">
+                          {link.icon}
+                        </p>
+                        {link.title}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <ul className=" mt-16 flex flex-col space-y-5">
+              <p className="text-sm underline mb-2 shadow-lg">ORGANISATION</p>
+              {Links.slice(5, 7).map((link) => {
+                return (
+                  <li key={link.title}>
+                    <Link
+                      href={link.link}
+                      className={`flex text-sm cursor-pointer`}
+                    >
+                      <span className="flex items-center space-x-4 w-full ">
+                        <p className="h-[20px] w-[20px] text-green-700 mr-1 ">
+                          {link.icon}
+                        </p>
                         {link.title}
                       </span>
                     </Link>
@@ -172,6 +234,18 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
               })}
             </ul>
           </nav>
+        </div>
+        <div className=" w-full mt-24 flex justify-center">
+          <button
+            type="button"
+            className="bg-green-400 py-2 w-[150px] flex items-center justify-center text-black font-semibold text-sm"
+            onClick={handleLogOut}
+          >
+            Log Out
+            <span className="ml-2">
+              <ArrowRightOnRectangleIcon className="h-4 w-4" />
+            </span>
+          </button>
         </div>
       </aside>
       <div className="md:ml-[200px] bg-gray-200  w-full">

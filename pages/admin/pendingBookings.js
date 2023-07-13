@@ -120,7 +120,7 @@ const PendingBookings = () => {
     rows: {
       style: {
         minHeight: "72px", // override the row height
-        backgroundColor: "rgb(51,65,85)",
+        backgroundColor: "rgb(255,255,255)",
         color: "white",
       },
     },
@@ -128,7 +128,7 @@ const PendingBookings = () => {
       style: {
         paddingLeft: "8px", // override the cell padding for head cells
         paddingRight: "8px",
-        backgroundColor: "rgb(51,65,85)",
+        backgroundColor: "rgb(44, 197, 44)",
         borderColor: "rgb(51,65,85)",
         color: "yellow",
       },
@@ -195,7 +195,7 @@ const PendingBookings = () => {
     <AdminLayout open={open} setIsOpen={setIsOpen}>
       {!open && (
         <div
-          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] bg-gray-200 md:h-screen h-screen px-4 py-6 w-screen md:-ml-[200px] `}
+          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] bg-gray-50 md:h-screen h-screen px-4 py-6 w-screen md:-ml-[200px] `}
         >
           <div className="">
             <DataTable

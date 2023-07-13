@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import AdminLayout from "./AdminLayout";
 import {
   BsFillJournalBookmarkFill,
-  BsFillBookmarkCheckFill,
-  BsFillBookmarkDashFill,
+  BsBookmarkCheck,
+  BsBookmarkDash,
   BsCashStack,
 } from "react-icons/bs";
+import {} from "react-icons/bs";
 import axios from "axios";
 
 import PieComponent from "@/components/PieComponent";
@@ -200,20 +201,26 @@ const DashBoard = () => {
     <AdminLayout open={open} setIsOpen={setIsOpen}>
       {!open && (
         <div
-          className={`${poppins.className} pt-6 px-4 bg-gray-200 h-full w-full`}
+          className={`${poppins.className} pt-12 px-4 bg-gray-50 h-full w-full`}
         >
           <h5 className="text-xl font-bold text-black">DASHBOARD</h5>
           <p className={` text-black`}>Welcome to your DashBoard</p>
-          <div className="mt-10">
-            <div className="grid md:grid-cols-4 gap-4">
-              <div className=" shadow-lg p-4 bg-white hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black ">
-                <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
-                  <p className="text-4xl text-[#2cc52c] ">
+          <div className="pt-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className=" shadow-xl p-4 bg-white md:hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black ">
+                <div className="flex items-center w-full justify-between md:border-b-[0.8px] md:pb-8 md:pl-2">
+                  <p className="text-4xl text-[#2cc52c] hidden md:flex ">
                     <BsCashStack />
                   </p>
                   <div>
-                    <p className="font-bold text-sm ">TOTAL EARNINGS</p>
-                    <p className="text-2xl text-center">
+                    <div className="grid grid-cols-2 md:flex  w-full items-center">
+                      <p className="font-bold text-sm ">TOTAL EARNINGS</p>
+                      <p className="text-xl text-[#2cc52c] md:hidden grid justify-items-end">
+                        <BsCashStack />
+                      </p>
+                    </div>
+
+                    <p className="text-lg md:text-2xl text-left mt-4 md:mt-0 md:text-center">
                       KES {formatter.format(totalAmount)}
                     </p>
                   </div>
@@ -221,29 +228,43 @@ const DashBoard = () => {
               </div>
               <Link
                 href="/admin/bookings"
-                className="bg-white shadow-lg p-4 hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+                className=" shadow-xl p-4 bg-white md:hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
               >
-                <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
-                  <p className="text-4xl text-[#2cc52c]">
+                <div className="flex md:items-center w-full justify-between md:border-b-[0.8px] md:pb-8 md:pl-2">
+                  <p className="text-4xl text-[#2cc52c] hidden md:flex ">
                     <BsFillJournalBookmarkFill />
                   </p>
                   <div>
-                    <p className="font-bold text-sm">TOTAL BOOKINGS</p>
-                    <p className="text-2xl text-center">{bookings?.length}</p>
+                    <div className="grid grid-cols-2 md:flex w-full items-center">
+                      <p className="font-bold text-sm">TOTAL BOOKINGS</p>
+                      <p className="text-xl text-[#2cc52c] md:hidden grid justify-items-end ">
+                        <BsFillJournalBookmarkFill />
+                      </p>
+                    </div>
+
+                    <p className="text-lg md:text-2xl text-left mt-4 md:mt-0 md:text-center">
+                      {bookings?.length}
+                    </p>
                   </div>
                 </div>
               </Link>
               <Link
                 href="/admin/confirmedBookings"
-                className="bg-white shadow-lg p-4 hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+                className=" shadow-xl p-4 bg-white md:hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
               >
-                <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
-                  <p className="text-4xl text-[#2cc52c]">
-                    <BsFillBookmarkCheckFill />
+                <div className="flex items-center w-full justify-between md:border-b-[0.8px] md:pb-8 md:pl-2">
+                  <p className="text-4xl text-[#2cc52c] hidden md:flex ">
+                    <BsBookmarkCheck />
                   </p>
                   <div>
-                    <p className="font-bold text-sm">CONFIRMED BOOKINGS</p>
-                    <p className="text-2xl text-center">
+                    <div className="grid grid-cols-2 md:flex w-full  items-center">
+                      <p className="font-bold text-sm ">CONFIRMED BOOKINGS</p>
+                      <p className="text-xl text-[#2cc52c] md:hidden grid justify-items-end ">
+                        <BsBookmarkCheck />
+                      </p>
+                    </div>
+
+                    <p className="text-lg md:text-2xl text-left mt-4 md:mt-0 md:text-center">
                       {confirmedBookingsCount}
                     </p>
                   </div>
@@ -251,36 +272,44 @@ const DashBoard = () => {
               </Link>
               <Link
                 href="/admin/pendingBookings"
-                className="bg-white shadow-lg  p-4 md:hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out md:hover:bg-white md:hover:text-black text-center "
+                className=" shadow-xl p-4 bg-white md:hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
               >
-                <div className="flex items-center justify-between border-b-[0.8px] pb-8 pl-2">
-                  <p className="text-4xl text-[#2cc52c]">
-                    <BsFillBookmarkDashFill />
+                <div className="flex items-center w-full justify-between md:border-b-[0.8px] md:pb-8 md:pl-2">
+                  <p className="text-4xl text-[#2cc52c] hidden md:flex ">
+                    <BsBookmarkDash />
                   </p>
                   <div>
-                    <p className="font-bold text-sm">PENDING BOOKINGS</p>
-                    <p className="text-2xl text-center">
+                    <div className="grid grid-cols-2 md:flex w-full items-center">
+                      <p className="font-bold text-sm">PENDING BOOKINGS</p>
+                      <p className="text-xl text-[#2cc52c] md:hidden grid justify-items-end  ">
+                        <BsBookmarkDash />
+                      </p>
+                    </div>
+
+                    <p className="text-lg md:text-2xl text-left mt-4 md:mt-0 md:text-center">
                       {pendingBookingsCount}
                     </p>
                   </div>
                 </div>
               </Link>
+
               <Link
                 href="/admin/messages"
-                className="bg-white md:hidden md:col-span-5 h-[200px] shadow-2xl relative hover:scale-105 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
+                className="bg-white md:hidden col-span-2 md:col-span-5 h-[150px] shadow-xl relative hover:scale-105 text-white hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
               >
-                <div>
-                  <h3 className="text-center text-black  py-2 text-sm  uppercase font-bold">
+                <div className="w-full flex flex-col items-center">
+                  <h3 className=" text-black  py-2 text-sm  uppercase font-bold">
                     MESSAGES
                   </h3>
-                  <div className="absolute top-[30%] left-[35%] md:left-[40%]">
-                    <p className="text-[100px] text-[green]">
+                  <div className="mt-5 relative">
+                    <p className="md:text-[100px] text-[50px] text-[green]">
                       <FaBell />
                     </p>
-                  </div>
-
-                  <div className="absolute top-[30%] left-[52%] bg-yellow-700 rounded-full h-10 w-10 flex items-center justify-center">
-                    <p className="font-semibold text-lg">{messages.length}</p>
+                    <div className="w-full rounded-full absolute top-0 left-6">
+                      <p className="font-semibold text-lg bg-yellow-400 h-3 w-3 px-3 py-3 rounded-full flex items-center justify-center text-black">
+                        {messages.length}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </Link>

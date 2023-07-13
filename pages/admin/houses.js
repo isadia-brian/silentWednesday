@@ -53,7 +53,7 @@ const GetHouses = () => {
     <AdminLayout open={open} setIsOpen={setIsOpen}>
       {!open && (
         <div
-          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] py-6 px-4 bg-gray-200 h-full w-screen md:-ml-[200px] `}
+          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] py-6 px-4 bg-gray-50 h-full w-screen md:-ml-[200px] `}
         >
           <div>
             <h1 className="font-bold text-xl  uppercase">Houses</h1>

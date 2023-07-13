@@ -161,7 +161,7 @@ const rates = () => {
       <AdminLayout open={open} setIsOpen={setIsOpen} />
       {!open && (
         <div
-          className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] px-4 bg-gray-200 h-screen w-screen text-black`}
+          className={`${poppins.className} md:py-10 md:pl-[230px] md:pr-[30px] px-4 bg-gray-50 h-screen w-screen text-black shadow-xl`}
         >
           <div className="pt-6">
             <DataTable title="Rates" columns={columns} data={rates} />

@@ -115,7 +115,7 @@ const ConfirmedBookings = () => {
     rows: {
       style: {
         minHeight: "72px", // override the row height
-        backgroundColor: "rgb(51,65,85)",
+        backgroundColor: "rgb(255,255,255)",
         color: "white",
       },
     },
@@ -123,7 +123,7 @@ const ConfirmedBookings = () => {
       style: {
         paddingLeft: "8px", // override the cell padding for head cells
         paddingRight: "8px",
-        backgroundColor: "rgb(51,65,85)",
+        backgroundColor: "rgb(44, 197, 44)",
         borderColor: "rgb(51,65,85)",
         color: "yellow",
       },
@@ -201,7 +201,7 @@ const ConfirmedBookings = () => {
     <AdminLayout open={open} setIsOpen={setIsOpen}>
       {!open && (
         <div
-          className={`${poppins.className} md:py-14 md:pl-[230px] px-4 py-6 md:pr-[30px] bg-gray-200 h-full md:h-screen md:w-screen md:-ml-[200px] `}
+          className={`${poppins.className} md:py-14 md:pl-[230px] px-4 py-6 md:pr-[30px] bg-gray-50 h-full md:h-screen md:w-screen md:-ml-[200px] `}
         >
           <div className="">
             <DataTable

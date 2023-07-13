@@ -127,7 +127,7 @@ const CalendarComponent = () => {
   return (
     <AdminLayout open={open} setIsOpen={setIsOpen}>
       {!open && (
-        <div className="px-6 bg-gray-200 h-full text-black md:h-screen">
+        <div className="px-6 bg-gray-50 h-full text-black md:h-screen">
           <h1
             className={`${poppins.className} md:pt-14 pt-6 uppercase w-full text-xl font-bold `}
           >

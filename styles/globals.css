@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap");
+
 input {
   @apply outline-none;
 }
@@ -117,4 +119,12 @@ input[type="checkbox"] {
 }
 .notes-month section {
   font-size: 28px;
+}
+
+.ant-spin-dot-item {
+  background-color: white !important;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif !important;
 }

@@ -16,10 +16,6 @@ const cormorant = Cormorant({
   weight: ["300", "400", "600", "700"],
 });
 
-const melodrama = localFont({
-  src: "../public/fonts/melodrama/Melodrama-Semibold.ttf",
-});
-
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400"],

@@ -29,21 +29,23 @@ export default NextAuth({
             );
 
             if (!passwordMatch) {
-              throw new Error("Invalid password");
+              throw new Error("Invalid credentials");
             }
 
             return { id: existingUser._id, email: existingUser.email };
           }
-
           // Create the new user in the database
-          const newUser = {
-            email,
-            password: await bcrypt.hash(password, 10), // Hash the password before storing
-          };
+          // const newUser = {
+          //   email: email,
+          //   password: await bcrypt.hash(password, 10), // Hash the password before storing
+          // };
 
-          const createdUser = await User.create(newUser);
+          // const createdUser = await User.create(newUser);
 
-          return { id: createdUser.insertedId, email: newUser.email };
+          // return { id: createdUser._id, email: createdUser.email };
+          else {
+            throw new Error("You must be an admin");
+          }
         } catch (error) {
           throw new Error(error.message);
         }
