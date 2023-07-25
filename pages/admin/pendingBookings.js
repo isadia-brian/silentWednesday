@@ -33,8 +33,18 @@ const poppins = localFont({
 
 const PendingBookings = () => {
   const [bookings, setBookings] = useState([]);
+  const [amount, setAmount] = useState("");
   const [handleConfirmTriggered, setHandleConfirmTriggered] = useState(false);
   const [open, setIsOpen] = useState(false);
+  const [editedRow, setEditedRow] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const handleEdit = (row) => {
+    setEditedRow(row);
+    setIsEditMode(true);
+  };
+
+  const handleApprove = () => {};
 
   const columns = [
     {
@@ -73,7 +83,17 @@ const PendingBookings = () => {
     {
       name: "Amount",
       selector: (row) => row.amount,
-      sortable: true,
+      cell: (row) =>
+        isEditMode && editedRow?._id === row._id ? (
+          <input
+            type="text"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="border py-1 border-black px-1 w-[100px]"
+          />
+        ) : (
+          row.amount
+        ),
     },
     {
       name: "From",
@@ -95,6 +115,22 @@ const PendingBookings = () => {
     },
     {
       name: "Action",
+      ignoreRowClick: true,
+      cell: (row) => (
+        <span
+          className="text-green-500 font-bold underline cursor-pointer"
+          onClick={() => handleEdit(row)}
+          id={row._id}
+        >
+          Edit
+        </span>
+      ),
+
+      button: true,
+      minWidth: "150px",
+    },
+    {
+      name: "",
       ignoreRowClick: true,
       cell: (row) => (
         <span
@@ -121,7 +157,7 @@ const PendingBookings = () => {
       style: {
         minHeight: "72px", // override the row height
         backgroundColor: "rgb(255,255,255)",
-        color: "white",
+        color: "black",
       },
     },
     headCells: {

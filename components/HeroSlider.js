@@ -24,7 +24,7 @@ const HeroSlider = () => {
     fade: true,
   };
   return (
-    <Slider {...settings} lazyLoad="profressive">
+    <Slider {...settings} lazyLoad="progressive">
       <div className="relative  h-[500px] md:h-[110vh] w-full md:w-full ">
         <Image
           src="/images/img34.jpg"

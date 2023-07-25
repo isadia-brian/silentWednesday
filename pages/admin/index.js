@@ -271,7 +271,7 @@ const DashBoard = () => {
                 </div>
               </Link>
               <Link
-                href="/admin/pendingBookings"
+                href="/admin/pendingbookings"
                 className=" shadow-xl p-4 bg-white md:hover:scale-110 text-black hover:shadow-2xl cursor-pointer transition duration-200 ease-in-out hover:bg-white hover:text-black "
               >
                 <div className="flex items-center w-full justify-between md:border-b-[0.8px] md:pb-8 md:pl-2">

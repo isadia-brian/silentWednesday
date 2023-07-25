@@ -1,6 +1,5 @@
 import { connectMongoDB } from "@/lib/MongoConnect";
 import Bookings from "@/models/BookingModel";
-import House from "@/models/HouseModel";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -23,6 +22,8 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "PUT") {
+    const { amount } = req.body;
+
     try {
       await connectMongoDB();
 
@@ -42,6 +43,8 @@ export default async function handler(req, res) {
       } else if (booking.bookingStatus === "Confirmed") {
         booking.bookingStatus = "pending";
       }
+
+      booking.amount = amount;
 
       // Save the updated booking
       const updatedBooking = await booking.save();
