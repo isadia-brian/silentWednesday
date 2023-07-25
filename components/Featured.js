@@ -36,13 +36,16 @@ const Featured = () => {
               <Image src="/images/img9.webp" alt="image" fill />
             </div>
             <div className="md:h-[500px] h-[50vh] w-full relative lg:w-full">
-              <Image src="/images/img8.webp" alt="image" fill />
+              <Image src="/images/image3.jpg" alt="image" fill />
             </div>
             <div className="md:h-[500px] h-[50vh] w-full relative lg:w-full">
-              <Image src="/images/img7.webp" alt="image" fill />
+              <Image src="/images/image4.jpg" alt="image" fill />
             </div>
             <div className="md:h-[500px] h-[50vh] w-full relative lg:w-full">
-              <Image src="/images/loo2.webp" alt="image" fill />
+              <Image src="/images/image5.jpg" alt="image" fill />
+            </div>
+            <div className="md:h-[500px] h-[50vh] w-full relative lg:w-full">
+              <Image src="/images/image2.jpg" alt="image" fill />
             </div>
           </Slider>
         </div>
