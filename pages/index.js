@@ -9,6 +9,8 @@ import Video from "@/components/Video";
 import Why from "@/components/Why";
 
 import Loading from "@/components/Loading";
+import Review from "@/components/Review";
+import Rate from "@/components/Rate";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -31,7 +33,9 @@ const Home = () => {
             <Things />
             <Why />
             <Video />
+
             <Testimonials />
+            <Review />
           </ClientLayout>
         </div>
       )}

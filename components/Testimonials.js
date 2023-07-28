@@ -9,7 +9,7 @@ const melodrama = localFont({
 
 const Testimonials = () => {
   return (
-    <div className="w-full h-full mb-10 md:mb-20  relative px-4">
+    <div className="w-full h-full mb-10  relative px-4">
       <div className="relative">
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
@@ -23,7 +23,7 @@ const Testimonials = () => {
         <p></p>
       </div>
       <div className="grid md:grid-cols-3 md:gap-4 ">
-        <div className="mb-5 md:mb-20  bg-green-700 p-4">
+        <div className="mb-5 md:mb-10  bg-green-700 p-4">
           <div className="md:h-[80px] h-[100px]  w-[100px] md:w-[80px] mx-auto relative rounded-full ">
             <Image
               src="/images/girl.jpg"
@@ -49,7 +49,7 @@ const Testimonials = () => {
             </div>
           </div>
         </div>
-        <div className="mb-5 md:mb-20 bg-green-700 p-4">
+        <div className="mb-5 md:mb-10 bg-green-700 p-4">
           <div className="md:h-[80px] h-[100px]  w-[100px] md:w-[80px] mx-auto relative rounded-full">
             <Image
               src="/images/david.jpg"
@@ -75,7 +75,7 @@ const Testimonials = () => {
             </div>
           </div>
         </div>
-        <div className="mb-20  bg-green-700 p-4">
+        <div className="mb-10  bg-green-700 p-4">
           <div className="md:h-[80px] h-[100px]  w-[100px] md:w-[80px] mx-auto relative rounded-full ">
             <Image
               src="/images/pamela.jpg"
