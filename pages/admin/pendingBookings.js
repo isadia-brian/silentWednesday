@@ -33,18 +33,18 @@ const poppins = localFont({
 
 const PendingBookings = () => {
   const [bookings, setBookings] = useState([]);
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(null);
   const [handleConfirmTriggered, setHandleConfirmTriggered] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [editedRow, setEditedRow] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   const handleEdit = (row) => {
     setEditedRow(row);
     setIsEditMode(true);
+    setToggle(false);
   };
-
-  const handleApprove = () => {};
 
   const columns = [
     {
@@ -116,34 +116,29 @@ const PendingBookings = () => {
     {
       name: "Action",
       ignoreRowClick: true,
-      cell: (row) => (
-        <span
-          className="text-green-500 font-bold underline cursor-pointer"
-          onClick={() => handleEdit(row)}
-          id={row._id}
-        >
-          Edit
-        </span>
-      ),
-
-      button: true,
-      minWidth: "150px",
-    },
-    {
-      name: "",
-      ignoreRowClick: true,
-      cell: (row) => (
-        <span
-          className="text-green-500 font-bold underline cursor-pointer"
-          onClick={() => handleConfirm(row)}
-          id={row._id}
-        >
-          Approve
-        </span>
-      ),
-
-      button: true,
-      minWidth: "150px",
+      cell: (row) => {
+        return (
+          <div>
+            {toggle ? (
+              <span
+                className="text-green-500 font-bold underline cursor-pointer"
+                onClick={() => handleEdit(row)}
+                id={row._id}
+              >
+                Edit
+              </span>
+            ) : (
+              <span
+                className="text-green-500 font-bold underline cursor-pointer"
+                onClick={() => handleConfirm(row)}
+                id={row._id}
+              >
+                Approve
+              </span>
+            )}
+          </div>
+        );
+      },
     },
   ];
 
@@ -200,11 +195,18 @@ const PendingBookings = () => {
   }, [handleConfirmTriggered]);
 
   const handleConfirm = async (row) => {
+    setEditedRow(row);
+    setIsEditMode(false);
+    setToggle(true);
+    const price = parseInt(amount);
+    const details = {
+      amount: price,
+    };
     const bookingId = row._id;
     const houseId = row.houseId;
     try {
       // Make the API call to update the booking status
-      const booking = await axios.put(`/api/allBookings/${bookingId}`);
+      const booking = await axios.put(`/api/allBookings/${bookingId}`, details);
       const house = await axios.get(`/api/updateHouse/confirmed?id=${houseId}`);
       const monthsArray = house.data.months;
       for (const month of monthsArray) {

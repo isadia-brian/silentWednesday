@@ -1,5 +1,6 @@
 import { Cormorant } from "next/font/google";
 import { useState, useRef } from "react";
+import axios from "axios";
 
 const cormorant = Cormorant({
   subsets: ["cyrillic"],
@@ -35,12 +36,17 @@ const Review = () => {
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (name && message === "") {
       alert("Please fill all fields");
     } else {
-      alert(`${name}, ${message}, ${val}`);
+      const review = {
+        user: name,
+        rating: val,
+        message: message,
+      };
+      await axios.post("/api/reviews", review);
       setName("");
       setMessage("");
       setShow(false);
@@ -78,7 +84,7 @@ const Review = () => {
                     onClick={() => handleEmojiClicked(inputRef1)}
                   >
                     <p
-                      className={`text-5xl grayscale cursor-pointer opacity-50 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
+                      className={`text-5xl grayscale cursor-pointer  hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
                         activeLabel === "extraHappy"
                           ? "grayscale-0 opacity-100"
                           : "grayscale opacity-50"
@@ -101,7 +107,7 @@ const Review = () => {
                     onClick={() => handleEmojiClicked(inputRef2)}
                   >
                     <p
-                      className={`text-5xl grayscale cursor-pointer opacity-50 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
+                      className={`text-5xl grayscale cursor-pointer  hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
                         activeLabel === "grining"
                           ? "grayscale-0 opacity-100"
                           : "grayscale opacity-50"
@@ -124,7 +130,7 @@ const Review = () => {
                     onClick={() => handleEmojiClicked(inputRef3)}
                   >
                     <p
-                      className={`text-5xl grayscale cursor-pointer opacity-50 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
+                      className={`text-5xl grayscale cursor-pointer  hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
                         activeLabel === "expressionless"
                           ? "grayscale-0 opacity-100"
                           : "grayscale opacity-50"
@@ -147,7 +153,7 @@ const Review = () => {
                     onClick={() => handleEmojiClicked(inputRef4)}
                   >
                     <p
-                      className={`text-5xl grayscale cursor-pointer opacity-50 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
+                      className={`text-5xl grayscale cursor-pointer  hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
                         activeLabel === "dissapointed"
                           ? "grayscale-0 opacity-100"
                           : "grayscale opacity-50"
@@ -170,7 +176,7 @@ const Review = () => {
                     onClick={() => handleEmojiClicked(inputRef5)}
                   >
                     <p
-                      className={`text-5xl grayscale cursor-pointer opacity-50 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
+                      className={`text-5xl grayscale cursor-pointer  hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out hover:scale-110 hover:-translate-y-1 ${
                         activeLabel === "angry"
                           ? "grayscale-0 opacity-100"
                           : "grayscale opacity-50"

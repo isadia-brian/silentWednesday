@@ -34,6 +34,7 @@ const poppins = localFont({
 const GetBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [open, setIsOpen] = useState(false);
+  const [price, setPrice] = useState(null);
 
   const columns = [
     {
@@ -149,25 +150,19 @@ const GetBookings = () => {
     },
   };
 
-  useEffect(() => {
-    async function fetchBookings() {
-      try {
-        const response = await axios.get(`/api/getBookings`);
-
-        setBookings(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchBookings();
-  }, [bookings]);
-
   const handleAction = async (row) => {
     const bookingId = row._id;
     const houseId = row.houseId;
+    const total = row.amount;
+
+    const amount = parseInt(total);
+    const details = {
+      amount,
+    };
+
     try {
       // Make the API call to update the booking status
-      const booking = await axios.put(`/api/allBookings/${bookingId}`);
+      const booking = await axios.put(`/api/allBookings/${bookingId}`, details);
       const house = await axios.get(`/api/getHouses?id=${houseId}`);
       const monthsArray = house.data.months;
       for (const month of monthsArray) {
@@ -187,6 +182,19 @@ const GetBookings = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    async function fetchBookings() {
+      try {
+        const response = await axios.get(`/api/getBookings`);
+
+        setBookings(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchBookings();
+  }, [bookings]);
 
   return (
     <AdminLayout open={open} setIsOpen={setIsOpen}>

@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import AdminLayout from "./AdminLayout";
-import { TbHomePlus } from "react-icons/tb";
 
 import HorizontalAccordion from "@/components/HorizontalAccordion";
 import localFont from "next/font/local";

@@ -12,6 +12,8 @@ import {
   CalendarDaysIcon,
   ChatBubbleLeftIcon,
   ArrowRightOnRectangleIcon,
+  InboxArrowDownIcon,
+  FireIcon,
 } from "@heroicons/react/24/solid";
 import { AiOutlineClose } from "react-icons/ai";
 import { HiBars3BottomRight } from "react-icons/hi2";
@@ -74,13 +76,23 @@ const Links = [
 
   {
     title: "Users",
-    link: "/admin/user",
+    link: "/admin/users",
     icon: <UsersIcon />,
   },
   {
     title: "Messages",
     link: "/admin/messages",
     icon: <ChatBubbleLeftIcon />,
+  },
+  {
+    title: "Reviews",
+    link: "/admin/reviews",
+    icon: <InboxArrowDownIcon />,
+  },
+  {
+    title: "Deals",
+    link: "/admin/deals",
+    icon: <FireIcon />,
   },
 ];
 
@@ -215,7 +227,7 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
             </ul>
             <ul className=" mt-16 flex flex-col space-y-5">
               <p className="text-sm underline mb-2 shadow-lg">ORGANISATION</p>
-              {Links.slice(5, 7).map((link) => {
+              {Links.slice(5, 9).map((link) => {
                 return (
                   <li key={link.title}>
                     <Link

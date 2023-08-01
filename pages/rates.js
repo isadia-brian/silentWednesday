@@ -117,7 +117,9 @@ const Rates = () => {
                   <td className="border border-slate-400 font-bold">
                     {houseA.houseName}
                   </td>
-                  <td className="border border-slate-400">-</td>
+                  <td className="border border-slate-400">
+                    KES {formatter.format(houseB.christmasNewYear)}
+                  </td>
                 </tr>
                 <tr className="text-center border border-separate">
                   <td className="border border-slate-400 font-bold">
@@ -182,7 +184,7 @@ const Rates = () => {
                     KES {formatter.format(houseA.highSeason)}
                   </td>
                   <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                    -
+                    KES {formatter.format(houseA.christmasNewYear)}
                   </td>
                 </tr>
                 <tr>

@@ -116,7 +116,7 @@ const ConfirmedBookings = () => {
       style: {
         minHeight: "72px", // override the row height
         backgroundColor: "rgb(255,255,255)",
-        color: "white",
+        color: "black",
       },
     },
     headCells: {
