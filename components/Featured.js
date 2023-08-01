@@ -17,7 +17,7 @@ const Featured = () => {
     cssEase: "ease-in-out",
   };
   return (
-    <div className="h-full w-full mt-0">
+    <div className="h-full w-full mt-0 px-4">
       <div className="relative">
         <motion.h1
           initial={{ opacity: 0, y: 100 }}

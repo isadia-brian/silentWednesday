@@ -22,6 +22,7 @@ const HeroSlider = () => {
     slidesToScroll: 1,
     cssEase: "ease-in-out",
     fade: true,
+    arrows: false,
   };
   return (
     <Slider {...settings} lazyLoad="progressive">
@@ -31,11 +32,11 @@ const HeroSlider = () => {
           fill
           onLoad={handleImageLoad}
           alt="diani villa"
-          className="img"
+          className="img object-cover"
           priority
         />
         {imagesLoaded && (
-          <div className="absolute flex flex-col items-center top-[32%] md:top-[35%] w-full transform -translate-y-1/2 md:transform md:-translate-y-1/4">
+          <div className="absolute flex flex-col items-center top-[32%] md:top-[35%] w-full left-0 transform -translate-y-1/2 md:-translate-y-1/4">
             <div className="text-white text-center text-[25px] px-5 md:text-[40px] z-10 font-bold">
               <h5 className={`${cormorant.className} uppercase font-bold`}>
                 Experience Serenity At Silent Palms, Diani's Escape!

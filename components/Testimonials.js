@@ -9,18 +9,25 @@ const melodrama = localFont({
 
 const Testimonials = () => {
   return (
-    <div className="w-full h-full mb-10  relative px-4">
+    <div className="w-full h-full md:mb-20   relative px-4">
       <div className="relative">
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 1 }}
           transition={{ duration: 0.9 }}
-          className="text-center py-10 md:py-20"
+          className="text-center py-10 md:pt-20"
         >
           <Heading title="Testimonials" />
-          <div className="bg-yellow-400 w-[50px] h-[3px] absolute left-1/2  -translate-x-1/2 bottom-8  md:bottom-16"></div>
+          <div className="bg-yellow-400 w-[50px] h-[3px] absolute left-1/2  -translate-x-1/2 bottom-8  md:bottom-5"></div>
         </motion.h1>
-        <p></p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 1 }}
+          className="text-center mb-10 text-lg"
+        >
+          Here are some kind words from our customers
+        </motion.p>
       </div>
       <div className="grid md:grid-cols-3 md:gap-4 ">
         <div className="mb-5 md:mb-10  bg-green-700 p-4">
