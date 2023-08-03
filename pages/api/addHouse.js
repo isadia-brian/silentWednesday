@@ -1,4 +1,5 @@
 import { connectMongoDB } from "@/lib/MongoConnect";
+
 import House from "@/models/HouseModel";
 
 export default async function handler(req, res) {
@@ -7,17 +8,19 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { title, description, amount, noOfGuests, imageUrl, roomType } =
+  const { title, description, amount, noOfGuests, imageUrls, roomType } =
     req.body;
+  console.log(req.body);
 
   try {
     await connectMongoDB();
+
     House.create({
       title,
       description,
       amount,
       noOfGuests,
-      imageUrl,
+      imageUrls,
       roomType,
     }).then((data) => {
       res.status(201).send(data);

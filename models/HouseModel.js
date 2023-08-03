@@ -18,9 +18,7 @@ const houseSchema = new Schema(
       type: Number,
       required: true,
     },
-    imageUrl: {
-      type: String,
-    },
+    imageUrls: [],
 
     roomType: {
       type: String,

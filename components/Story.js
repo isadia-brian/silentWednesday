@@ -67,7 +67,7 @@ const Story = () => {
           className="h-[50vh] md:h-[80vh] relative w-full md:w-1/2 rounded-lg md:rounded-none  "
         >
           <Image
-            src="/images/image1.jpg"
+            src="/images/story.jpg"
             alt="image"
             fill
             className="px-4 md:px-0 rounded-lg md:rounded-none object-cover "

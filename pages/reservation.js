@@ -405,9 +405,10 @@ const Reservation = () => {
                               <div className="flex flex-col md:flex-row md:space-x-8  ">
                                 <div className="relative h-[300px] md:min-w-[400px]">
                                   <Image
-                                    src={house.imageUrl}
+                                    src={house.imageUrls[0]}
                                     alt={house.title}
                                     fill
+                                    className="object-cover"
                                   />
                                 </div>
                                 <div className="flex flex-col ">
