@@ -6,6 +6,8 @@ import axios from "axios";
 import DataTable from "react-data-table-component";
 
 import localFont from "next/font/local";
+import DeleteReviewModal from "./components/DeleteReviewModal";
+import ApproveReviewModal from "./components/ApproveReviewModal";
 
 const poppins = localFont({
   src: [
@@ -35,13 +37,70 @@ const poppins = localFont({
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [open, setIsOpen] = useState(false);
-  const ExpandableComponent = ({ data }) => (
-    <div className="p-4 ">
-      <p className="font-bold mb-4 text-lg">Review:</p>
+  const [openReviewModal, setOpenReviewModal] = useState(false);
+  const [openApproveModal, setOpenApproveModal] = useState(false);
+  const [reviewId, setReviewId] = useState("");
+  const [reviewStatus, setReviewStatus] = useState("");
+  const showReviewModal = () => {
+    setOpenReviewModal(true);
+  };
+  const showApproveModal = () => {
+    setOpenApproveModal(true);
+  };
 
-      <p className="text-sm max-w-[300px] md:max-w-full">{data.message}</p>
-    </div>
-  );
+  const hideReviewModal = () => {
+    setOpenReviewModal(false);
+  };
+  const hideApproveModal = () => {
+    setOpenApproveModal(false);
+  };
+
+  const handleDelete = (data) => {
+    showReviewModal(data._id);
+    setReviewId(data._id);
+  };
+
+  const handleAction = (data) => {
+    if (data.reviewStatus === "Approved") {
+      showApproveModal(data._id);
+      setReviewId(data._id);
+      setReviewStatus("Approved");
+    } else {
+      showApproveModal(data._id);
+      setReviewId(data._id);
+      setReviewStatus("Pending");
+    }
+  };
+  const ExpandableComponent = ({ data }) => {
+    return (
+      <div className="p-4 ">
+        <p className="font-bold mb-4 text-lg">Review:</p>
+
+        <p className="text-sm max-w-[300px] md:max-w-full">{data.message}</p>
+        <div className="mt-5">
+          <h4 className="font-bold text-sm">Action</h4>
+          <div className=" flex space-x-3">
+            <button>
+              <span className="text-xs underline">Mark as Read</span>
+            </button>
+            <button onClick={() => handleAction(data)}>
+              <span className="text-xs underline">
+                {data.reviewStatus === "Approved" ? (
+                  <>Mark as Pending</>
+                ) : (
+                  <>Approve</>
+                )}
+              </span>
+            </button>
+            <button onClick={() => handleDelete(data)}>
+              <span className="text-xs underline text-red-500">Delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const columns = [
     {
       name: "Name",
@@ -66,7 +125,7 @@ const Reviews = () => {
     },
     rows: {
       style: {
-        minHeight: "72px", // override the row height
+        minHeight: "40px", // override the row height
 
         color: "black",
       },
@@ -98,7 +157,7 @@ const Reviews = () => {
       }
     }
     getReviews();
-  });
+  }, [reviews]);
   return (
     <AdminLayout open={open} setIsOpen={setIsOpen}>
       {!open && (
@@ -116,6 +175,20 @@ const Reviews = () => {
           />
         </div>
       )}
+
+      <DeleteReviewModal
+        openModal={openReviewModal}
+        showReviewModal={showReviewModal}
+        hideModal={hideReviewModal}
+        reviewId={reviewId}
+      />
+      <ApproveReviewModal
+        openModal={openApproveModal}
+        showModal={showApproveModal}
+        hideModal={hideApproveModal}
+        reviewId={reviewId}
+        reviewStatus={reviewStatus}
+      />
     </AdminLayout>
   );
 };

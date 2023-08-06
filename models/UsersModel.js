@@ -7,9 +7,16 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
-    password: {
+    userName: {
       type: String,
       required: true,
+      unique: true,
+    },
+    roles: ["Moderator"],
+    password: {
+      type: String,
+
+      default: "silentadmin",
     },
   },
   {

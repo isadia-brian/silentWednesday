@@ -31,7 +31,7 @@ const Rooms = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 md:my-16 w-full">
           <div className="h-[400px] w-full md:aspect-square md:h-[600px] md:w-full relative shadow-xl">
-            <Image src="/images/img12.webp" alt="image" fill />
+            <Image src="/images/2bed.webp" alt="image" fill />
           </div>
 
           <div className="h-[600px] md:w-[600px] flex flex-col justify-between ">
@@ -67,7 +67,7 @@ const Rooms = () => {
                 </div>
                 <div className="h-[150px] relative">
                   <Image
-                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691055996/silentpalms/mwsvp9vameqhg7smi7pd.jpg"
+                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691059489/silentpalms/n5h9cmsbxzxcj9jdvr84.webp"
                     alt="image"
                     fill
                   />
@@ -153,13 +153,7 @@ const Rooms = () => {
                     fill
                   />
                 </div>
-                <div className="h-[150px] col-span-2 md:col-span-1 relative">
-                  <Image
-                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691059489/silentpalms/n5h9cmsbxzxcj9jdvr84.webp"
-                    alt="image"
-                    fill
-                  />
-                </div>
+                <div className="h-[150px] col-span-2 md:col-span-1 relative"></div>
               </div>
             </div>
             <div>
@@ -191,7 +185,7 @@ const Rooms = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 md:my-16 w-full">
           <div className="h-[400px] w-full md:aspect-square md:h-[600px] md:w-full relative shadow-xl">
-            <Image src="/images/2bed.webp" alt="image" fill />
+            <Image src="/images/open3.webp" alt="image" fill />
           </div>
 
           <div className="md:h-[600px] md:w-[600px] flex flex-col justify-between ">
@@ -207,21 +201,9 @@ const Rooms = () => {
                 <div className=" h-[150px] relative">
                   <Image src="/images/open3.webp" alt="image" fill />
                 </div>
-                <div className="h-[150px] relative">
-                  <Image
-                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691055341/silentpalms/zphpbjtr2zjjlzr2pqxj.jpg"
-                    alt="image"
-                    fill
-                  />
-                </div>
+
                 <div className="h-[150px] relative">
                   <Image src="/images/loo2.webp" alt="image" fill />
-                </div>
-                <div className="h-[150px] relative">
-                  <Image src="/images/2bed.webp" alt="image" fill />
-                </div>
-                <div className="h-[150px] col-span-2 md:col-span-1 relative">
-                  <Image src="/images/bal1.webp" alt="image" fill />
                 </div>
               </div>
             </div>

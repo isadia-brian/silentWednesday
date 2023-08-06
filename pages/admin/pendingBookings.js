@@ -49,9 +49,11 @@ const PendingBookings = () => {
   const columns = [
     {
       name: "Booking ID",
-      selector: (row) => row._id,
+      cell: (row) => {
+        return <span>BK00{row.bookingId}</span>;
+      },
       sortable: true,
-      minWidth: "230px",
+      minWidth: "50px",
     },
     {
       name: "House",

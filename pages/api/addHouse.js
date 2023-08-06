@@ -10,7 +10,6 @@ export default async function handler(req, res) {
 
   const { title, description, amount, noOfGuests, imageUrls, roomType } =
     req.body;
-  console.log(req.body);
 
   try {
     await connectMongoDB();

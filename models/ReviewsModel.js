@@ -13,7 +13,7 @@ const reviewSchema = new Schema(
     },
     reviewStatus: {
       type: String,
-      default: "review",
+      default: "Pending",
     },
     readStatus: {
       type: Boolean,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+
 import axios from "axios";
 import AdminLayout from "./AdminLayout";
 import DataTable from "react-data-table-component";
@@ -39,9 +39,11 @@ const GetBookings = () => {
   const columns = [
     {
       name: "Booking ID",
-      selector: (row) => row._id,
+      cell: (row) => {
+        return <span>BK00{row.bookingId}</span>;
+      },
       sortable: true,
-      minWidth: "230px",
+      minWidth: "50px",
     },
     {
       name: "House",
@@ -194,7 +196,7 @@ const GetBookings = () => {
       }
     }
     fetchBookings();
-  }, [bookings]);
+  }, []);
 
   return (
     <AdminLayout open={open} setIsOpen={setIsOpen}>
