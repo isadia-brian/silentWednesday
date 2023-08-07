@@ -269,12 +269,24 @@ const Rates = () => {
                   <br /> The remaining balance of your booking must be paid upon
                   arrival at the hotel.
                 </li>
-                <li className="  py-2">
+                <li className="py-2">
                   <span className="font-bold">4. Cancellation Policy:</span>{" "}
-                  <br /> If you need to cancel your reservation, please do so at
-                  least 48 hours before your scheduled arrival time to receive a
-                  full refund. If you cancel within 48 hours of your scheduled
-                  arrival time, your deposit will not be refunded.
+                  <br />
+                  <p>-Free of Charge up to 30 days prior to arrival</p>
+                  <p>
+                    -14 days prior to arrival, 50% of the total amount
+                    applicable
+                  </p>
+                  <p>
+                    -3 days prior, to arrival, 75% of the total amount
+                    applicable
+                  </p>
+                  <p>
+                    Any last-minute cancellation, early departures, late
+                    arrivals or no-shows: 100% of the total amount applicable.
+                  </p>
+                  <br />
+                  <p>* NO REFUND AFTER CHECK IN WHATSOEVER</p>
                 </li>
                 <li className="  py-2">
                   <span className="font-bold">5. No-shows:</span>
@@ -301,7 +313,7 @@ const Rates = () => {
                 </li>
               </ol>
             </div>
-            <div className="relative md:h-[720px]">
+            <div className="relative md:h-[820px]">
               <Image src="/images/payment.jpg" alt="payment" fill />
             </div>
           </div>

@@ -17,13 +17,7 @@ const poppins = localFont({
 const Rooms = () => {
   return (
     <ClientLayout>
-      <div className="px-4 h-full mb-20">
-        <div
-          className={`${cormorant.className} text-[30px] text-center md:text-left md:text-[40px]  pt-4 font-bold text-green-800 my-12`}
-        >
-          <h1>ROOMS &</h1>
-          <h1 className="-mt-2 md:-mt-5"> ACCOMODATIONS</h1>
-        </div>
+      <div className="px-4 h-full mb-20 py-5">
         <p
           className={`${cormorant.className} text-green-800 font-bold text-3xl mt-3 mb-2 md:hidden`}
         >

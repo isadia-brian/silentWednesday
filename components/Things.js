@@ -8,32 +8,22 @@ const Activities = [
   {
     title: "Immerse in Beach Life",
     image: "/images/beach.jpg",
-    description:
-      "Sink your toes into the warm sand as you indulge in delicious seafood delicacies, engage in exciting water activities, and savor breathtaking views, immersing yourself in the vibrant beach life experience.",
   },
   {
     title: "Snorkelling",
     image: "/images/snorka.jpg",
-    description:
-      "Each moment spent exploring beneath the surface unveils a new chapter of the ocean's captivating story.",
   },
   {
     title: "Kayaking",
     image: "/images/raft.jpg",
-    description:
-      "Whether you embark on a solo adventure or join a group, kayaking becomes a gateway to discovery, a way to connect with nature",
   },
   {
     title: "Jetskiing",
     image: "/images/jetsky.jpg",
-    description:
-      "Feel the surge of excitement as you rev the engine and accelerate, skimming across the water's surface with exhilarating speed.",
   },
   {
     title: "Tour Tsavo",
     image: "/images/wild.jpg",
-    description:
-      " Engage in an extraordinary journey through the untamed wilderness of Tsavo, where an awe-inspiring animal kingdom awaits your exploration. ",
   },
 ];
 
@@ -54,29 +44,17 @@ function Things() {
       </div>
       <div className="grid md:grid-cols-2 gap-2">
         {Activities.slice(0, 1).map((activity, index) => (
-          <Card
-            title={activity.title}
-            image={activity.image}
-            description={activity.description}
-          />
+          <Card title={activity.title} image={activity.image} />
         ))}
         <div className="grid grid-cols-2 gap-2">
           {Activities.slice(1, 3).map((activity, index) => (
-            <Card
-              title={activity.title}
-              image={activity.image}
-              description={activity.description}
-            />
+            <Card title={activity.title} image={activity.image} />
           ))}
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2 mt-2">
         {Activities.slice(3, 5).map((activity, index) => (
-          <Card
-            title={activity.title}
-            image={activity.image}
-            description={activity.description}
-          />
+          <Card title={activity.title} image={activity.image} />
         ))}
       </div>
     </div>

@@ -41,7 +41,7 @@ const Activities = () => {
               />
             </div>
 
-            <p className="md:w-[540px] md:mx-auto font-semibold mt-12  md:mt-36">
+            <p className="md:w-[520px] md:mx-auto  mt-12  md:mt-36">
               From the moment you arrive, the soothing sound of crashing waves
               and the salty breeze envelop you, transporting you to a world of
               relaxation and rejuvenation. Sink your toes into the warm sand as
@@ -58,7 +58,7 @@ const Activities = () => {
               <Heading title="Snorkelling" smallHeader />
             </div>
 
-            <p className=" font-semibold md:mr-20 md:mt-36 md:max-w-[540px]">
+            <p className="  md:mr-20 md:mt-36 md:max-w-[520px]">
               Discover the Hidden Depths: Snorkelling Adventure Awaits." Immerse
               yourself in a world teeming with vibrant marine life and
               fascinating underwater landscapes. Equipped with a snorkel and
@@ -79,7 +79,7 @@ const Activities = () => {
           </div>
           <div className="md:ml-20">
             <Heading title="KAYAKING" smallHeader />
-            <p className="font-semibold md:mr-20 md:mt-36 md:max-w-[540px]">
+            <p className=" md:mr-20 md:mt-36 md:max-w-[520px]">
               Kayaking offers an exhilarating escape into the realm of water and
               nature. As you settle into your kayak, you become one with the
               gentle current, gliding along pristine waterways. With each paddle
@@ -93,7 +93,7 @@ const Activities = () => {
         <div className="md:h-[60vh] w-full flex flex-col md:flex-row mb-12">
           <div className="md:mr-20">
             <Heading title="Adventure Tsavo" smallHeader />
-            <p className="md:w-[540px]  md:mt-36 font-semibold">
+            <p className="md:w-[520px]  md:mt-36">
               Engage in an extraordinary journey through the untamed wilderness
               of Tsavo, where an awe-inspiring animal kingdom awaits your
               exploration. Step into a realm where mighty elephants roam freely,
@@ -115,7 +115,7 @@ const Activities = () => {
           </div>
           <div className="md:ml-20">
             <Heading title="JETSKIING" smallHeader />
-            <p className="font-semibold md:mr-20 md:mt-36 md:max-w-[540px]">
+            <p className=" md:mr-20 md:mt-36 md:max-w-[520px]">
               Feel the surge of excitement as you rev the engine and accelerate,
               skimming across the water's surface with exhilarating speed. The
               wind rushes through your hair, and the spray of water against your
