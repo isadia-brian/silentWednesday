@@ -409,6 +409,7 @@ const Reservation = () => {
                                     alt={house.title}
                                     fill
                                     className="object-cover"
+                                    loading="lazy"
                                   />
                                 </div>
                                 <div className="flex flex-col ">
@@ -518,7 +519,7 @@ const Reservation = () => {
                                         houseId={house._id}
                                         houseTitle={house.title}
                                         houseAmount={house.amount}
-                                        houseImage={house.imageUrl}
+                                        houseImage={house.imageUrls[0]}
                                         open={open}
                                         setIsOpen={setIsOpen}
                                         onSubmit={(values) =>
