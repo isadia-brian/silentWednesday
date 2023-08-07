@@ -16,7 +16,6 @@ const poppins = localFont({
 const DeleteReviewModal = ({ hideModal, showModal, openModal, reviewId }) => {
   const [loading, setLoading] = useState(false);
 
-  const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [disabledBtn, setDisabledBtn] = useState(true);
 
