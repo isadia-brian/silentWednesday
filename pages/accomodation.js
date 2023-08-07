@@ -24,7 +24,7 @@ const Rooms = () => {
           2 Bedroom Executive Villa
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 md:my-16 w-full">
-          <div className="h-[400px] w-full md:aspect-square md:h-[600px] md:w-full relative shadow-xl">
+          <div className="h-[300px] w-full md:aspect-square md:h-[600px] md:w-full relative shadow-xl">
             <Image src="/images/2bed.webp" alt="image" fill />
           </div>
 
@@ -101,7 +101,7 @@ const Rooms = () => {
           2 Bedroom Standard Villa
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 md:my-16 w-full">
-          <div className="h-[400px] w-full md:aspect-square md:h-[600px] md:w-full relative shadow-xl">
+          <div className="h-[300px] w-full md:aspect-square md:h-[600px] md:w-full relative shadow-xl">
             <Image
               src="https://res.cloudinary.com/isadia94/image/upload/v1691055337/silentpalms/yyvgt1wxh9dd6sydcswr.jpg"
               alt="image"
@@ -147,11 +147,10 @@ const Rooms = () => {
                     fill
                   />
                 </div>
-                <div className="h-[150px] col-span-2 md:col-span-1 relative"></div>
               </div>
             </div>
             <div>
-              <p className="text-[14px] mt-4 md:mt-0">
+              <p className="text-[14px] mt-4  md:mt-0">
                 This accommodation offers a blend of comfort and style. The
                 open-plan living room features a cozy lounge and an open kitchen
                 that seamlessly integrates into the living space, allowing for
@@ -178,7 +177,7 @@ const Rooms = () => {
           1 Bedroom Villa
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 md:my-16 w-full">
-          <div className="h-[400px] w-full md:aspect-square md:h-[600px] md:w-full relative shadow-xl">
+          <div className="h-[300px] w-full md:aspect-square md:h-[600px] md:w-full relative shadow-xl">
             <Image src="/images/open3.webp" alt="image" fill />
           </div>
 
