@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
@@ -7,7 +7,13 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <script
+          src="https://cdn.popupsmart.com/bundle.js"
+          data-id="106662"
+          async
+          defer
+        ></script>
       </body>
     </Html>
-  )
+  );
 }
