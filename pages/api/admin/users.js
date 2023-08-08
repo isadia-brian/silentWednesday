@@ -1,6 +1,10 @@
 import { connectMongoDB } from "@/lib/MongoConnect";
 import User from "@/models/UsersModel";
-import bcrypt from "bcrypt";
+
+import * as bcrypt from "bcrypt";
+
+const defaultPassword = process.env.DEFAULT_PASSWORD;
+const saltRounds = 10;
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -39,8 +43,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "POST") {
     const { userName, email } = req.body;
-    console.log(req.body);
-    console.log(email);
+
     if (userName !== "" && email !== "") {
       try {
         await connectMongoDB();
@@ -55,6 +58,7 @@ export default async function handler(req, res) {
           const newUser = new User({
             userName: userName,
             email: email,
+            password: await bcrypt.hash(defaultPassword, saltRounds),
           });
 
           const createdUser = await User.create(newUser);
@@ -69,5 +73,32 @@ export default async function handler(req, res) {
       console.log("no data");
       return res.status(503).json({ msg: "No data" });
     }
+  }
+
+  if (req.method === "PUT") {
+    const { id } = req.query;
+    const { userName, email, roles } = req.body;
+    console.log(req.body);
+
+    // if (id) {
+    //   try {
+    //     await connectMongoDB();
+
+    //     const updatedUser = await User.findOne({ _id: id });
+    //     if (updatedUser) {
+    //       updatedUser.userName = userName;
+    //       updatedUser.email = email;
+    //       updatedUser.roles = roles;
+
+    //       return res.status(200).json({ msg: updatedUser });
+    //     } else {
+    //       throw new Error(`User with id ${id} doesnot exists`);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error in connecting to MongoDB", error);
+    //   }
+    // } else {
+    //   return res.sendStatus(400).json({ msg: "Error" });
+    // }
   }
 }

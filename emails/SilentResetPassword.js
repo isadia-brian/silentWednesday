@@ -32,7 +32,7 @@ const SilentResetPassword = () => {
                 />
               </Section>
               <Section className="">
-                <Text className={` text-black`}>Hi Brian,</Text>
+                <Text className={` text-black`}>Hi</Text>
                 <Text className={` text-black`}>
                   Someone recently requested a password change for your Silent
                   Palms account. If this was you, you can set a new password
@@ -48,7 +48,7 @@ const SilentResetPassword = () => {
                   If you don&apos;t want to change your password or didn&apos;t
                   request this, just ignore and delete this message.
                 </Text>
-                <Text className="text-black poppins">
+                <Text className="text-black">
                   To keep your account secure, please don&apos;t forward this
                   email to anyone. Contact support in case of any challenges.
                 </Text>

@@ -3,6 +3,7 @@ import AdminLayout from "./AdminLayout";
 import axios from "axios";
 import { Spin } from "antd";
 import DeleteUserModal from "./components/DeleteUserModal";
+import EditUserModal from "./components/EditUserModal";
 import DataTable from "react-data-table-component";
 import localFont from "next/font/local";
 const poppins = localFont({
@@ -30,11 +31,22 @@ const users = () => {
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formName, setFormName] = useState("");
   const [openUserModal, setOpenUserModal] = useState(false);
+  const [openEditUserModal, setOpenEditUserModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [roles, setRoles] = useState([]);
   const showUserModal = () => {
     setOpenUserModal(true);
+  };
+
+  const showEditUserModal = () => {
+    setOpenEditUserModal(true);
+  };
+  const hideEditUserModal = () => {
+    setOpenEditUserModal(false);
   };
   const hideUserModal = () => {
     setOpenUserModal(false);
@@ -45,8 +57,12 @@ const users = () => {
     setUserId(data._id);
   };
 
-  const handleAction = (row) => {
-    console.log("Handle Delete");
+  const handleEdit = (data) => {
+    showEditUserModal(data._id);
+    setUserId(data._id);
+    setFormEmail(data.email);
+    setFormName(data.userName);
+    setRoles(data.roles);
   };
 
   const columns = [
@@ -55,10 +71,10 @@ const users = () => {
       selector: (row) => row.userName,
       maxWidth: "200px",
     },
-    // {
-    //   name: "Email",
-    //   selector: (row) => row.email,
-    // },
+    {
+      name: "Email",
+      selector: (row) => row.email,
+    },
     {
       name: "Roles",
       cell: (row) => {
@@ -82,7 +98,7 @@ const users = () => {
           <div className="flex items-center space-x-6">
             <span
               className="text-black font-bold underline cursor-pointer"
-              onClick={() => handleAction(row)}
+              onClick={() => handleEdit(row)}
               id={row._id}
             >
               Edit Roles
@@ -177,6 +193,14 @@ const users = () => {
           showUserModal={showUserModal}
           hideModal={hideUserModal}
           userId={userId}
+        />
+        <EditUserModal
+          openModal={openEditUserModal}
+          hideModal={hideEditUserModal}
+          userId={userId}
+          formName={formName}
+          formEmail={formEmail}
+          roles={roles}
         />
 
         <div className="mt-20">

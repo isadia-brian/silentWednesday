@@ -12,11 +12,13 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
-    roles: ["Moderator"],
+    roles: {
+      type: [String],
+      default: ["Manager", "Moderator"],
+    },
     password: {
       type: String,
-
-      default: "silentadmin",
+      required: true,
     },
   },
   {
