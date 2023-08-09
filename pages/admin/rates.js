@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "./AdminLayout";
-
+import Skeleton from "@mui/material/Skeleton";
 import localFont from "next/font/local";
 import axios from "axios";
 import DataTable from "react-data-table-component";
+import { set } from "date-fns";
 
 const poppins = localFont({
   src: [
@@ -23,6 +24,7 @@ const rates = () => {
   const [editedRow, setEditedRow] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [open, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleAction = (row) => {
     setEditedRow(row);

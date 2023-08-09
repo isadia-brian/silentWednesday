@@ -2,7 +2,7 @@ import Image from "next/image";
 import axios from "axios";
 import ClientLayout from "../components/ClientLayout";
 import { Cormorant } from "next/font/google";
-
+import Skeleton from "@mui/material/Skeleton";
 import { useEffect, useState } from "react";
 
 const cormorant = Cormorant({
@@ -14,6 +14,7 @@ const Rates = () => {
   const [houseA, setHouseA] = useState([]);
   const [houseB, setHouseB] = useState([]);
   const [houseC, setHouseC] = useState([]);
+  const [loading, setLoading] = useState(true);
   let formatter = new Intl.NumberFormat("en-us");
   useEffect(() => {
     const getRates = async () => {
@@ -24,6 +25,7 @@ const Rates = () => {
           setHouseA(allRates[0]);
           setHouseB(allRates[1]);
           setHouseC(allRates[2]);
+          setLoading(false);
         });
       } catch (error) {
         console.log(error);
@@ -41,185 +43,207 @@ const Rates = () => {
           <h1 className="-mt-2 md:-mt-5"> RATES</h1>
         </div>
         <div className=" md:w-full border-b-[0.8px] pb-12">
-          <div>
-            <table className=" md:hidden w-full">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Low Season</th>
-                  <th>High Season</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="text-center">
-                  <td className="border border-slate-400 font-bold">
-                    Apartment Type
-                  </td>
-                  <td className="border border-slate-400">
-                    4th Jan - 30th June
-                  </td>
-                  <td className="border border-slate-400">
-                    1st July - 20th Dec
-                  </td>
-                </tr>
-                <tr className="text-center">
-                  <td className="border border-slate-400 font-bold">
-                    {houseA.houseName}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseA.lowSeason)}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseA.highSeason)}
-                  </td>
-                </tr>
-                <tr className="text-center border border-separate">
-                  <td className="border border-slate-400 font-bold">
-                    {houseB.houseName}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseB.lowSeason)}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseB.highSeason)}
-                  </td>
-                </tr>
-                <tr className="text-center border border-separate">
-                  <td className="border border-slate-400 font-bold">
-                    {houseC.houseName}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseC.lowSeason)}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseC.highSeason)}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table className=" md:hidden w-full mt-6">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Christmas/New Yr</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="text-center">
-                  <td className="border border-slate-400 font-bold">
-                    Apartment Type
-                  </td>
-                  <td className="border border-slate-400">
-                    21st Dec - 6th Jan
-                  </td>
-                </tr>
-                <tr className="text-center">
-                  <td className="border border-slate-400 font-bold">
-                    {houseA.houseName}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseB.christmasNewYear)}
-                  </td>
-                </tr>
-                <tr className="text-center border border-separate">
-                  <td className="border border-slate-400 font-bold">
-                    {houseB.houseName}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseB.christmasNewYear)}
-                  </td>
-                </tr>
-                <tr className="text-center border border-separate">
-                  <td className="border border-slate-400 font-bold">
-                    {houseC.houseName}
-                  </td>
-                  <td className="border border-slate-400">
-                    KES {formatter.format(houseC.christmasNewYear)}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table className=" border-separate border border-slate-400 h-[400px] md:w-full mt-12 mytable ">
-              <thead className="">
-                <tr className="">
-                  <th className=" py-4 px-2 md:px-6   text-black font-bold"></th>
+          {loading ? (
+            <>
+              <div className="border-[0.8px] md:hidden border-slate-200 p-1 space-x-1">
+                <div className="h-[250px]">
+                  <Skeleton variant="rectangle" height={250} />
+                </div>
+              </div>
+              <div className="border-[0.8px] hidden border-slate-200 md:flex w-full  p-1 space-x-1">
+                <div className="h-full w-1/2">
+                  <Skeleton variant="rectangle" height={368} />
+                </div>
+                <div className="w-1/2 hidden md:flex flex-col space-y-1">
+                  <Skeleton variant="rectangle" height={120} animation="wave" />
+                  <Skeleton variant="rectangle" height={120} animation="wave" />
+                  <Skeleton variant="rectangle" height={120} animation="wave" />
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <table className=" md:hidden w-full">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Low Season</th>
+                      <th>High Season</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="text-center">
+                      <td className="border border-slate-400 font-bold">
+                        Apartment Type
+                      </td>
+                      <td className="border border-slate-400">
+                        4th Jan - 30th June
+                      </td>
+                      <td className="border border-slate-400">
+                        1st July - 20th Dec
+                      </td>
+                    </tr>
+                    <tr className="text-center">
+                      <td className="border border-slate-400 font-bold">
+                        {houseA.houseName}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseA.lowSeason)}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseA.highSeason)}
+                      </td>
+                    </tr>
+                    <tr className="text-center border border-separate">
+                      <td className="border border-slate-400 font-bold">
+                        {houseB.houseName}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseB.lowSeason)}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseB.highSeason)}
+                      </td>
+                    </tr>
+                    <tr className="text-center border border-separate">
+                      <td className="border border-slate-400 font-bold">
+                        {houseC.houseName}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseC.lowSeason)}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseC.highSeason)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table className=" md:hidden w-full mt-6">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Christmas/New Yr</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="text-center">
+                      <td className="border border-slate-400 font-bold">
+                        Apartment Type
+                      </td>
+                      <td className="border border-slate-400">
+                        21st Dec - 6th Jan
+                      </td>
+                    </tr>
+                    <tr className="text-center">
+                      <td className="border border-slate-400 font-bold">
+                        {houseA.houseName}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseB.christmasNewYear)}
+                      </td>
+                    </tr>
+                    <tr className="text-center border border-separate">
+                      <td className="border border-slate-400 font-bold">
+                        {houseB.houseName}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseB.christmasNewYear)}
+                      </td>
+                    </tr>
+                    <tr className="text-center border border-separate">
+                      <td className="border border-slate-400 font-bold">
+                        {houseC.houseName}
+                      </td>
+                      <td className="border border-slate-400">
+                        KES {formatter.format(houseC.christmasNewYear)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table className=" border-separate border border-slate-400 h-[400px] md:w-full mt-12 mytable ">
+                  <thead className="">
+                    <tr className="">
+                      <th className=" py-4 px-2 md:px-6   text-black font-bold"></th>
 
-                  <th className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-300 text-white font-bold">
-                    Low Season
-                  </th>
+                      <th className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-300 text-white font-bold">
+                        Low Season
+                      </th>
 
-                  <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                    High Season
-                  </th>
-                  <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                    Christmas / New Yr
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="border-b-[0.6px] border-slate-400 text-center py-4 font-bold">
-                    APARTMENT TYPE
-                  </td>
-                  <td className="border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                    4th Jan - 30th June
-                  </td>
+                      <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                        High Season
+                      </th>
+                      <th className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                        Christmas / New Yr
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border-b-[0.6px] border-slate-400 text-center py-4 font-bold">
+                        APARTMENT TYPE
+                      </td>
+                      <td className="border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
+                        4th Jan - 30th June
+                      </td>
 
-                  <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                    1st July - 20th Dec{" "}
-                  </td>
-                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                    21st Dec - 6th Jan
-                  </td>
-                </tr>
-                <tr>
-                  <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">
-                    {houseA.houseName}
-                  </td>
-                  <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                    KES {formatter.format(houseA.lowSeason)}
-                  </td>
+                      <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                        1st July - 20th Dec{" "}
+                      </td>
+                      <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                        21st Dec - 6th Jan
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">
+                        {houseA.houseName}
+                      </td>
+                      <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
+                        KES {formatter.format(houseA.lowSeason)}
+                      </td>
 
-                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                    KES {formatter.format(houseA.highSeason)}
-                  </td>
-                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                    KES {formatter.format(houseA.christmasNewYear)}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="flex flex-col items-center justify-center h-full  py-4 border-b-[0.6px] border-slate-400">
-                    {houseB.houseName}
-                  </td>
-                  <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                    KES {formatter.format(houseB.lowSeason)}
-                  </td>
+                      <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                        KES {formatter.format(houseA.highSeason)}
+                      </td>
+                      <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                        KES {formatter.format(houseA.christmasNewYear)}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="flex flex-col items-center justify-center h-full  py-4 border-b-[0.6px] border-slate-400">
+                        {houseB.houseName}
+                      </td>
+                      <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
+                        KES {formatter.format(houseB.lowSeason)}
+                      </td>
 
-                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                    KES {formatter.format(houseB.highSeason)}
-                  </td>
-                  <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                    KES {formatter.format(houseB.christmasNewYear)}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">
-                    {houseC.houseName}
-                  </td>
-                  <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
-                    KES {formatter.format(houseC.lowSeason)}
-                  </td>
+                      <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                        KES {formatter.format(houseB.highSeason)}
+                      </td>
+                      <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                        KES {formatter.format(houseB.christmasNewYear)}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="flex flex-col items-center justify-center h-full py-4 border-b-[0.6px] border-slate-400">
+                        {houseC.houseName}
+                      </td>
+                      <td className=" border-b-[0.6px] border-slate-400 bg-green-300 text-center py-4 font-bold">
+                        KES {formatter.format(houseC.lowSeason)}
+                      </td>
 
-                  <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
-                    KES {formatter.format(houseC.highSeason)}
-                  </td>
-                  <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
-                    KES {formatter.format(houseC.christmasNewYear)}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                      <td className=" border-b-[0.6px] border-slate-400 py-4 text-center bg-green-700 text-white font-bold">
+                        KES {formatter.format(houseC.highSeason)}
+                      </td>
+                      <td className="border-b-[0.6px] border-slate-400 py-4 text-center bg-green-900 text-white font-bold">
+                        KES {formatter.format(houseC.christmasNewYear)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
 
           <div className="mt-12 flex flex-col space-y-4">
             <li className="list-disc">Rates include: Accommodation and Gas</li>
