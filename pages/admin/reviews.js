@@ -76,12 +76,18 @@ const Reviews = () => {
       <div className="p-4 ">
         <p className="font-bold mb-4 text-lg">Review:</p>
 
-        <p className="text-sm max-w-[300px] md:max-w-full">{data.message}</p>
+        <p className="text-sm max-w-[300px] md:max-w-[800px]">{data.message}</p>
         <div className="mt-5">
           <h4 className="font-bold text-sm">Action</h4>
           <div className=" flex space-x-3">
-            <button>
-              <span className="text-xs underline">Mark as Read</span>
+            <button onClick={() => markedRead(data)}>
+              <span className="text-xs underline">
+                {data.readStatus === false ? (
+                  <>Mark as Read</>
+                ) : (
+                  <>Mark as Unread</>
+                )}
+              </span>
             </button>
             <button onClick={() => handleAction(data)}>
               <span className="text-xs underline">
@@ -105,11 +111,13 @@ const Reviews = () => {
     {
       name: "Name",
       selector: (row) => row.user,
+      maxWidth: "200px",
     },
 
     {
       name: "Message",
       selector: (row) => row.message,
+      width: "650px",
     },
     {
       name: "Rating",
@@ -147,10 +155,27 @@ const Reviews = () => {
     },
   };
 
+  const markedRead = async (row) => {
+    const reviewId = row._id;
+
+    const readStatus = row.readStatus;
+
+    const status = {
+      readStatus,
+    };
+
+    try {
+      await axios.put(`/api/reviews?id=${reviewId}`, status);
+    } catch (error) {
+      alert("Something went wrong");
+    }
+  };
+
   useEffect(() => {
     async function getReviews() {
       try {
         const response = await axios.get("/api/reviews");
+
         setReviews(response.data);
       } catch (error) {
         console.log("Error", error);

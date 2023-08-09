@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { Badge } from "antd";
 
 import {
   HomeIcon,
@@ -13,12 +14,13 @@ import {
   ChatBubbleLeftIcon,
   ArrowRightOnRectangleIcon,
   InboxArrowDownIcon,
-  FireIcon,
 } from "@heroicons/react/24/solid";
 import { AiOutlineClose } from "react-icons/ai";
 import { HiBars3BottomRight } from "react-icons/hi2";
 
 import localFont from "next/font/local";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const poppins = localFont({
   src: [
@@ -88,16 +90,14 @@ const Links = [
     title: "Reviews",
     link: "/admin/reviews",
     icon: <InboxArrowDownIcon />,
-  },
-  {
-    title: "Deals",
-    link: "/admin/deals",
-    icon: <FireIcon />,
+    badge: true,
   },
 ];
 
 const AdminLayout = ({ children, open, setIsOpen }) => {
   const router = useRouter();
+  const [reviews, setReviews] = useState(null);
+
   const handleLogOut = async () => {
     await signOut({ callbackUrl: "/admin/login" });
   };
@@ -108,6 +108,22 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
       router.push("/admin/login");
     },
   });
+
+  useEffect(() => {
+    const getReviews = async () => {
+      try {
+        const response = await axios.get("/api/reviews");
+        const allReviews = response.data;
+        const unreadReviews = allReviews.filter(
+          (review) => review.readStatus === false
+        );
+        setReviews(unreadReviews.length);
+      } catch (error) {
+        console.log("Error in getting reviews");
+      }
+    };
+    getReviews();
+  }, [reviews]);
 
   if (status === "loading") {
     return (
@@ -232,7 +248,7 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
                   <li key={link.title}>
                     <Link
                       href={link.link}
-                      className={`flex text-sm cursor-pointer`}
+                      className={`flex text-sm cursor-pointer relative`}
                     >
                       <span className="flex items-center space-x-4 w-full ">
                         <p className="h-[20px] w-[20px] text-green-700 mr-1 ">
@@ -240,6 +256,14 @@ const AdminLayout = ({ children, open, setIsOpen }) => {
                         </p>
                         {link.title}
                       </span>
+
+                      <div className="absolute right-[3px] -top-[11px]">
+                        {link.badge ? (
+                          <Badge count={reviews} overflowCount={10} />
+                        ) : (
+                          <></>
+                        )}
+                      </div>
                     </Link>
                   </li>
                 );

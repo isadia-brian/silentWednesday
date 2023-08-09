@@ -52,7 +52,8 @@ export default async function handler(req, res) {
 
   if (req.method === "PUT") {
     const { id } = req.query;
-    const { reviewStatus } = req.body;
+    const { reviewStatus, readStatus } = req.body;
+
     let updatedData;
 
     if (id) {
@@ -67,10 +68,8 @@ export default async function handler(req, res) {
               },
             }
           );
-          res
-            .status(200)
-            .json({ data: updatedData, message: "Posted Successfully" });
-        } else {
+          return res.status(200).json("Updated Successfully");
+        } else if (reviewStatus === "Pending") {
           updatedData = await Reviews.updateOne(
             { _id: id },
             {
@@ -79,16 +78,33 @@ export default async function handler(req, res) {
               },
             }
           );
-          res
-            .status(200)
-            .json({ data: updatedData, message: "Posted Successfully" });
+          return res.status(200).json("Updated Successfully");
+        } else if (readStatus === true) {
+          updatedData = await Reviews.updateOne(
+            { _id: id },
+            {
+              $set: {
+                readStatus: false,
+              },
+            }
+          );
+          return res.status(200).json("Updated Successfully");
+        } else if (readStatus === false) {
+          updatedData = await Reviews.updateOne(
+            { _id: id },
+            {
+              $set: {
+                readStatus: true,
+              },
+            }
+          );
+          return res.status(200).json("Updated Successfully");
         }
       } catch (err) {
         console.log(err);
-        res.status(400).json({ message: "Error" });
       }
     } else {
-      res.status(503).json("No Review Found");
     }
+  } else {
   }
 }

@@ -1,15 +1,55 @@
 import localFont from "next/font/local";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaQuoteLeft } from "react-icons/fa";
+import Slider from "react-slick";
 import Heading from "./Heading";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import TestimonialCard from "./TestimonialCard";
 const melodrama = localFont({
   src: "../public/fonts/melodrama/Melodrama-Semibold.ttf",
 });
 
 const Testimonials = () => {
+  const [reviews, setReviews] = useState([]);
+
+  const settings = {
+    infinite: true,
+    speed: 3000,
+    autoplaySpeed: 5000,
+    slidesToShow: 3,
+    autoplay: true,
+    slidesToScroll: 1,
+    cssEase: "ease-in-out",
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  useEffect(() => {
+    const getReviews = async () => {
+      try {
+        const response = await axios.get("/api/reviews");
+        const allReviews = response.data;
+        const approvedReviews = allReviews.filter(
+          (review) => review.reviewStatus === "Approved"
+        );
+        setReviews(approvedReviews);
+      } catch (error) {
+        console.log("Error in getting reviews");
+      }
+    };
+    getReviews();
+  }, []);
   return (
-    <div className="w-full h-full md:mb-20   relative px-4">
+    <div className="w-full h-full md:mb-10   relative px-4">
       <div className="relative">
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
@@ -29,85 +69,17 @@ const Testimonials = () => {
           Here are some kind words from our customers
         </motion.p>
       </div>
-      <div className="grid md:grid-cols-3 md:gap-4 ">
-        <div className="mb-5 md:mb-10  bg-green-700 p-4">
-          <div className="md:h-[80px] h-[100px]  w-[100px] md:w-[80px] mx-auto relative rounded-full ">
-            <Image
-              src="/images/girl.jpg"
-              alt="img"
-              fill
-              className="rounded-full object-cover "
-            />
-          </div>
-          <div className=" w-full md:-mt-0">
-            <p
-              className={`${melodrama.className}flex justify-between w-full text-yellow-400 text-xs`}
-            >
-              <FaQuoteLeft />
-            </p>
-            <p className=" text-white">
-              We had a wonderful stay everything was superb 👌 Many thanks to Mr
-              mwarabu and miss faith who made sure we were comfortable and we
-              had Activities to do during our stay. We will definitely come
-              back..
-            </p>
-            <div className="w-full flex justify-between">
-              <p className="font-bold mt-2 text-yellow-400">Grace</p>
-            </div>
-          </div>
-        </div>
-        <div className="mb-5 md:mb-10 bg-green-700 p-4">
-          <div className="md:h-[80px] h-[100px]  w-[100px] md:w-[80px] mx-auto relative rounded-full">
-            <Image
-              src="/images/david.jpg"
-              alt="img"
-              fill
-              className="rounded-full object-cover"
-            />
-          </div>
-          <div className=" w-full  md:-mt-0">
-            <p
-              className={`${melodrama.className}flex justify-between w-full text-yellow-400 text-xs`}
-            >
-              <FaQuoteLeft />
-            </p>
-            <p className=" text-white">
-              My wife & I had an incredible experience during our stay at silent
-              palms Everything surpassed our expectations. A big shoutout to the
-              host for their exceptional hospitality and ensuring our comfort.We
-              are already planning our return.
-            </p>
-            <div className="w-full flex justify-between">
-              <p className="font-bold mt-2 text-yellow-400">David</p>
-            </div>
-          </div>
-        </div>
-        <div className="mb-10  bg-green-700 p-4">
-          <div className="md:h-[80px] h-[100px]  w-[100px] md:w-[80px] mx-auto relative rounded-full ">
-            <Image
-              src="/images/pamela.jpg"
-              alt="img"
-              fill
-              className="rounded-full object-cover "
-            />
-          </div>
-          <div className=" w-full md:-mt-0">
-            <p
-              className={`${melodrama.className}flex justify-between w-full text-yellow-400 text-xs `}
-            >
-              <FaQuoteLeft />
-            </p>
-            <p className="text-white ">
-              Our family had an unforgettable time here. It was a perfect
-              retreat for us, with something for everyone to enjoy. The villa
-              provided endless entertainment options, creating beautiful
-              memories that will be cherished forever.
-            </p>
-            <div className="w-full flex justify-between">
-              <p className="font-bold mt-2 text-yellow-400">Pamela</p>
-            </div>
-          </div>
-        </div>
+      <div>
+        <Slider {...settings} lazyLoad="progressive">
+          {reviews.map((review) => {
+            return (
+              <TestimonialCard
+                name={review.user}
+                description={review.message}
+              />
+            );
+          })}
+        </Slider>
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ const Home = () => {
       setLoading(false);
     }, 3000);
   }, []);
+
   return (
     <div>
       {loading ? (
