@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { useSession, signOut } from "next-auth/react";
 import axios from "axios";
 import AdminLayout from "./AdminLayout";
 import DataTable from "react-data-table-component";
@@ -32,6 +32,10 @@ const poppins = localFont({
 });
 
 const GetBookings = () => {
+  const session = useSession();
+
+  const user = session.data.user.email;
+
   const [bookings, setBookings] = useState([]);
   const [open, setIsOpen] = useState(false);
   const [price, setPrice] = useState(null);
@@ -120,6 +124,10 @@ const GetBookings = () => {
       button: true,
       minWidth: "150px",
     },
+    {
+      name: "Approved By",
+      selector: (row) => row.ApprovedBy,
+    },
   ];
 
   const customStyles = {
@@ -156,10 +164,14 @@ const GetBookings = () => {
     const bookingId = row._id;
     const houseId = row.houseId;
     const total = row.amount;
+    const bookingStatus = row.bookingStatus;
 
     const amount = parseInt(total);
+
     const details = {
       amount,
+      bookingStatus,
+      ApprovedBy: user,
     };
 
     try {
@@ -172,13 +184,13 @@ const GetBookings = () => {
 
         try {
           const newBookingStatus = await axios.put(
-            `/api/getHouses?id=${houseId}&monthId=${monthId}`
+            `/api/getHouses?id=${houseId}&monthId=${monthId}`,
+            details
           );
         } catch (error) {
           console.log("Error updating booking status", error);
         }
       }
-      // Handle the response or perform any necessary actions
     } catch (error) {
       // Handle errors
       console.log(error);
@@ -196,7 +208,7 @@ const GetBookings = () => {
       }
     }
     fetchBookings();
-  }, []);
+  }, [bookings]);
 
   return (
     <AdminLayout open={open} setIsOpen={setIsOpen}>

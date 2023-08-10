@@ -25,6 +25,8 @@ export default async function handler(req, res) {
 
   if (req.method === "PUT") {
     const { id, monthId } = req.query;
+    const { bookingStatus } = req.body;
+
     try {
       await connectMongoDB();
 
@@ -36,14 +38,15 @@ export default async function handler(req, res) {
         );
 
         if (targetMonth) {
-          if (targetMonth.bookingStatus === "pending") {
+          if (bookingStatus === "Confirmed") {
+            targetMonth.bookingStatus = "pending";
+          } else if (bookingStatus === "pending") {
             targetMonth.bookingStatus = "Confirmed";
           }
-
-          res.status(201).json(targetMonth);
         }
       }
       await houseTemp.save();
+      res.status(201).json(houseTemp);
     } catch (error) {
       console.log(error);
     }

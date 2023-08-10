@@ -43,6 +43,11 @@ const bookingSchema = new Schema(
       required: true,
       default: "booked",
     },
+    ApprovedBy: {
+      type: String,
+      required: "true",
+      default: "Not Approved",
+    },
 
     month: {
       type: String,

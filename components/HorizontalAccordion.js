@@ -2,6 +2,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { AiOutlineWifi } from "react-icons/ai";
 import { FaSwimmingPool } from "react-icons/fa";
+import { PlusOutlined } from "@ant-design/icons";
+import { Modal, Upload } from "antd";
+
 import {
   MdKitchen,
   MdKingBed,
@@ -14,8 +17,19 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import { Collapse } from "react-collapse";
 import axios from "axios";
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
 const HorizontalCard = ({ title, description, price, image, guests, id }) => {
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [fileList, setFileList] = useState([]);
   const [details, setDetails] = useState({
     houseName: title,
     guests: guests,
@@ -23,6 +37,22 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
     amount: price,
     id: id,
   });
+
+  const handleCancel = () => setPreviewOpen(false);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
+  };
+  const handleChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+    setDetails((prevDetails) => ({ ...prevDetails, fileList }));
+  };
 
   const [open, setIsOpen] = useState(false);
 
@@ -33,13 +63,61 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
     try {
-      const updatedHouse = await axios.put("/api/updateHouse/update", details);
+      const cloudName = "isadia94";
+      const uploadPreset = "silentpalms";
+      const imageUrls = [];
+
+      for (const image of fileList) {
+        const formData = new FormData();
+        formData.append("file", image);
+        formData.append("upload_preset", uploadPreset);
+
+        try {
+          const response = await fetch(
+            `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+          const data = await response.json();
+          imageUrls.push(data.secure_url);
+        } catch (error) {
+          console.error("Error uploading data:", error);
+        }
+      }
+      console.log("Uploaded images:", imageUrls);
+
+      try {
+        const formDataWithImage = {
+          details,
+        };
+        console.log(formDataWithImage);
+        // await axios.put("/api/updateHouse/update", formDataWithImage);
+
+        console.log("Posted succesfully");
+      } catch (error) {
+        alert("Error posting to database");
+      }
       setIsOpen(!open);
     } catch (error) {
       alert("Something went wrong");
     }
   };
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
 
   return (
     <div className="h-full">
@@ -160,7 +238,7 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
                           />
                         </div>
 
-                        <div className="flex flex-col mb-8">
+                        <div className="flex flex-col">
                           <label>House Description</label>
                           <textarea
                             type="text"
@@ -170,6 +248,38 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
                             className="border px-4 outline-none py-2"
                             onChange={handleInputChange}
                           />
+                        </div>
+                        <div className="mb-8">
+                          <p className="font-bold mb-2">Images</p>
+                          <>
+                            <div className="flex space-x-2">
+                              <div>
+                                <Upload
+                                  listType="picture-card"
+                                  fileList={fileList}
+                                  onPreview={handlePreview}
+                                  onChange={handleChange}
+                                >
+                                  {fileList.length >= 8 ? null : uploadButton}
+                                </Upload>
+                              </div>
+                            </div>
+
+                            <Modal
+                              open={previewOpen}
+                              title={previewTitle}
+                              footer={null}
+                              onCancel={handleCancel}
+                            >
+                              <img
+                                alt="example"
+                                style={{
+                                  width: "100%",
+                                }}
+                                src={previewImage}
+                              />
+                            </Modal>
+                          </>
                         </div>
                       </div>
 

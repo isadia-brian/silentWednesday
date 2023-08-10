@@ -12,6 +12,7 @@ export default NextAuth({
         email: { label: "email", type: "email" },
         password: { label: "password", type: "password" },
       },
+
       async authorize(credentials) {
         try {
           const { email, password } = credentials;
@@ -30,21 +31,17 @@ export default NextAuth({
 
             if (!passwordMatch) {
               throw new Error("Invalid credentials");
+            } else {
+              return {
+                id: existingUser._id,
+
+                email: existingUser.email,
+                userName: existingUser.userName,
+              };
             }
-
-            return { id: existingUser._id, email: existingUser.email };
-          }
-          // Create the new user in the database
-          // const newUser = {
-          //   email: email,
-          //   password: await bcrypt.hash(password, 10), // Hash the password before storing
-          // };
-
-          // const createdUser = await User.create(newUser);
-
-          // return { id: createdUser._id, email: createdUser.email };
-          else {
+          } else {
             throw new Error("You must be an admin");
+            return null;
           }
         } catch (error) {
           throw new Error(error.message);
@@ -52,4 +49,6 @@ export default NextAuth({
       },
     }),
   ],
+
+  session: { strategy: "jwt" },
 });
