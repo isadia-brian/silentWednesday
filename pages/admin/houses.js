@@ -1,9 +1,6 @@
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import AdminLayout from "./AdminLayout";
-import { Spin, notification } from "antd";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { Image, Transformation } from "cloudinary-react";
 
 import HorizontalAccordion from "@/components/HorizontalAccordion";
 import localFont from "next/font/local";
@@ -46,90 +43,6 @@ const GetHouses = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const fileInputRef = useRef(null);
-
-  const [api, contextHolder] = notification.useNotification();
-  const openNotification = () => {
-    api.open({
-      message: "Success",
-      description: "House has been posted successfully",
-      className: "custom-class",
-      style: {
-        width: 300,
-
-        color: "green",
-      },
-    });
-  };
-
-  const handleImageChange = (event) => {
-    const files = event.target.files;
-
-    const imagesArray = Array.from(files);
-    setSelectedImages(imagesArray);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!disabled) {
-      setDisabled(true);
-      setLoading(true);
-      const cloudName = "isadia94";
-      const uploadPreset = "silentpalms";
-
-      const imageUrls = [];
-
-      for (const image of selectedImages) {
-        const formData = new FormData();
-        formData.append("file", image);
-        formData.append("upload_preset", uploadPreset);
-
-        try {
-          const response = await fetch(
-            `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-            {
-              method: "POST",
-              body: formData,
-            }
-          );
-          const data = await response.json();
-          imageUrls.push(data.secure_url);
-        } catch (error) {
-          console.error("Error uploading data:", error);
-        }
-      }
-
-      console.log("Uploaded images:", imageUrls);
-
-      try {
-        const formDataWithImage = {
-          imageUrls,
-          title,
-          amount,
-          description,
-          noOfGuests,
-          roomType,
-        };
-        await axios.post("/api/addHouse", formDataWithImage);
-        setLoading(false);
-        setSuccess(true);
-
-        openNotification();
-        setTimeout(() => {
-          setDisabled(false);
-          setSuccess(false);
-        }, 2000);
-        setSelectedImages([]);
-        fileInputRef.current.value = null;
-        console.log("Posted succesfully");
-      } catch (error) {
-        alert("Error posting to database");
-      }
-    } else {
-      console.log("cannot submit");
-      return null;
-    }
-  };
 
   useEffect(() => {
     const fetchHouses = async () => {

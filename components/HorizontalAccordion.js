@@ -41,17 +41,25 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
 
   console.log(selectedImages);
 
-  const handleCancel = () => setPreviewOpen(false);
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-    setPreviewTitle(
-      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
-    );
+  // const handleCancel = () => setPreviewOpen(false);
+  // const handlePreview = async (file) => {
+  //   if (!file.url && !file.preview) {
+  //     file.preview = await getBase64(file.originFileObj);
+  //   }
+  //   setPreviewImage(file.url || file.preview);
+  //   setPreviewOpen(true);
+  //   setPreviewTitle(
+  //     file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+  //   );
+  // };
+
+  const [open, setIsOpen] = useState(false);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
+
   const handleFileChange = (e) => {
     const files = e.target.files;
     const imagesArray = Array.from(files);
@@ -60,13 +68,6 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
       ...prevSelectedImages,
       ...imagesArray,
     ]);
-  };
-
-  const [open, setIsOpen] = useState(false);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
   const handleFormSubmit = async (event) => {
@@ -101,9 +102,10 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
       try {
         const formDataWithImage = {
           details,
+          imageUrls,
         };
         console.log(formDataWithImage);
-        // await axios.put("/api/updateHouse/update", formDataWithImage);
+        await axios.put("/api/updateHouse/update", formDataWithImage);
 
         console.log("Posted succesfully");
       } catch (error) {
@@ -114,18 +116,6 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
       alert("Something went wrong");
     }
   };
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
-    </div>
-  );
 
   return (
     <div className="h-full">
@@ -285,36 +275,6 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
                               <input type="file" onChange={handleFileChange} />
                             </div>
                           </div>
-
-                          {/* <>
-                            <div className="flex space-x-2">
-                              <div>
-                                <Upload
-                                  listType="picture-card"
-                                  fileList={fileList}
-                                  onPreview={handlePreview}
-                                  onChange={handleChange}
-                                >
-                                  {fileList.length >= 8 ? null : uploadButton}
-                                </Upload>
-                              </div>
-                            </div>
-
-                            <Modal
-                              open={previewOpen}
-                              title={previewTitle}
-                              footer={null}
-                              onCancel={handleCancel}
-                            >
-                              <img
-                                alt="example"
-                                style={{
-                                  width: "100%",
-                                }}
-                                src={previewImage}
-                              />
-                            </Modal>
-                          </> */}
                         </div>
                       </div>
 
