@@ -59,7 +59,6 @@ const GetHouses = () => {
   }, []);
   return (
     <AdminLayout open={open} setIsOpen={setIsOpen}>
-      {contextHolder}
       {!open && (
         <div
           className={`${poppins.className} md:py-14 md:pl-[230px] md:pr-[30px] py-6 px-4 bg-gray-50 h-full w-screen md:-ml-[200px] `}
