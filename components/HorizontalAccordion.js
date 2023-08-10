@@ -30,6 +30,7 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([]);
+  const [selectedImages, setSelectedImages] = useState([]);
   const [details, setDetails] = useState({
     houseName: title,
     guests: guests,
@@ -37,6 +38,8 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
     amount: price,
     id: id,
   });
+
+  console.log(selectedImages);
 
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file) => {
@@ -49,9 +52,14 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
       file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
     );
   };
-  const handleChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-    setDetails((prevDetails) => ({ ...prevDetails, fileList }));
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    const imagesArray = Array.from(files);
+
+    setSelectedImages((prevSelectedImages) => [
+      ...prevSelectedImages,
+      ...imagesArray,
+    ]);
   };
 
   const [open, setIsOpen] = useState(false);
@@ -69,7 +77,7 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
       const uploadPreset = "silentpalms";
       const imageUrls = [];
 
-      for (const image of fileList) {
+      for (const image of selectedImages) {
         const formData = new FormData();
         formData.append("file", image);
         formData.append("upload_preset", uploadPreset);
@@ -249,9 +257,36 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
                             onChange={handleInputChange}
                           />
                         </div>
-                        <div className="mb-8">
+                        <div className="mb-8 w-[800px]">
                           <p className="font-bold mb-2">Images</p>
-                          <>
+                          <div className="grid grid-cols-2 gap-y-6">
+                            <div className="flex flex-col">
+                              <label htmlFor="">Cover</label>
+                              <input type="file" onChange={handleFileChange} />
+                            </div>
+                            <div className="flex flex-col">
+                              <label htmlFor="">Lounge</label>
+                              <input type="file" onChange={handleFileChange} />
+                            </div>
+                            <div className="flex flex-col">
+                              <label htmlFor="">Kitchen</label>
+                              <input type="file" onChange={handleFileChange} />
+                            </div>
+                            <div className="flex flex-col">
+                              <label htmlFor="">Bedroom</label>
+                              <input type="file" onChange={handleFileChange} />
+                            </div>
+                            <div className="flex flex-col">
+                              <label htmlFor="">Balcony</label>
+                              <input type="file" onChange={handleFileChange} />
+                            </div>
+                            <div className="flex flex-col">
+                              <label htmlFor="">Toilet</label>
+                              <input type="file" onChange={handleFileChange} />
+                            </div>
+                          </div>
+
+                          {/* <>
                             <div className="flex space-x-2">
                               <div>
                                 <Upload
@@ -279,7 +314,7 @@ const HorizontalCard = ({ title, description, price, image, guests, id }) => {
                                 src={previewImage}
                               />
                             </Modal>
-                          </>
+                          </> */}
                         </div>
                       </div>
 
