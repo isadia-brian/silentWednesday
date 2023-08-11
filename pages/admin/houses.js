@@ -69,6 +69,16 @@ const GetHouses = () => {
 
           <div>
             {houses.map((house) => {
+              const imageUrlObject = house.imageUrls[5];
+              const imageUrlsMap = {};
+              for (const label in imageUrlObject) {
+                const url = imageUrlObject[label];
+                imageUrlsMap[label] = url;
+              }
+
+              // Now you can use the imageUrlsMap to reference URLs using labels
+              console.log(imageUrlsMap["Cover"]); // Prints the URL associated with the 'Cover' label
+              console.log(imageUrlsMap["Kitchen"]);
               return (
                 <div key={house._id} className="bg-white">
                   <HorizontalAccordion
