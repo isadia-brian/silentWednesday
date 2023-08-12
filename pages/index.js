@@ -31,7 +31,7 @@ const Home = () => {
             <Hero />
             <Story />
             <Featured />
-            <Things />
+
             <Why />
             <Video />
 

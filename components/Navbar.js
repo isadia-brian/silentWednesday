@@ -25,8 +25,8 @@ const Navbar = () => {
     },
 
     {
-      title: "Rates",
-      link: "/rates",
+      title: "Gallery",
+      link: "/gallery",
     },
     {
       title: "Contact",
