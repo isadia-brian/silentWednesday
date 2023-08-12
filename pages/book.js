@@ -262,7 +262,7 @@ const Book = () => {
                     <p className="px-4">
                       You are required to pay an initial deposit of KES{" "}
                       {formatter.format(amountTotal / 2)} or a full payment of
-                      KES {formatter.format(amountTotal)} via lia na mpesa
+                      KES {formatter.format(amountTotal)} via lipa na mpesa
                       paybill no below then click confirm payment.
                     </p>
                     <div className="mt-6">

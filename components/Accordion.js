@@ -18,13 +18,16 @@ const faqs = [
   },
   {
     title: "What Payments do we accept ?",
-    desc: "At the moment we only accept payments via Mpesa and Bank Deposit",
+    desc: "At the moment we only accept payments via Mpesa and Bank Deposit. For bank deposits call our helpline +254798024710",
   },
   {
     title: "What are the nearby places and Activities available",
     desc: "Silent Palms is located in close proximity to various shopping centers, such as malls, supermarkets and entertainment beaches. The beach life in this area is vibrant and exciting, with easy access to Port Drive, jet ski rides, deep sea diving, dolphin viewing, kayaking, and even mysterious waterfalls caves. Moreover, visitors can conveniently access the Ukunda Airstrip and the Moi International Airport. For those interested in wildlife, they can head to Tsavo National Park or Shimba Hills to experience some of the most stunning wildlife in the region.",
-  }
-  
+  },
+  {
+    title: "Do you provide dinner or breakfast ?",
+    desc: "Our facility is on self catering basis, however breakfast can be arranged on request. We can also arrange for a chef at a small fee on request.",
+  },
 ];
 
 const Accordion = (open) => {

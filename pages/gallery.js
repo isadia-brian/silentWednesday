@@ -41,7 +41,9 @@ const images = [
   "https://res.cloudinary.com/isadia94/image/upload/v1691056140/silentpalms/wfaxeypdhydpanwa0j91.jpg",
   "https://res.cloudinary.com/isadia94/image/upload/v1691056152/silentpalms/q17nysosl5uggedp1gbk.jpg",
   "https://res.cloudinary.com/isadia94/image/upload/v1691056155/silentpalms/p8hi8vtxakojk6ba1pnh.jpg",
-  "https://res.cloudinary.com/isadia94/image/upload/v1691056158/silentpalms/nu6kcwqmcxythrxdny04.jpg",
+  "https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1691792891/silentpalms/WhatsApp_Image_2023-08-11_at_20.17.20_sqdwuv.jpg",
+  "https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1691792776/silentpalms/Event_hosting_tlf0ez.jpg",
+  "https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1691792889/silentpalms/WhatsApp_Image_2023-08-11_at_20.16.54_zump2s.jpg",
 ];
 
 const cormorant = Cormorant({
@@ -62,7 +64,13 @@ const Gallery = () => {
           {images.map((image, link) => {
             return (
               <div className="relative h-[300px]">
-                <Image src={image} alt="image" fill loading="lazy" />
+                <Image
+                  src={image}
+                  alt="image"
+                  fill
+                  loading="lazy"
+                  className="object-cover"
+                />
               </div>
             );
           })}

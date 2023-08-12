@@ -33,10 +33,12 @@ const poppins = localFont({
 
 const GetBookings = () => {
   const session = useSession();
-  const [loggedUser, setLoggedUser] = useState("");
+
+  const user = session.data.user.email;
 
   const [bookings, setBookings] = useState([]);
   const [open, setIsOpen] = useState(false);
+  const [price, setPrice] = useState(null);
 
   const columns = [
     {
@@ -169,7 +171,7 @@ const GetBookings = () => {
     const details = {
       amount,
       bookingStatus,
-      ApprovedBy: loggedUser,
+      ApprovedBy: user,
     };
 
     try {

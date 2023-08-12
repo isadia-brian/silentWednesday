@@ -38,27 +38,14 @@ const Rooms = () => {
             </div>
             <div className="grid">
               <div className="grid grid-cols-2 mt-2 md:mt-0 md:grid-cols-3 gap-1">
-                <div className=" h-[150px] relative">
+                <div className=" h-[150px] relative col-span-2">
                   <Image
                     src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691056152/silentpalms/q17nysosl5uggedp1gbk.jpg"
                     alt="image"
                     fill
                   />
                 </div>
-                <div className="h-[150px] relative">
-                  <Image
-                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691056140/silentpalms/wfaxeypdhydpanwa0j91.jpg"
-                    alt="image"
-                    fill
-                  />
-                </div>
-                <div className="h-[150px] relative">
-                  <Image
-                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691056117/silentpalms/jd4hqzglcoccbpa4hxgh.jpg"
-                    alt="image"
-                    fill
-                  />
-                </div>
+
                 <div className="h-[150px] relative">
                   <Image
                     src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691059489/silentpalms/n5h9cmsbxzxcj9jdvr84.webp"
@@ -69,6 +56,13 @@ const Rooms = () => {
                 <div className="h-[150px] col-span-2 md:col-span-1 relative">
                   <Image
                     src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691055994/silentpalms/hpwrvlzz33tt42jrfcvr.jpg"
+                    alt="image"
+                    fill
+                  />
+                </div>
+                <div className="h-[150px] relative col-span-2">
+                  <Image
+                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691056140/silentpalms/wfaxeypdhydpanwa0j91.jpg"
                     alt="image"
                     fill
                   />
@@ -106,6 +100,7 @@ const Rooms = () => {
               src="https://res.cloudinary.com/isadia94/image/upload/v1691055337/silentpalms/yyvgt1wxh9dd6sydcswr.jpg"
               alt="image"
               fill
+              className="object-cover"
             />
           </div>
 
@@ -119,20 +114,22 @@ const Rooms = () => {
             </div>
             <div className="grid">
               <div className="grid grid-cols-2 mt-2 md:mt-0 md:grid-cols-3 gap-1">
-                <div className=" h-[150px] relative">
+                <div className=" h-[150px] relative col-span-2">
                   <Image
                     src="https://res.cloudinary.com/isadia94/image/upload/v1691055341/silentpalms/zphpbjtr2zjjlzr2pqxj.jpg"
                     alt="image"
                     fill
+                    className="object-cover"
                   />
                 </div>
                 <div className="h-[150px] relative">
                   <Image
-                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1691054071/silentpalms/dmw7ynffonoedyhv7ka7.jpg"
+                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1691055996/silentpalms/mwsvp9vameqhg7smi7pd.jpg"
                     alt="image"
                     fill
                   />
                 </div>
+
                 <div className="h-[150px] relative">
                   <Image
                     src="https://res.cloudinary.com/isadia94/image/upload/v1691061391/silentpalms/fq8cb8l4vyp795ihvfez.jpg"
@@ -143,6 +140,13 @@ const Rooms = () => {
                 <div className="h-[150px] relative">
                   <Image
                     src="https://res.cloudinary.com/isadia94/image/upload/v1691061389/silentpalms/buycvdv4xy53gqjowcyo.jpg"
+                    alt="image"
+                    fill
+                  />
+                </div>
+                <div className="h-[150px] relative">
+                  <Image
+                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1691054071/silentpalms/dmw7ynffonoedyhv7ka7.jpg"
                     alt="image"
                     fill
                   />
@@ -191,8 +195,12 @@ const Rooms = () => {
             </div>
             <div className="grid">
               <div className="grid grid-cols-2 mt-2 md:mt-0 md:grid-cols-3 gap-1">
-                <div className=" h-[150px] relative">
-                  <Image src="/images/open3.webp" alt="image" fill />
+                <div className=" h-[150px] relative col-span-2">
+                  <Image
+                    src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691056158/silentpalms/nu6kcwqmcxythrxdny04.jpg"
+                    alt="image"
+                    fill
+                  />
                 </div>
 
                 <div className="h-[150px] relative">
