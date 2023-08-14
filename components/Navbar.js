@@ -122,10 +122,6 @@ const Navbar = () => {
               Activities
             </Link>
 
-            <Link href="/rates" onClick={() => setShow(false)}>
-              Rates
-            </Link>
-
             <Link href="/gallery" onClick={() => setShow(false)}>
               Gallery
             </Link>
