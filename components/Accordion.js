@@ -41,10 +41,10 @@ const Accordion = (open) => {
     setActiveAccordion(index);
   }
   return (
-    <div>
+    <div className="w-full">
       <div className="flex flex-col">
         <span
-          className={`${melodrama.className} text-[40px] font-extrabold mb-3`}
+          className={`${melodrama.className} text-[30px] font-extrabold mb-3`}
         >
           Frequently asked questions
         </span>

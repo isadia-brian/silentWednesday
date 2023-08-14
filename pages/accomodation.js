@@ -38,7 +38,7 @@ const Rooms = () => {
             </div>
             <div className="grid">
               <div className="grid grid-cols-2 mt-2 md:mt-0 md:grid-cols-3 gap-1">
-                <div className=" h-[150px] relative col-span-2">
+                <div className=" h-[150px] relative md:col-span-2">
                   <Image
                     src="https://res.cloudinary.com/isadia94/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1691056152/silentpalms/q17nysosl5uggedp1gbk.jpg"
                     alt="image"

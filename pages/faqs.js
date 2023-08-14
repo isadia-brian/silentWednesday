@@ -8,16 +8,13 @@ const FAQS = () => {
 
   return (
     <div className=" h-full ">
-     
-        <ClientLayout>
-          <div className="w-full bg-gray-200 p-12  ">
-          <div className="  w-1/2">
-          <Accordion open={open} />
+      <ClientLayout>
+        <div className="w-full bg-green-50 -mt-2 p-6 md:p-12  ">
+          <div className="  md:w-1/2">
+            <Accordion open={open} />
           </div>
-          </div>
-        
-        </ClientLayout>
-     
+        </div>
+      </ClientLayout>
     </div>
   );
 };
