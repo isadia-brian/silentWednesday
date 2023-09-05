@@ -266,7 +266,7 @@ const Book = () => {
                       paybill no below then click confirm payment.
                     </p>
                     <div className="mt-6">
-                      <p className="text-lg">TILL</p>
+                      <p className="text-lg">PAYBILL</p>
                       <p className="text-3xl font-bold">4098459</p>
                     </div>
                     <div className="mt-4">
