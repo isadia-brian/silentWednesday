@@ -124,21 +124,24 @@ const LoginPage = () => {
         {imagesLoaded && forgot ? (
           <div className=" absolute z-10 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col md:h-full w-full px-7 justify-center text-white mt-4 md:mt-2">
             <h1
-              className={`${poppins.className} text-4xl text-white md:text-green-700 text-center  uppercase font-black`}
+              className={`${poppins.className} text-4xl text-green-700 md:text-green-700 text-center  uppercase font-black`}
             >
               Forgot Password ?
             </h1>
-            <p className="text-white md:text-black font-normal text-center my-2 md:mt-2">
+            <p className="text-green-700 md:text-black font-normal text-center my-2 md:mt-2">
               Enter your email address to reset your password
             </p>
             <form
               onSubmit={handlePasswordReset}
-              className={`${cormorant.className} text-xl font-bold text-white md:text-black w-full md:w-[450px] md:mt-4 mx-auto`}
+              className={`${cormorant.className} text-xl font-bold text-green-700 md:text-black w-full md:w-[450px] md:mt-4 mx-auto`}
             >
               {error && <p className="text-red-500">{error}</p>}
               <div className="flex flex-col mt-2 space-y-3">
                 <div className="flex flex-col space-y-1">
-                  <label htmlFor="email" className="text-white md:text-black">
+                  <label
+                    htmlFor="email"
+                    className="text-green-700 md:text-black"
+                  >
                     Email
                   </label>
                   <input
@@ -156,7 +159,7 @@ const LoginPage = () => {
               </div>
 
               <button
-                className="bg-green-500 shadow-2xl md:shadow-none text-white px-3 py-3 mt-7 w-full grid grid-cols-3 items-center"
+                className="bg-green-500 shadow-2xl md:shadow-none text-green-700 px-3 py-3 mt-7 w-full grid grid-cols-3 items-center"
                 type="submit"
               >
                 <div></div>
@@ -196,16 +199,16 @@ const LoginPage = () => {
             {imagesLoaded && (
               <div className=" absolute z-10 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col md:h-full w-full px-7 justify-center text-white mt-4 md:mt-2">
                 <h1
-                  className={`${poppins.className} text-4xl text-white md:text-green-700 text-center  uppercase font-black`}
+                  className={`${poppins.className} text-4xl text-green-700 md:text-green-700 text-center  uppercase font-black`}
                 >
                   Welcome Back
                 </h1>
-                <p className="text-white md:text-black font-normal text-center my-2 md:mt-2">
+                <p className="text-green-700 md:text-black font-normal text-center my-2 md:mt-2">
                   Fill in your details, to view latest insights
                 </p>
                 <form
                   onSubmit={handleLogin}
-                  className={`${cormorant.className} text-xl font-bold text-white md:text-black w-full md:w-[450px] md:mt-4 mx-auto`}
+                  className={`${cormorant.className} text-xl font-bold text-green-700 md:text-black w-full md:w-[450px] md:mt-4 mx-auto`}
                 >
                   {error && <p className="text-red-600">{error}</p>}
                   <div className="flex flex-col mt-2 space-y-3">
@@ -269,7 +272,7 @@ const LoginPage = () => {
                     onClick={handleForgot}
                   >
                     <p
-                      className={`${poppins.className} text-white md:text-black font-semibold text-[15px]`}
+                      className={`${poppins.className} text-black md:text-black text-[15px]`}
                     >
                       Forgot Password ?
                     </p>
