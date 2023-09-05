@@ -10,6 +10,13 @@ import moment from "moment";
 import axios from "axios";
 const Book = () => {
   const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
+  const checkHandler = () => {
+    setChecked(!checked);
+    setDisabled(!disabled);
+  };
 
   const router = useRouter();
   const { values, fromDate, toDate, guests } = router.query;
@@ -25,7 +32,6 @@ const Book = () => {
   // Parse the JSON string back to objects
 
   const parsedValues = values ? JSON.parse(values) : {};
-  console.log(parsedValues.houseImage);
 
   const amountTotal = parsedValues.houseAmount * noOfDays;
   const userDetails = {
@@ -90,8 +96,8 @@ const Book = () => {
             <div className=" py-8  border-b-[0.8px] border-yellow-400">
               <Heading title="Booking Details" />
             </div>
-            <div className="grid md:grid-cols-3">
-              <div className="py-8  md:col-span-2 ">
+            <div className="grid md:grid-cols-2">
+              <div className="py-8 ">
                 <div className="grid grid-cols-3 gap-y-8">
                   <div>
                     <h4 className="text-lg text-green-800 font-extrabold">
@@ -144,8 +150,8 @@ const Book = () => {
                   <p>{parsedValues.email}</p>
                 </div>
 
-                <div className="mt-16 px-4 md:mr-28 ">
-                  <h4 className="text-2xl pb-2 text-green-800 font-extrabold text-center border-b-[0.8px] border-yellow-400 ">
+                <div className="mt-16 px-4 ">
+                  <h4 className="text-2xl pb-[2px] text-green-800 font-extrabold text-center border-b-[0.8px] border-yellow-400 ">
                     Terms & Conditions
                   </h4>
                   <ul className="flex flex-col space-y-4  mt-4">
@@ -189,14 +195,7 @@ const Book = () => {
                   </ul>
                 </div>
 
-                <div className="mt-6 flex items-center space-x-4">
-                  <input type="checkbox" className="" />
-                  <p className="text-lg font-extrabold ">
-                    I acknowledge the payment terms and conditions.
-                  </p>
-                </div>
-
-                <div className="hidden md:inline-block mt-9">
+                <div className="hidden md:inline-block mt-20">
                   <h4 className="text-lg text-green-800  font-extrabold ">
                     Support
                   </h4>
@@ -216,9 +215,9 @@ const Book = () => {
                   </div>
                 </div>
               </div>
-              <div className="px-4 py-8">
+              <div className="w-full py-8">
                 <div>
-                  <div className="relative h-[280px] md:w-[350px] mx-auto">
+                  <div className="relative h-[320px] md:w-[450px] mx-auto">
                     <Image
                       src={parsedValues.houseImage}
                       fill
@@ -226,57 +225,83 @@ const Book = () => {
                       className="box object-cover"
                     />
                   </div>
-                  <div className="my-6">
-                    <p className="text-md text-green-800 font-extrabold text-center">
+                  <div className="my-6 w-full">
+                    <p className="text-lg text-green-800 font-extrabold text-center">
                       {parsedValues.houseTitle}
                     </p>
                   </div>
-                  <div className="grid grid-cols-2 gap-2  px-5 mb-2 w-[300px] mx-auto">
-                    <div className="bg-green-400 h-[100px] flex justify-center items-center flex-col">
-                      <p className="text-5xl text-white font-bold">{fromDay}</p>
-                      <p className="text-2xl text-white">{fromMonth}</p>
+                  <div className="grid grid-cols-2 gap-2  mb-1 w-full md:w-[450px] md:mx-auto">
+                    <div className="bg-green-400 h-[130px] flex justify-center items-center flex-col">
+                      <p className="text-7xl text-white font-bold">{fromDay}</p>
+                      <p className="text-3xl text-white">{fromMonth}</p>
                     </div>
-                    <div className="bg-green-400 h-[100px] flex justify-center items-center flex-col">
-                      <p className="text-5xl text-white font-bold">{toDay}</p>
-                      <p className="text-2xl text-white">{toMonth}</p>
+                    <div className="bg-green-400 h-[130px] flex justify-center items-center flex-col">
+                      <p className="text-7xl text-white font-bold">{toDay}</p>
+                      <p className="text-3xl text-white">{toMonth}</p>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-2 px-5 w-[300px] mx-auto">
-                    <div className="bg-green-400 h-[100px] flex justify-center items-center flex-col">
-                      <p className="text-5xl text-white font-bold">
+                  <div className="grid grid-cols-2 gap-2 md:w-[450px] md:mx-auto">
+                    <div className="bg-green-400 h-[130px] flex justify-center items-center flex-col">
+                      <p className="text-7xl text-white font-bold">
                         <FaUsers />
                       </p>
-                      <p className="text-2xl text-white">{guests}</p>
+
+                      <p className="text-3xl text-white">
+                        {guests > 1 ? (
+                          <>
+                            <span>{guests} guests</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>{guests} guest</span>
+                          </>
+                        )}
+                      </p>
                     </div>
-                    <div className="bg-green-400 h-[100px] flex justify-center items-center flex-col">
-                      <p className="text-5xl text-white font-bold">
+                    <div className="bg-green-400 h-[130px] flex justify-center items-center flex-col">
+                      <p className="text-7xl text-white font-bold">
                         <BsCashStack />
                       </p>
-                      <p className="text-2xl text-white">
+                      <p className="text-3xl text-white">
                         <span className="text-lg">KES </span>
                         {formatter.format(amountTotal)}
                       </p>
                     </div>
                   </div>
-                  <div className="my-6 w-[300px] mx-auto text-center">
-                    <p className="px-4">
+                  <div className="my-6 md:w-[450px] mx-auto">
+                    <p className="font-extrabold">
                       You are required to pay an initial deposit of KES{" "}
                       {formatter.format(amountTotal / 2)} or a full payment of
                       KES {formatter.format(amountTotal)} via lipa na mpesa
                       paybill no below then click confirm payment.
                     </p>
-                    <div className="mt-6">
+                    <div className="mt-6 text-center">
                       <p className="text-lg">PAYBILL</p>
                       <p className="text-3xl font-bold">4098459</p>
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-4 text-center">
                       <p className="text-lg">ACCOUNT</p>
                       <p className="text-xl font-semibold">YOUR NAME</p>
                     </div>
-                    <div className="my-7">
+                    <div className="mt-6 space-x-3 md:space-x-3  flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={checkHandler}
+                      />
+                      <p className="text-sm md:text-base  ">
+                        I acknowledge the payment terms and conditions.
+                      </p>
+                    </div>
+                    <div className="my-7 text-center">
                       <button
                         onClick={handlePost}
-                        className="px-4 py-3 bg-green-800 text-white border-none"
+                        disabled={disabled}
+                        className={`px-4 py-3 border-none ${
+                          disabled
+                            ? "bg-gray-400 text-gray-100 cursor-not-allowed"
+                            : "bg-green-800 text-white cursor-pointer "
+                        }`}
                       >
                         CONFIRM PAYMENT
                       </button>
