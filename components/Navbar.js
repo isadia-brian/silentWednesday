@@ -74,7 +74,7 @@ const Navbar = () => {
             />
           </div>
           <div className="max-w-[200px]">
-            <h5 className="md:text-[22px] font-extrabold leading-none text-green-800 max-w-[150px]">
+            <h5 className="md:text-[18px] font-extrabold leading-none text-green-800 max-w-[180px]">
               SILENT PALMS VILLAS DIANI
             </h5>
           </div>

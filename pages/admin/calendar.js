@@ -23,13 +23,20 @@ const poppins = localFont({
 
 const CalendarComponent = () => {
   const [bookingData, setBookingData] = useState([]);
+  console.log(bookingData);
 
   const [open, setIsOpen] = useState(false);
 
   const getDatesBetween = (fromDate, toDate) => {
-    const parsedFromDate = parse(fromDate, "dd-MM-yyyy", new Date());
+    let parsedFromDate = parse(fromDate, "dd-MM-yyyy", new Date());
 
-    const parsedToDate = parse(toDate, "dd-MM-yyyy", new Date());
+    let parsedToDate = parse(toDate, "dd-MM-yyyy", new Date());
+    // Ensure parsedFromDate is earlier than parsedToDate
+    if (parsedFromDate > parsedToDate) {
+      const temp = parsedFromDate;
+      parsedFromDate = parsedToDate;
+      parsedToDate = temp;
+    }
     return eachDayOfInterval({ start: parsedFromDate, end: parsedToDate });
   };
 

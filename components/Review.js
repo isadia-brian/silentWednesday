@@ -38,7 +38,7 @@ const Review = () => {
     if (numericalValue <= 3) {
       setPlaceholder("What can we do to improve ?");
     } else {
-      setPlaceholder(`How was the experience at Silent Palms Villa ?`);
+      setPlaceholder(`What did you enjoy and what improvements can we make ?`);
     }
   };
 
